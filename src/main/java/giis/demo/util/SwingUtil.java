@@ -147,6 +147,10 @@ public class SwingUtil {
 		return cm;
 	}
 	
+	public static String getText(String texto) {
+
+		return texto;
+	}
 	
 
 }
