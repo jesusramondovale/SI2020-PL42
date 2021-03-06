@@ -10,10 +10,10 @@ public class RenovarLicenciaView {
 	
 	private JFrame RenovarLicencia;
 	private JLabel NLicencia;
-	private JTextField tfNLicencia;
-	private JCheckBox cbDatos;
+	public JTextField tfNLicencia;
+	public JCheckBox cbDatos;
 	private JButton bCancelar;
-	private JButton bAceptar;
+	public JButton bAceptar;
 	
 	/**
 	 * Create the application.
@@ -35,7 +35,7 @@ public class RenovarLicenciaView {
 		NLicencia.setBounds(30, 74, 80, 18);
 		RenovarLicencia.getContentPane().add(NLicencia);
 		
-		tfNLicencia = new JTextField();
+		tfNLicencia = new JTextField("", 20);
 		tfNLicencia.setBounds(112, 73, 229, 20);
 		RenovarLicencia.getContentPane().add(tfNLicencia);
 		
