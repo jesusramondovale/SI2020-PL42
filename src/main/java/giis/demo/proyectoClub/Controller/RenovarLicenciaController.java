@@ -40,7 +40,6 @@ public class RenovarLicenciaController {
 		
 		//Abre la ventana (sustituye al main generado por WindowBuilder)
 		view.getFrame().setVisible(true); 
-		view.bAceptar.setVisible(false);
 	}
 	
 	public void initController() {
@@ -54,17 +53,14 @@ public class RenovarLicenciaController {
 			}
 		});
 			
-		view.getbAceptar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> generarRecibo()));					
+		view.getbAceptar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> generarRecibo()));
+		view.getbAceptar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> updateEstadoLicencia()));
 	}
 	
 	public void getActivarBoton() {
 		
-		if((view.cbDatos.isEnabled()) && (view.tfNLicencia.getText().length() != 0)) {
+		if((view.cbDatos.isSelected()) && (view.tfNLicencia.getText().length() != 0))
 			view.bAceptar.setVisible(true);
-		}
-		else {
-			view.bAceptar.setVisible(false);
-		}
 	}
 	
 	/**
