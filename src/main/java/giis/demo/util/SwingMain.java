@@ -6,6 +6,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+//import giis.demo.proyectoClub.Controller.ReciboCuotaController;
+import giis.demo.proyectoClub.Controller.RenovarLicenciaController;
+//import giis.demo.proyectoClub.View.ReciboCuotaView;
+import giis.demo.proyectoClub.View.RenovarLicenciaView;
+//import giis.demo.proyectoClub.model.ReciboCuotaModel;
+import giis.demo.proyectoClub.model.RenovarLicenciaModel;
 import giis.demo.tkrun.*;
 
 /**
@@ -61,7 +68,27 @@ public class SwingMain {
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarTkrun);
 		
+		JButton btnRenovarLicencia = new JButton("Renovar Licencia socio");
+		btnRenovarLicencia.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				RenovarLicenciaController controllerRL = new RenovarLicenciaController(new RenovarLicenciaModel(), new RenovarLicenciaView());
+				controllerRL.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnRenovarLicencia);
+		
+		/*JButton btnGenerarRecibos = new JButton("Generar recibos de las cuotas");
+		btnGenerarRecibos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				ReciboCuotaController controllerRC = new ReciboCuotaController(new ReciboCuotaModel(), new ReciboCuotaView());
+				controllerRC.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnGenerarRecibos);*/
 			
+		
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
 		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {

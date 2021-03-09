@@ -1,9 +1,6 @@
 package giis.demo.proyectoClub.model;
 
-import java.util.Date;
-
 import giis.demo.util.Database;
-import giis.demo.util.Util;
 
 public class RenovarLicenciaModel {
 	

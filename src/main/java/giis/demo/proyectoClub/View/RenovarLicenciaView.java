@@ -48,7 +48,7 @@ public class RenovarLicenciaView {
 		RenovarLicencia.getContentPane().add(bCancelar);
 		
 		bAceptar = new JButton("Aceptar");
-		bAceptar.setEnabled(false);
+		bAceptar.setEnabled(true);
 		bAceptar.setBounds(280, 200, 100, 30);
 		RenovarLicencia.getContentPane().add(bAceptar);
 		
