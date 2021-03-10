@@ -23,6 +23,9 @@ public class CarrerasModel {
 	
 	//SQL para obtener la lista de carreras activas para una fecha dada,
 	//se incluye aqui porque se usara en diferentes versiones de los metodos bajo prueba
+	
+	
+	
 	public static final String SQL_LISTA_CARRERAS=
 			"SELECT id,descr,"
 			+" case when ?<inicio then ''" //antes de inscripcion
@@ -38,6 +41,7 @@ public class CarrerasModel {
 	 * Implementacion usando la utilidad que obtiene una lista de arrays de objetos 
 	 * resultado de la ejecucion de una query sql
 	 */
+	
 	public List<Object[]> getListaCarrerasArray(Date fechaInscripcion) {
 		validateNotNull(fechaInscripcion,MSG_FECHA_INSCRIPCION_NO_NULA);
 		//concatena los campos deseados en una unica columna pues el objetivo es devolver una lista de strings
@@ -45,6 +49,7 @@ public class CarrerasModel {
 		String d=Util.dateToIsoString(fechaInscripcion);
 		return db.executeQueryArray(sql, d, d, d, d, d);
 	}
+	
 	/**
 	 * Obtiene la lista de carreras activas en forma objetos para una fecha de inscripcion dada
 	 */
