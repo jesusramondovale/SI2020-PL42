@@ -11,6 +11,7 @@ import giis.demo.proyectoClub.Controller.NuevoSocioControlador;
 import giis.demo.proyectoClub.Controller.PagarLicenciaControlador;
 import giis.demo.proyectoClub.View.NuevoSocioVista;
 import giis.demo.proyectoClub.View.PagarLicenciaVista;
+import giis.demo.proyectoClub.View.SocioVista;
 import giis.demo.proyectoClub.model.NuevoSocioModelo;
 import giis.demo.proyectoClub.model.PagarLicenciaModelo;
 import giis.demo.tkrun.*;
@@ -71,7 +72,7 @@ public class SwingMain {
 		JButton btnEjecutarNuevoSocio = new JButton("Nuevo Socio");
 		btnEjecutarNuevoSocio.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				NuevoSocioControlador controller=new NuevoSocioControlador(new NuevoSocioModelo(), new NuevoSocioVista());
+				NuevoSocioControlador controller=new NuevoSocioControlador(new NuevoSocioModelo(), new SocioVista());
 				controller.initController();
 			}
 		});

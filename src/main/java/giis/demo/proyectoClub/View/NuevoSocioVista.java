@@ -52,6 +52,12 @@ public class NuevoSocioVista extends JFrame {
 	 * Create the frame.
 	 */
 	public NuevoSocioVista() {
+		
+		initialize();
+	}	
+	
+	private void initialize() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1050, 652);
 		contentPane = new JPanel();

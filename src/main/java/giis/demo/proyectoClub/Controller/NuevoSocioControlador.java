@@ -17,6 +17,7 @@ import giis.demo.proyectoClub.DTO.LicenciaDTO;
 import giis.demo.proyectoClub.DTO.SocioDTO;
 import giis.demo.proyectoClub.DTO.TecnicoDTO;
 import giis.demo.proyectoClub.View.NuevoSocioVista;
+import giis.demo.proyectoClub.View.SocioVista;
 import giis.demo.proyectoClub.model.NuevoSocioModelo;
 import giis.demo.util.ApplicationException;
 import giis.demo.util.SwingUtil;
@@ -30,7 +31,7 @@ import giis.demo.util.Util;
  */
 public class NuevoSocioControlador {
 	private NuevoSocioModelo model;
-	private NuevoSocioVista view;
+	private SocioVista view;
 	
 	int edad;
 	boolean esMenor;
@@ -38,7 +39,7 @@ public class NuevoSocioControlador {
 	TecnicoDTO tecnico;
 	LicenciaDTO licencia;
 
-	public NuevoSocioControlador(NuevoSocioModelo m, NuevoSocioVista v) {
+	public NuevoSocioControlador(NuevoSocioModelo m, SocioVista v) {
 		this.model = m;
 		this.view = v;
 		//no hay inicializacion especifica del modelo, solo de la vista
@@ -69,23 +70,23 @@ public class NuevoSocioControlador {
 	}
 	
 	public void initView() {
-		view.setVisible(true);
-		if(view.getChckbxAceptarDatos().isSelected()) {
-			view.getBtnCrearLicencia().setVisible(true);
-		}
-		else {
-			view.getBtnCrearLicencia().setVisible(false);
-		}
+		view.getFrame().setVisible(true); 
+		//if(view.getChckbxDatos().isSelected()) {
+			//view.getBtnCrearLicencia().setVisible(true);
+		//}
+		//else {
+			//view.getBtnCrearLicencia().setVisible(false);
+		//}
 		
 		//Abre la ventana (sustituye al main generado por WindowBuilder)
-		//view.getFrame().setVisible(true); 
+		
 	}
 	
 	public void edadSocio() {
 		
 		Date fecha=new Date();
 		try {
-			fecha = new SimpleDateFormat("dd/MM/yy",Locale.ENGLISH).parse(view.getTextFieldFechaNacimiento().toString());
+			fecha = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH).parse(view.getTextFieldFechaNacimiento().toString());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,12 +103,12 @@ public class NuevoSocioControlador {
 			edad = 	c.get(Calendar.YEAR)-1970;
 			
 			if (edad< 18) {
-				view.getTextFieldDNITutor().setEditable(true);
+				view.getTextFieldDniTutor().setEditable(true);
 				view.getTextFieldNombreTutor().setEditable(true);
 				esMenor=true;
 			}
 			else {
-				view.getTextFieldDNITutor().setEditable(false);
+				view.getTextFieldDniTutor().setEditable(false);
 				view.getTextFieldNombreTutor().setEditable(false);
 				esMenor=false;
 			}
@@ -122,16 +123,16 @@ public class NuevoSocioControlador {
 		tecnico= new TecnicoDTO(id_Tecnico,view.getTextFieldNombreTecnico().getText(),view.getTextFieldDNITecnico().getText(),view.getTextFieldLicenciaTecnico().getText());
 		licencia= new LicenciaDTO(id_Licencia,view.getTextFieldLicencia().getText(),"Pendiente de Pago");
 		if(!esMenor) {
-			socio=new SocioDTO(id_Socio,view.getTextFieldNombre().getText(),view.getTextFieldDNI().getText(),view.getTextFieldFechaNacimiento().getText(),
+			socio=new SocioDTO(id_Socio,view.getTextFieldNombre().getText(),view.getTextFieldDni().getText(),view.getTextFieldFechaNacimiento().getText(),
 					view.getTextFieldSexo().getText(),view.getTextFieldClub().getText(),view.getTextFieldLicencia().getText());
 			model.nuevoSocio(socio, tecnico);
 			model.nuevoTecnico(tecnico);
 			model.nuevaLicencia(licencia);
 		}
 		else {
-			socio=new SocioDTO(id_Socio,view.getTextFieldNombre().getText(),view.getTextFieldDNI().getText(),view.getTextFieldFechaNacimiento().getText(),
+			socio=new SocioDTO(id_Socio,view.getTextFieldNombre().getText(),view.getTextFieldDni().getText(),view.getTextFieldFechaNacimiento().getText(),
 					view.getTextFieldSexo().getText(),view.getTextFieldClub().getText(),view.getTextFieldLicencia().getText(),
-					view.getTextFieldNombreTutor().getText(),view.getTextFieldDNITutor().getText());
+					view.getTextFieldNombreTutor().getText(),view.getTextFieldDniTutor().getText());
 			model.nuevoSocioMenor(socio, tecnico);
 			model.nuevoTecnico(tecnico);
 			model.nuevaLicencia(licencia);
