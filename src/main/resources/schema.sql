@@ -3,7 +3,13 @@
 
 Para giis.demo.proyectoClub:
 drop table socio;
-create table socio(
+drop table reservas;
+drop table tecnico;
+drop table licencia;
+drop table asambleas;
+drop table recibo;
+
+create table socio (
 	idSocio INTEGER PRIMARY KEY AUTOINCREMENT,
 	dniSocio varchar(9) not null, 
 	nombreSocio varchar(15)not null, 
@@ -19,7 +25,6 @@ create table socio(
 	dniTecnico varchar(9)
 );
 
-drop table tecnico;
 create table tecnico (
 	idTecnico INTEGER PRIMARY KEY AUTOINCREMENT,
 	dniTecnico varchar(9),
@@ -29,14 +34,12 @@ create table tecnico (
 	numLicencia integer
 );
 
-drop table licencia;
 create table licencia (
 	idLicencia INTEGER PRIMARY KEY AUTOINCREMENT,
 	numLicencia integer not null,
 	estadoLicencia varchar(20) not null
 );
 
-drop table recibo;
 create table recibo (
 	idRecibo INTEGER PRIMARY KEY AUTOINCREMENT,
 	numRecibo varchar(10) not null,
@@ -44,11 +47,10 @@ create table recibo (
 	fechaV date not null,
 	fechaE date not null,
 	socio integer not null,
-	FOREIGN KEY (socio) REFERENCES socio(idSocio)
+	FOREIGN KEY (idSocio) REFERENCES socio(idSocio)
 );
 
-drop table asambleas;
-create table asambleas(
+create table asambleas (
 	idAsamblea INTEGER PRIMARY KEY AUTOINCREMENT,
 	tipo varchar(10) not null,
 	ordenDia varchar(200) not null,
@@ -56,13 +58,12 @@ create table asambleas(
 	hora float not null
 );
 
-drop table reservas;
-create table reservas(
+create table reservas (
 	idReserva INTEGER PRIMARY KEY AUTOINCREMENT,
 	socio integer not null,
 	instalacion varchar(15) not null,
 	fechaReserva date not null,
 	horaInicio float not null,
 	horaFin float not null,
-	FOREIGN KEY(socio) REFERENCES socio(idSocio)
+	FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
 );
