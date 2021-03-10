@@ -1,16 +1,17 @@
 package giis.demo.ProyectoClub.DTO;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class MostrarInstalacionesDTO {
 
 	private String tipo;
 	private Date fecha;
-	private String horaIni ;
-	private String horaFin ;
+	private Time horaIni ;
+	private Time horaFin ;
 	
 	public MostrarInstalacionesDTO(){}
-	public MostrarInstalacionesDTO(String tipo, Date fecha, String horaIni, String horaFin){
+	public MostrarInstalacionesDTO(String tipo, Date fecha, Time horaIni, Time horaFin){
 		this.fecha = fecha;
 		this.tipo = tipo;
 		this.horaIni = horaIni;
@@ -33,17 +34,17 @@ public class MostrarInstalacionesDTO {
 		this.fecha = fecha;
 	}
 	
-	public String getHoraIni() {
+	public Time getHoraIni() {
 		return horaIni;
 	}
-	public void setHoraIni(String horaIni) {
+	public void setHoraIni(Time horaIni) {
 		this.horaIni = horaIni;
 	}
 	
-	public String getHoraFin() {
+	public Time getHoraFin() {
 		return horaFin;
 	}
-	public void setHoraFin(String horaFin) {
+	public void setHoraFin(Time horaFin) {
 		this.horaFin = horaFin;
 	}
 	

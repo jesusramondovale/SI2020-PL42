@@ -30,7 +30,7 @@ create table recibo (id_recibo int primary key not null, num_recibo int not null
 
 
 
-create table asamblea (id_asamblea int primary key not null, tipo varchar(12) not null, orden_dia varchar(120) not null, fecha date not null, hora time not null); 
+create table asamblea (id_asamblea int primary key not null, tipo varchar(12) not null, orden_dia varchar(120) not null, fecha date not null, hora_1 time not null, hora_2 time not null); 
 
 
 
