@@ -31,7 +31,7 @@ public class RealizarReservaModel {
 
 	public void addReserva(int idSocio, String instalacion, java.util.Date fecha, float hinicio, float hfin) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO reserva (idSocio, instalacion, fechaReserva, horaInicio, horaFin) values (?,?,?,?,?)";
+		String sql = "INSERT INTO reservas (idSocio, instalacion, fechaReserva, horaInicio, horaFin) values (?,?,?,?,?)";
 		String fechaInicio = Util.dateToIsoString(fecha);
 		db.executeUpdate(sql, idSocio, instalacion, fecha, hinicio, hfin);
 	}
