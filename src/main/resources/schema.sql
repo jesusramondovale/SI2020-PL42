@@ -69,4 +69,10 @@ create table asambleas (
 	hora TEXT NOT NULL
 );
 
+drop table instalacion;
+create table instalacion (
+		idInstalacion INTEGER PRIMARY KEY AUTOINCREMENT,
+		nombreInstalacion TEXT NOT NULL
+);
+
 
