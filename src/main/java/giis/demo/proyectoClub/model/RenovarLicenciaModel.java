@@ -1,9 +1,6 @@
 package giis.demo.proyectoClub.model;
 
-import java.util.Date;
-
 import giis.demo.util.Database;
-import giis.demo.util.Util;
 
 public class RenovarLicenciaModel {
 	
@@ -13,7 +10,7 @@ public class RenovarLicenciaModel {
 	 * Actualiza el estado de la licencia
 	 */
 	public void updateEstadoLicencia(String numLicencia) {
-		String sql="UPDATE licencia SET estado='Pendiente de pago' WHERE numLicencia=?";
+		String sql="UPDATE licencia SET estadoLicencia='Pendiente de pago' WHERE numLicencia=?";
 		db.executeUpdate(sql, numLicencia);
 	}
 

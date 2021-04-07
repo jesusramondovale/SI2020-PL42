@@ -40,7 +40,6 @@ public class RenovarLicenciaController {
 		
 		//Abre la ventana (sustituye al main generado por WindowBuilder)
 		view.getFrame().setVisible(true); 
-		view.bAceptar.setVisible(false);
 	}
 	
 	public void initController() {
@@ -54,17 +53,14 @@ public class RenovarLicenciaController {
 			}
 		});
 			
-		view.getbAceptar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> generarRecibo()));					
+		view.getbAceptar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> generarRecibo()));
+		view.getbAceptar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> updateEstadoLicencia()));
 	}
 	
 	public void getActivarBoton() {
 		
-		if((view.cbDatos.isEnabled()) && (view.tfNLicencia.getText().length() != 0)) {
+		if((view.cbDatos.isSelected()) && (view.tfNLicencia.getText().length() != 0))
 			view.bAceptar.setVisible(true);
-		}
-		else {
-			view.bAceptar.setVisible(false);
-		}
 	}
 	
 	/**
@@ -84,11 +80,11 @@ public class RenovarLicenciaController {
 	public void generarRecibo() {
 		FileWriter f;
 		try {
-			f = new FileWriter("C:\\Users\\inipi\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ReciboRLicencia.txt");
+			f = new FileWriter("C:\\Users\\inipi\\OneDrive\\Documentos\\GitHub\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ReciboRLicencia.txt");
 			String numLicencia = view.getTfNLicencia().getText();
 			f.write("RECIBO DE RENOVACIÓN DE LA LICENCIA\n\n"
 					+ "Usuario con licencia número: " + numLicencia 
-					+ "Total a pagar: "
+					+ "\tTotal a pagar: "
 					+ "\nLICENCIA PENDIENTE DE PAGO");
 			JOptionPane.showMessageDialog(null, "El recibo de la renovación de la licencia ha sido generado", "Recibo renovacion licencia", JOptionPane.OK_OPTION);
 			f.close();
