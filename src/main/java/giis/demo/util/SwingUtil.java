@@ -147,6 +147,5 @@ public class SwingUtil {
 		return cm;
 	}
 	
-	
 
 }

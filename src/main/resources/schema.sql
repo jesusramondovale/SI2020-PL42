@@ -38,17 +38,6 @@ CREATE TABLE licencia (
 	estadoLicencia TEXT NOT NULL
 );
 
-drop table recibo;
-CREATE TABLE recibo (
-	idRecibo INTEGER PRIMARY KEY AUTOINCREMENT,
-	numRecibo TEXT NOT NULL,
-	concepto TEXT NOT NULL,
-	fechaV DATE NOT NULL,
-	fechaE DATE NOT NULL,
-	idSocio INTEGER,
-	FOREIGN KEY (idSocio) REFERENCES socio(idSocio)
-);
-
 drop table reservas;
 CREATE TABLE reservas (
 	idReserva INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -74,5 +63,3 @@ create table instalacion (
 		idInstalacion INTEGER PRIMARY KEY AUTOINCREMENT,
 		nombreInstalacion TEXT NOT NULL
 );
-
-
