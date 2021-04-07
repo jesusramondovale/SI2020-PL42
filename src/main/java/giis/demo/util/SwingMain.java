@@ -31,6 +31,25 @@ public class SwingMain {
 	/**
 	 * Launch the application.
 	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() { //NOSONAR codigo autogenerado
+			public void run() {
+				try {
+					SwingMain window = new SwingMain();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace(); //NOSONAR codigo autogenerado
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public SwingMain() {
+		initialize();
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -39,7 +58,7 @@ public class SwingMain {
 		frame.setTitle("Main");
 		frame.setBounds(0, 0, 287, 185);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -49,7 +68,7 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarTkrun);
-		
+
 		JButton btnEjecutarNuevoSocio = new JButton("Nuevo Socio");
 		btnEjecutarNuevoSocio.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -59,7 +78,7 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarNuevoSocio);
-		
+
 		JButton btnEjecutarPagarLicencia = new JButton("PagarLicencia");
 		btnEjecutarPagarLicencia.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -69,8 +88,8 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarPagarLicencia);
-		
-			
+
+
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
 		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -79,7 +98,7 @@ public class SwingMain {
 			}
 		});
 		frame.getContentPane().add(btnInicializarBaseDeDatos);
-			
+
 		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
 		btnCargarDatosIniciales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -92,5 +111,5 @@ public class SwingMain {
 	}
 
 	public JFrame getFrame() { return this.frame; }
-	
+
 }

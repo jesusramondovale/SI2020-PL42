@@ -25,14 +25,6 @@ INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
 	(4,1122334,'Pagada');
 INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
 	(5,7654321,'Pagada');
-	
-delete from recibo;
-INSERT INTO recibo (idRecibo,numRecibo,concepto,fechaV,fechaE,idSocio) VALUES
-	(1,'','','','',1);
-INSERT INTO recibo (idRecibo,numRecibo,concepto,fechaV,fechaE,idSocio) VALUES
-	(2,'','','','',2);
-INSERT INTO recibo (idRecibo,numRecibo,concepto,fechaV,fechaE,idSocio) VALUES
-	(3,'','','','',3);
 
 delete from reservas;
 INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
