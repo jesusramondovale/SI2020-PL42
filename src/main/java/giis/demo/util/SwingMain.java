@@ -7,11 +7,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-//import giis.demo.proyectoClub.Controller.ReciboCuotaController;
+import giis.demo.proyectoClub.Controller.NuevoSocioControlador;
+import giis.demo.proyectoClub.Controller.PagarLicenciaControlador;
 import giis.demo.proyectoClub.Controller.RenovarLicenciaController;
-//import giis.demo.proyectoClub.View.ReciboCuotaView;
+import giis.demo.proyectoClub.View.NuevoSocioVista;
+import giis.demo.proyectoClub.View.PagarLicenciaVista;
 import giis.demo.proyectoClub.View.RenovarLicenciaView;
-//import giis.demo.proyectoClub.model.ReciboCuotaModel;
+import giis.demo.proyectoClub.View.SocioVista;
+import giis.demo.proyectoClub.model.NuevoSocioModelo;
+import giis.demo.proyectoClub.model.PagarLicenciaModelo;
 import giis.demo.proyectoClub.model.RenovarLicenciaModel;
 import giis.demo.tkrun.*;
 
@@ -48,7 +52,6 @@ public class SwingMain {
 	public SwingMain() {
 		initialize();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -57,7 +60,7 @@ public class SwingMain {
 		frame.setTitle("Main");
 		frame.setBounds(0, 0, 287, 185);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -67,28 +70,37 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarTkrun);
-		
-		JButton btnRenovarLicencia = new JButton("Renovar Licencia socio");
+
+		JButton btnEjecutarNuevoSocio = new JButton("Nuevo Socio");
+		btnEjecutarNuevoSocio.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				NuevoSocioControlador controller=new NuevoSocioControlador(new NuevoSocioModelo(), new SocioVista());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnEjecutarNuevoSocio);
+
+		JButton btnEjecutarPagarLicencia = new JButton("PagarLicencia");
+		btnEjecutarPagarLicencia.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				PagarLicenciaControlador controller=new PagarLicenciaControlador(new PagarLicenciaModelo(), new PagarLicenciaVista());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnEjecutarPagarLicencia);
+
+		JButton btnRenovarLicencia = new JButton("Renovar licencia");
 		btnRenovarLicencia.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				RenovarLicenciaController controllerRL = new RenovarLicenciaController(new RenovarLicenciaModel(), new RenovarLicenciaView());
-				controllerRL.initController();
+				RenovarLicenciaController controller=new RenovarLicenciaController(new RenovarLicenciaModel(), new RenovarLicenciaView());
+				controller.initController();
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnRenovarLicencia);
-		
-		/*JButton btnGenerarRecibos = new JButton("Generar recibos de las cuotas");
-		btnGenerarRecibos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-				ReciboCuotaController controllerRC = new ReciboCuotaController(new ReciboCuotaModel(), new ReciboCuotaView());
-				controllerRC.initController();
-			}
-		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.getContentPane().add(btnGenerarRecibos);*/
-			
-		
+
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
 		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -97,7 +109,7 @@ public class SwingMain {
 			}
 		});
 		frame.getContentPane().add(btnInicializarBaseDeDatos);
-			
+
 		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
 		btnCargarDatosIniciales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -110,5 +122,5 @@ public class SwingMain {
 	}
 
 	public JFrame getFrame() { return this.frame; }
-	
+
 }
