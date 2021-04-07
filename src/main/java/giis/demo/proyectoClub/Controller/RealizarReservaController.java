@@ -2,6 +2,8 @@ package giis.demo.proyectoClub.Controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,6 +61,7 @@ public class RealizarReservaController {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				view.getbEliminar().setEnabled(true);
+				view.getbReservar().setEnabled(true);
 			}
 		});
 		
@@ -140,28 +143,10 @@ public class RealizarReservaController {
 			d.setVisible(true);
 		}
 		else {
-			comprobarHoraReserva();
+			addReserva();
 		}
 	}
 	
-	public void comprobarHoraReserva() {
-		
-		float horaInicio = (float) Double.parseDouble((String) view.getCbHInicio().getSelectedItem());
-		float horaFin = (float) Double.parseDouble((String) view.getCbHFin().getSelectedItem());
-		
-		if(horaInicio-horaFin <= 0.0) {
-			JOptionPane pane = new JOptionPane("Las horas seleccionadas son incorrectas./nPor favor, seleccione horas distintas entre sí "
-					+ "o/ncompruebe que la hora de inicio sea inferior a la hora de fin.", 
-					JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
-			JDialog d = pane.createDialog(pane, "Error hora reserva");
-			d.setLocation(200, 200);
-			d.setVisible(true);
-		}
-		else {
-			addReserva();
-			view.getbReservar().setEnabled(true);
-		}
-	}
 	
 	public void addReserva() {
 		
@@ -169,7 +154,7 @@ public class RealizarReservaController {
 		
 		Object [] datos = new Object[6];
 		datos[0] = view.getTfNLicencia().getText();
-		datos[1] = view.getTfNombre().getText() + " " + view.getTfApellido1() + " " + view.getTfApellido2().getText();
+		datos[1] = view.getTfNombre().getText() + " " + view.getTfApellido1().getText() + " " + view.getTfApellido2().getText();
 		datos[2] = view.getCbInstalacion().getSelectedItem().toString();
 		datos[3] = view.getCbFecha().getSelectedItem().toString();
 		datos[4] = view.getCbHInicio().getSelectedItem().toString();
@@ -204,10 +189,48 @@ public class RealizarReservaController {
 	
 	public void reservar() {
 		
-		int idSocio = model.obtenerSocio();
-		model.addReserva(idSocio, view.getCbInstalacion().getSelectedItem().toString(), 
+		int id = 0;
+		List<Object[]> idSocio = model.obtenerSocio(view.getTfNombre().getText(), view.getTfApellido1().getText(), 
+				view.getTfApellido2().getText());
+		for(int i = 0; i < idSocio.size(); i++) {
+			id = (Integer) idSocio.get(i)[i];
+		}
+		model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
 				Util.isoStringToDate(view.getCbFecha().getSelectedItem().toString()), 
-				(float) Double.parseDouble(view.getCbHInicio().getSelectedItem().toString()),
-				(float) Double.parseDouble(view.getCbHFin().getSelectedItem().toString()));
+				view.getCbHInicio().getSelectedItem().toString(),
+				view.getCbHFin().getSelectedItem().toString());
+		
+		generarResguardoReserva();
+		
+		JOptionPane pane = new JOptionPane("Reserva realizada con éxito.\nSe ha generado el resguardo de la reserva.", 
+				JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+		JDialog d = pane.createDialog(pane, "Reserva realizada.");
+		d.setLocation(200, 200);
+		d.setVisible(true);
+	}
+	
+	public void generarResguardoReserva() {
+		FileWriter f;
+		try {
+			f = new FileWriter("C:\\Users\\inipi\\OneDrive\\Documentos\\GitHub\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ResguardoReserva.txt");
+			String nLicencia = view.getTfNLicencia().getText();
+			String socio = view.getTfNombre().getText() + " " + view.getTfApellido1().getText() + " " + view.getTfApellido2().getText();
+			String inst = view.getCbInstalacion().getSelectedItem().toString();
+			String fecha = view.getCbFecha().getSelectedItem().toString();
+			String hinicio = view.getCbHInicio().getSelectedItem().toString();
+			String hfin = view.getCbHFin().getSelectedItem().toString();
+			f.write("RESGUARDO RESERVA DE INSTALACIÓN\n\n"
+					+ "Socio: " + socio
+					+ "\nNúmero de licencia: " + nLicencia 
+					+ "\nInstalación reservada: " + inst
+					+ "\nFecha de reserva: " + fecha
+					+ "\nHora inicio de reserva: " + hinicio
+					+ "\tHora fin de reserva: " + hfin);
+			f.close();
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

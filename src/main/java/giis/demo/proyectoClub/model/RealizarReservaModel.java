@@ -19,27 +19,27 @@ public class RealizarReservaModel {
 
 	public Object getNLicencia(String nlicencia) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT nLicencia from licencia where nLicencia LIKE nlicencia";
+		String sql = "SELECT numLicencia from licencia where numLicencia=?";
 		return db.executeQueryArray(sql, nlicencia);
 	}
 
 	public Object getNombApe(String nombre, String apellido1, String apellido2) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT nombre from socio where nombreSocio LIKE nombre AND apellido1socio LIKE apellido1 AND apellido2socio LIKE apellido2";
+		String sql = "SELECT nombreSocio from socio where nombreSocio=? AND apellido1socio=? AND apellido2socio=?";
 		return db.executeQueryArray(sql, nombre, apellido1, apellido2);
 	}
 
-	public void addReserva(int idSocio, String instalacion, java.util.Date fecha, float hinicio, float hfin) {
+	public void addReserva(int idSocio, String instalacion, java.util.Date fecha, String hinicio, String hfin) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO reserva (idSocio, instalacion, fechaReserva, horaInicio, horaFin) values (?,?,?,?,?)";
+		String sql = "INSERT INTO reservas (idSocio, instalacion, fechaReserva, horaInicio, horaFin) values (?,?,?,?,?)";
 		String fechaInicio = Util.dateToIsoString(fecha);
 		db.executeUpdate(sql, idSocio, instalacion, fecha, hinicio, hfin);
 	}
 
-	public int obtenerSocio() {
+	public List<Object[]> obtenerSocio(String nombre, String apellido1, String apellido2) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT idSocio from socio where nombreSocio LIKE nombre AND apellido1socio LIKE apellido1 AND apellido2socio LIKE apellido2";
-		return Integer.parseInt(sql);
+		String sql = "SELECT idSocio from socio where nombreSocio=? AND apellido1socio=? AND apellido2socio=?";
+		return db.executeQueryArray(sql, nombre, apellido1, apellido2);
 	}
 
 }
