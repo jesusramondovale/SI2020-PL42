@@ -80,7 +80,7 @@ public class RenovarLicenciaController {
 	public void generarRecibo() {
 		FileWriter f;
 		try {
-			f = new FileWriter("C:\\Users\\inipi\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ReciboRLicencia.txt");
+			f = new FileWriter("C:\\Users\\inipi\\OneDrive\\Documentos\\GitHub\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ReciboRLicencia.txt");
 			String numLicencia = view.getTfNLicencia().getText();
 			f.write("RECIBO DE RENOVACIÓN DE LA LICENCIA\n\n"
 					+ "Usuario con licencia número: " + numLicencia 

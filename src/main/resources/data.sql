@@ -26,14 +26,6 @@ INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
 INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
 	(5,7654321,'Pagada');
 	
-delete from recibo;
-INSERT INTO recibo (idRecibo,numRecibo,concepto,fechaV,fechaE,idSocio) VALUES
-	(1,'','','','',1);
-INSERT INTO recibo (idRecibo,numRecibo,concepto,fechaV,fechaE,idSocio) VALUES
-	(2,'','','','',2);
-INSERT INTO recibo (idRecibo,numRecibo,concepto,fechaV,fechaE,idSocio) VALUES
-	(3,'','','','',3);
-
 delete from reservas;
 INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
 	(1,1,'piscina','2021-03-08',8.30,9.30);
@@ -45,20 +37,20 @@ INSERT INTO asambleas (idAsamblea,tipo,ordenDia,fechaAsamblea,hora) VALUES
 	(2,'Extraordinaria','','2021-03-30',12.00);
 
 delete from instalacion;
-INSERT INTO intalacion (idInstalacion, nombreInstalacion) VALUES
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
 	(1, 'piscina');
-INSERT INTO intalacion (idInstalacion, nombreInstalacion) VALUES
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
 	(2, 'gimnasio');
-INSERT INTO intalacion (idInstalacion, nombreInstalacion) VALUES
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
 	(3, 'pista de atletismo');
-INSERT INTO intalacion (idInstalacion, nombreInstalacion) VALUES
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
 	(4, 'cancha de baloncesto');
-INSERT INTO intalacion (idInstalacion, nombreInstalacion) VALUES
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
 	(5, 'cancha de balonmano');
-INSERT INTO intalacion (idInstalacion, nombreInstalacion) VALUES
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
 	(6, 'pista de tenis');
-INSERT INTO intalacion (idInstalacion, nombreInstalacion) VALUES
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
 	(7, 'campo de hockey');
-INSERT INTO intalacion (idInstalacion, nombreInstalacion) VALUES
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
 	(8, 'campo de rugby');
 
