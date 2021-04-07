@@ -16,20 +16,16 @@ INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellid
 	
 delete from licencia;
 INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
-	(1,1234567,'Pagada');
+	(1,'PPA11111','Pagada');
 INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
-	(2,1233466,'Pagada');
+	(2,'PPA22222','Pagada');
 INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
-	(3,2347890,'Pendiente de pago');
+	(3,'PPA33333','Pendiente de pago');
 INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
-	(4,1122334,'Pagada');
+	(4,'PPA44444','Pagada');
 INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
-	(5,7654321,'Pagada');
-<<<<<<< HEAD
+	(5,'PPA55555','Pagada');
 
-=======
-	
->>>>>>> refs/remotes/origin/RenovarLicencia
 delete from reservas;
 INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
 	(1,1,'piscina','2021-03-08',8.30,9.30);

@@ -84,7 +84,7 @@ public class RenovarLicenciaController {
 			String numLicencia = view.getTfNLicencia().getText();
 			f.write("RECIBO DE RENOVACIÓN DE LA LICENCIA\n\n"
 					+ "Usuario con licencia número: " + numLicencia 
-					+ "Total a pagar: "
+					+ "\tTotal a pagar: "
 					+ "\nLICENCIA PENDIENTE DE PAGO");
 			JOptionPane.showMessageDialog(null, "El recibo de la renovación de la licencia ha sido generado", "Recibo renovacion licencia", JOptionPane.OK_OPTION);
 			f.close();

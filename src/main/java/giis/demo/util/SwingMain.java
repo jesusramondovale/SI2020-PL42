@@ -91,8 +91,6 @@ public class SwingMain {
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarPagarLicencia);
 
-<<<<<<< HEAD
-=======
 		JButton btnRenovarLicencia = new JButton("Renovar licencia");
 		btnRenovarLicencia.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -102,7 +100,6 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnRenovarLicencia);
->>>>>>> refs/remotes/origin/RenovarLicencia
 
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
 		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
