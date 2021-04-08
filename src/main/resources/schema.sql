@@ -44,7 +44,7 @@ CREATE TABLE reservas (
 	idSocio INTEGER,
 	instalacion TEXT NOT NULL,
 	fechaReserva DATE NOT NULL,
-	horaInicio TEXT NOT NULL,
+	horaInicio FLOAT NOT NULL,
 	horaFin TEXT NOT NULL,
 	FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
 );
