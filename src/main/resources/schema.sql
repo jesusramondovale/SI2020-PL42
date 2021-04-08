@@ -13,7 +13,7 @@ CREATE TABLE socio (
 	sexo TEXT,
 	fechaNacimiento DATE NOT NULL,
 	club TEXT NOT NULL,
-	numLicencia INTEGER,
+	numLicencia TEXT NOT NULL,
 	numCuenta TEXT NOT NULL,
 	cuota FLOAT,
 	dniTutor TEXT,
