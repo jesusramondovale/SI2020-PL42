@@ -9,13 +9,16 @@ import java.awt.event.ActionEvent;
 
 import giis.demo.proyectoClub.Controller.NuevoSocioControlador;
 import giis.demo.proyectoClub.Controller.PagarLicenciaControlador;
+import giis.demo.proyectoClub.Controller.RealizarReservaController;
 import giis.demo.proyectoClub.Controller.RenovarLicenciaController;
 import giis.demo.proyectoClub.View.NuevoSocioVista;
 import giis.demo.proyectoClub.View.PagarLicenciaVista;
+import giis.demo.proyectoClub.View.RealizarReservaView;
 import giis.demo.proyectoClub.View.RenovarLicenciaView;
 import giis.demo.proyectoClub.View.SocioVista;
 import giis.demo.proyectoClub.model.NuevoSocioModelo;
 import giis.demo.proyectoClub.model.PagarLicenciaModelo;
+import giis.demo.proyectoClub.model.RealizarReservaModel;
 import giis.demo.proyectoClub.model.RenovarLicenciaModel;
 import giis.demo.tkrun.*;
 
@@ -90,6 +93,16 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarPagarLicencia);
+		
+		JButton btnRealizarReserva = new JButton("Realizar reserva");
+		btnRealizarReserva.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				RealizarReservaController controller=new RealizarReservaController(new RealizarReservaModel(), new RealizarReservaView());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnRealizarReserva);
 
 		JButton btnRenovarLicencia = new JButton("Renovar licencia");
 		btnRenovarLicencia.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado

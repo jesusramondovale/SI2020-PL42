@@ -13,7 +13,7 @@ CREATE TABLE socio (
 	sexo TEXT,
 	fechaNacimiento DATE NOT NULL,
 	club TEXT NOT NULL,
-	numLicencia INTEGER,
+	numLicencia TEXT NOT NULL,
 	numCuenta TEXT NOT NULL,
 	cuota FLOAT,
 	dniTutor TEXT,
@@ -44,7 +44,7 @@ CREATE TABLE reservas (
 	idSocio INTEGER,
 	instalacion TEXT NOT NULL,
 	fechaReserva DATE NOT NULL,
-	horaInicio TEXT NOT NULL,
+	horaInicio FLOAT NOT NULL,
 	horaFin TEXT NOT NULL,
 	FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
 );
