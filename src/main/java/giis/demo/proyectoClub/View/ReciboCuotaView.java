@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import java.awt.Font;
 
 public class ReciboCuotaView {
 	
@@ -63,7 +64,7 @@ public class ReciboCuotaView {
 		GenerarRecibos.getContentPane().add(LMes);
 		
 		cbMes = new JComboBox();
-		cbMes.setModel(new DefaultComboBoxModel(new String[] {"- Elegir mes -", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}));
+		cbMes.setModel(new DefaultComboBoxModel(new String[] {"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"}));
 		cbMes.setBounds(171, 54, 112, 22);
 		GenerarRecibos.getContentPane().add(cbMes);
 		
@@ -72,6 +73,8 @@ public class ReciboCuotaView {
 		GenerarRecibos.getContentPane().add(LYear);
 		
 		tfYear = new JTextField();
+		tfYear.setFont(new Font("Tahoma", Font.BOLD, 11));
+		tfYear.setEditable(false);
 		tfYear.setBounds(481, 55, 96, 20);
 		GenerarRecibos.getContentPane().add(tfYear);
 		tfYear.setColumns(10);

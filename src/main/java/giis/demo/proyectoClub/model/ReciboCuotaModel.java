@@ -11,7 +11,7 @@ public class ReciboCuotaModel {
 	private Database db = new Database();
 	
 	public List<SociosDisplayDTO> getSocios() {
-		String sql = "SELECT * FROM socio";
+		String sql = "SELECT idSocio FROM socio";
 		return db.executeQueryPojo(SociosDisplayDTO.class, sql);
 	}
 

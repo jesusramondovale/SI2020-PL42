@@ -1,10 +1,17 @@
 package giis.demo.proyectoClub.Controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.Month;
+import java.time.Year;
+import java.time.format.TextStyle;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +20,7 @@ import giis.demo.proyectoClub.DTO.ReciboDisplayDTO;
 import giis.demo.proyectoClub.DTO.SociosDisplayDTO;
 import giis.demo.proyectoClub.View.ReciboCuotaView;
 import giis.demo.proyectoClub.model.ReciboCuotaModel;
+import giis.demo.util.Database;
 import giis.demo.util.Util;
 
 public class ReciboCuotaController {
@@ -34,8 +42,16 @@ public class ReciboCuotaController {
 	 */
 	public void initController() {
 		this.initView();
+		
 		view.getbRecibo().addActionListener(e ->insertarRecibo());
-
+		
+		view.getbCancelar().addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) {
+				view.getFrame().setVisible(false);
+			}
+		});
+		
+		view.getCbSelec().addActionListener(e -> view.getbRecibo().setEnabled(true));
 	}
 
 	public void initView() {
@@ -48,27 +64,32 @@ public class ReciboCuotaController {
 	 */
 	public void mostrarDatos() {
 
+		Month mes = LocalDate.now().getMonth();
+		String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+
+		view.getCbMes().setSelectedItem(nombre);
+
 		List<SociosDisplayDTO> socios = model.getSocios();
 
-		Calendar fecha = Calendar.getInstance();
-
-		String c = "Cuota Club Mes " + view.getCbMes().getSelectedItem().toString();
+		Calendar calendar = Calendar.getInstance();
+		int y = calendar.get(Calendar.YEAR);
+		view.getTfYear().setText(String.valueOf(y));
 
 		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
-		Object datos[][] = new Object[socios.size()][7];
+		String datos[][] = new String[socios.size()][7];
 
-		for(int i = 0; i < socios.size();i++) {
+		for(int i = 0; i < socios.size(); i++) {
 
-			datos[i][0] = "RGCC-"+ fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH)+1) + "-" + i+1;
-			datos[i][1] = "1/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR);
-			datos[i][2] = "15/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR);
+			datos[i][0] = "RGCC-"+ view.getTfYear().getText() + "-" + view.getCbMes().getSelectedItem().toString() + "-" + i+1;
+			datos[i][1] = "1/" + view.getCbMes().getSelectedItem().toString() + "/" + view.getTfYear().getText();
+			datos[i][2] = "15/" + view.getCbMes().getSelectedItem().toString() + "/" + view.getTfYear().getText();
 			datos[i][3] = "Cuota Club Mes " + view.getCbMes().getSelectedItem().toString();
-			datos[i][4] = model.getCuota(socios.get(i).getIdSocio());
-			datos[i][5] =  "" + model.getNombreSocio(socios.get(i).getIdSocio()) + " " + model.getApe1Socio(socios.get(i).getIdSocio()) + " " + model.getApe2Socio(socios.get(i).getIdSocio());
-			datos[i][6] = model.getNumCuentaSocio(socios.get(i).getIdSocio());
-
+			datos[i][4] = "" + model.getCuota(socios.get(i).getIdSocio());
+			datos[i][5] =  "" + socios.get(i).getNombreSocio() + " " + socios.get(i).getApellido1Socio() + " " + socios.get(i).getApellido2Socio();
+			datos[i][6] = "" +socios.get(i).getNumCuentaSocio();
+			
+			m.addRow(datos);
 		}
-		m.addRow(datos);
 		view.gettDatos().setModel(m);
 	}
 
@@ -76,7 +97,6 @@ public class ReciboCuotaController {
 			String numCuenta) {
 
 		List<ReciboDisplayDTO> recibos = model.getRecibos();
-		List<SociosDisplayDTO> socios = model.getSocios();
 
 		FileWriter file;
 		try {
@@ -88,24 +108,27 @@ public class ReciboCuotaController {
 			String r = "";
 			if(view.getCbSelec().isSelected()) {
 				for(int j = 0; j < recibos.size(); j++) {
-
-					r += "Nº de recibo: " + String.valueOf(recibos.get(j).getnRecibo()) + "\nDatos del socio: " + socios.get(j).getNombreSocio() + " " + socios.get(j).getApellido1Socio() + " " + socios.get(j).getApellido2Socio() +
-							"\nFecha de Valor: " + recibos.get(j).getFechaV() + "\tFecha de Emisión: " + recibos.get(j).getFechaE() +
-							"\nConcepto: " + c;
+					r += "Nº DE RECIBO: " + nRecibo + "\nConcepto: " + concepto + 
+							"\n\tDatos del socio: " + socio + "\t\tNumero de cuenta: " + numCuenta +
+							"\n\tFecha de Valor: " + fValor + "\t\tFecha de Emisión: " + fEmision +
+							"\n\t\t\t\t\t\tTOTAL: " + importe;
 					file.write(r);
 				}
 			}
 			else {
 				if (view.gettDatos().getSelectedRow() != -1) {
-					r += "Nº de recibo: " + view.gettDatos().getValueAt(view.gettDatos().getSelectedRow(), 0) + "\nDatos del socio: " + view.gettDatos().getValueAt(view.gettDatos().getSelectedRow(), 4) +
-							view.gettDatos().getValueAt(view.gettDatos().getSelectedRow(), 5) + view.gettDatos().getValueAt(view.gettDatos().getSelectedRow(), 6) +
-							"\nFecha de Valor: " + view.gettDatos().getValueAt(view.gettDatos().getSelectedRow(), 1) + "\tFecha de Emisión: " + view.gettDatos().getValueAt(view.gettDatos().getSelectedRow(), 2) +
-							"\nConcepto: " + c;
+					r += "Nº DE RECIBO: " + nRecibo + "\nConcepto: " + concepto + 
+							"\n\tDatos del socio: " + socio + "\t\tNumero de cuenta: " + numCuenta +
+							"\n\tFecha de Valor: " + fValor + "\t\tFecha de Emisión: " + fEmision +
+							"\n\t\t\t\t\t\tTOTAL: " + importe;
 					file.write(r);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Seleccione un recibo a generar", "Recibo mensual", JOptionPane.OK_OPTION);
 				}
 			}
 
-			JOptionPane.showMessageDialog(null, "Los recibos mensuales han sido generados", "Recibo mensual", JOptionPane.OK_OPTION);
+			JOptionPane.showConfirmDialog(null, "Los recibos mensuales han sido generados", "Recibo mensual", JOptionPane.OK_OPTION);
 			file.close();
 
 		} catch (IOException e) {
@@ -113,9 +136,9 @@ public class ReciboCuotaController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void insertarRecibo() {
-		
+
 		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
 		int[] filas = view.gettDatos().getSelectedRows();
 		int[] columnas = view.gettDatos().getSelectedColumns();
