@@ -65,4 +65,10 @@ public class ReciboCuotaModel {
 		return db.executeQueryPojo(ReciboDisplayDTO.class, sql, idRecibo);
 	}
 
+	public void addRecibo(String nRecibo, String fValor, String fEmision, String concepto, String importe, String socio,
+			String numCuenta) {
+		String sql = "INSERT INTO recibo (nRecibo, fechaValor, fechaEmision, concepto, importe, socio, numCuenta) values (?,?,?,?,?)";
+		db.executeUpdate(sql, nRecibo, fValor, fEmision, concepto, importe, socio, numCuenta);
+	}
+
 }

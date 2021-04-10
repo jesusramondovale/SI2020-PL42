@@ -43,7 +43,7 @@ public class ReciboCuotaView {
 		GenerarRecibos.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(60, 105, 612, 351);
+		scrollPane.setBounds(10, 105, 741, 351);
 		GenerarRecibos.getContentPane().add(scrollPane);
 		
 		tDatos = new JTable();

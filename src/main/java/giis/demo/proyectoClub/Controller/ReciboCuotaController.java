@@ -34,7 +34,7 @@ public class ReciboCuotaController {
 	 */
 	public void initController() {
 		this.initView();
-		view.getbRecibo().addActionListener(e ->generarRecibo());
+		view.getbRecibo().addActionListener(e ->insertarRecibo());
 
 	}
 
@@ -49,51 +49,36 @@ public class ReciboCuotaController {
 	public void mostrarDatos() {
 
 		List<SociosDisplayDTO> socios = model.getSocios();
-		List<ReciboDisplayDTO> recibos = model.getRecibos();
-		
+
+		Calendar fecha = Calendar.getInstance();
+
 		String c = "Cuota Club Mes " + view.getCbMes().getSelectedItem().toString();
 
-		Object[][]elementos = new Object[recibos.size()][7];
+		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
+		Object datos[][] = new Object[socios.size()][7];
+
 		for(int i = 0; i < socios.size();i++) {
 
-			List<SociosDisplayDTO> nombreSocio = model.getNombreSocio(socios.get(i).getIdSocio());
-			List<SociosDisplayDTO> apellido1Socio = model.getApe1Socio(socios.get(i).getIdSocio());
-			List<SociosDisplayDTO> apellido2Socio = model.getApe2Socio(socios.get(i).getIdSocio());
-			List<SociosDisplayDTO> cuota = model.getCuota(socios.get(i).getIdSocio());
-			List<SociosDisplayDTO> numCuenta = model.getNumCuentaSocio(socios.get(i).getIdSocio());
+			datos[i][0] = "RGCC-"+ fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH)+1) + "-" + i+1;
+			datos[i][1] = "1/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR);
+			datos[i][2] = "15/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR);
+			datos[i][3] = "Cuota Club Mes " + view.getCbMes().getSelectedItem().toString();
+			datos[i][4] = model.getCuota(socios.get(i).getIdSocio());
+			datos[i][5] =  "" + model.getNombreSocio(socios.get(i).getIdSocio()) + " " + model.getApe1Socio(socios.get(i).getIdSocio()) + " " + model.getApe2Socio(socios.get(i).getIdSocio());
+			datos[i][6] = model.getNumCuentaSocio(socios.get(i).getIdSocio());
 
-			List<ReciboDisplayDTO> nRecibo = model.getNRecibo(recibos.get(i).getIdRecibo());
-			List<ReciboDisplayDTO> fechaV = model.getFechaV(recibos.get(i).getIdRecibo());
-			List<ReciboDisplayDTO> fechaE = model.getFechaE(recibos.get(i).getIdRecibo());
-			
-			if(nombreSocio.size()!=0) {
-				for(int j = 0; j < nombreSocio.size(); j++) {
-					elementos[j][0] = nRecibo.get(j).getnRecibo();
-					elementos[j][1] = fechaV.get(j).getFechaV();
-					elementos[j][2] = fechaE.get(j).getFechaE();
-					elementos[j][3] = c;
-					elementos[j][4] = cuota.get(j).getCuota(); 
-					elementos[j][5] = nombreSocio.get(j).getNombreSocio() + " " 
-							+ apellido1Socio.get(j).getApellido1Socio() + " " 
-							+ apellido2Socio.get(j).getApellido2Socio();
-					elementos[j][6] = numCuenta.get(j).getNumCuentaSocio(); 
-
-				}
-			}
 		}
-		DefaultTableModel dmodel = new DefaultTableModel(elementos, new String[] {
-				"Nº Recibo", "Fecha de Valor", "Fecha de emision", "Concepto", "Importe", "Socio", "Nº de cuenta bancaria"
-		});
-		view.gettDatos().setModel(dmodel);
+		m.addRow(datos);
+		view.gettDatos().setModel(m);
 	}
 
-	public void generarRecibo() {
+	public void generarRecibo(String nRecibo, String fValor, String fEmision, String concepto, String importe, String socio,
+			String numCuenta) {
 
 		List<ReciboDisplayDTO> recibos = model.getRecibos();
 		List<SociosDisplayDTO> socios = model.getSocios();
 
 		FileWriter file;
-		String c = "Cuota Club Mes " + view.getCbMes().getSelectedItem().toString();
 		try {
 			file = new FileWriter("C:\\Users\\inipi\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ReciboRLicencia.txt");
 			Object[][] elem = new Object[recibos.size()][2];
@@ -126,6 +111,21 @@ public class ReciboCuotaController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public void insertarRecibo() {
+		
+		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
+		int[] filas = view.gettDatos().getSelectedRows();
+		int[] columnas = view.gettDatos().getSelectedColumns();
+		String[] datos = new String[columnas.length]; 
+		for(int i = 0; i < filas.length; i++) {
+			for(int j = 0; j < columnas.length; j++) {
+				datos = (String[]) m.getValueAt(filas[i], j);
+			}
+			model.addRecibo(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]);
+			generarRecibo(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]);
 		}
 	}
 
