@@ -11,22 +11,35 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.JSpinner;
+import javax.swing.JCheckBox;
+import javax.swing.JToggleButton;
+import javax.swing.JList;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class RealizarReservaView extends JFrame {
 
 	private JFrame RealizarReserva;
-	private JTextField tfNLicencia, tfNombre, tfApellido1, tfApellido2, tfCorreo;
-	private JLabel lNombre, lNLicencia, lApellido1, lApellido2, lHora, lFecha, lInstalacion;
+	private JTextField tfNLicencia, tfCorreo, tfNombre, tfApellido1, tfApellido2;
+	private JLabel lNLicencia, lHora, lFecha, lInstalacion, lSeleccion, lCorreo, lNombre, lApellido1, lApellido2;
 	private JComboBox cbInstalacion, cbHInicio, cbHFin, cbFecha;
-	private JButton bCancelar, bReservar, bAnadir, bEliminar;
-	private JSeparator separator;
+	private JButton bCancelar, bReservar, bEliminar, bAnadir;
+	private JSeparator separator, separator_1;
 	private JTable tReservas;
 	private JScrollPane scrollPane;
+	private JList listGrupo;
+	private JRadioButton rbtnIndividual;
+	private JRadioButton rbtnGrupo;
+	private final ButtonGroup bgReservas = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -65,119 +78,145 @@ public class RealizarReservaView extends JFrame {
 		getContentPane().setLayout(null);
 
 		lNLicencia = new JLabel("Nº Licencia:");
-		lNLicencia.setBounds(20, 61, 59, 14);
+		lNLicencia.setBounds(20, 131, 85, 14);
 		getContentPane().add(lNLicencia);
 
 		tfNLicencia = new JTextField();
-		tfNLicencia.setBounds(89, 58, 175, 20);
+		tfNLicencia.setBounds(115, 128, 106, 20);
 		getContentPane().add(tfNLicencia);
 		tfNLicencia.setColumns(10);
 
-		lNombre = new JLabel("Nombre:");
-		lNombre.setBounds(292, 61, 49, 14);
-		getContentPane().add(lNombre);
-
-		tfNombre = new JTextField();
-		tfNombre.setColumns(10);
-		tfNombre.setBounds(339, 58, 168, 20);
-		getContentPane().add(tfNombre);
-		
-		lApellido1 = new JLabel("Apellido 1:");
-		lApellido1.setBounds(529, 61, 59, 14);
-		getContentPane().add(lApellido1);
-		
-		lApellido2 = new JLabel("Apellido 2:");
-		lApellido2.setBounds(529, 91, 59, 14);
-		getContentPane().add(lApellido2);
-		
-		tfApellido1 = new JTextField();
-		tfApellido1.setBounds(598, 58, 160, 20);
-		getContentPane().add(tfApellido1);
-		tfApellido1.setColumns(10);
-		
-		tfApellido2 = new JTextField();
-		tfApellido2.setColumns(10);
-		tfApellido2.setBounds(598, 88, 160, 20);
-		getContentPane().add(tfApellido2);
-
-		JLabel lCorreo = new JLabel("Correo electrónico:");
-		lCorreo.setBounds(781, 61, 94, 14);
+		lCorreo = new JLabel("Correo electrónico:");
+		lCorreo.setBounds(694, 36, 152, 14);
 		getContentPane().add(lCorreo);
 
 		tfCorreo = new JTextField();
-		tfCorreo.setBounds(885, 58, 204, 20);
+		tfCorreo.setBounds(849, 33, 219, 20);
 		getContentPane().add(tfCorreo);
 		tfCorreo.setColumns(10);
 
 		lInstalacion = new JLabel("Seleccionar instalación:");
-		lInstalacion.setBounds(89, 177, 116, 14);
+		lInstalacion.setBounds(263, 182, 116, 14);
 		getContentPane().add(lInstalacion);
 
 		cbInstalacion = new JComboBox();
 		cbInstalacion.setModel(new DefaultComboBoxModel(new String[] {"-- Instalación --"}));
-		cbInstalacion.setBounds(254, 173, 126, 22);
+		cbInstalacion.setBounds(411, 178, 106, 22);
 		getContentPane().add(cbInstalacion);
 
 		lFecha = new JLabel("Seleccionar fecha:");
-		lFecha.setBounds(89, 226, 116, 14);
+		lFecha.setBounds(263, 252, 116, 14);
 		getContentPane().add(lFecha);
 		
 		cbFecha = new JComboBox();
 		cbFecha.setModel(new DefaultComboBoxModel(new String[] {"-- Fecha --"}));
-		cbFecha.setBounds(254, 222, 126, 22);
+		cbFecha.setBounds(411, 248, 106, 22);
 		getContentPane().add(cbFecha);
 
 		lHora = new JLabel("Seleccionar hora:");
-		lHora.setBounds(89, 310, 116, 14);
+		lHora.setBounds(263, 336, 116, 14);
 		getContentPane().add(lHora);
 
 		cbHInicio = new JComboBox();
 		cbHInicio.setModel(new DefaultComboBoxModel(new String[] {"-- Hora inicio --", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"}));
-		cbHInicio.setBounds(254, 281, 126, 22);
+		cbHInicio.setBounds(411, 303, 106, 22);
 		getContentPane().add(cbHInicio);
 
 		cbHFin = new JComboBox();
 		cbHFin.setModel(new DefaultComboBoxModel(new String[] {"-- Hora fin--", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"}));
-		cbHFin.setBounds(254, 336, 126, 22);
+		cbHFin.setBounds(411, 354, 106, 22);
 		getContentPane().add(cbHFin);
 
 		bCancelar = new JButton("Cancelar");
-		bCancelar.setBounds(55, 411, 138, 20);
+		bCancelar.setBounds(53, 479, 138, 20);
 		getContentPane().add(bCancelar);
-
-		bAnadir = new JButton("Añadir");
-		bAnadir.setBounds(339, 411, 138, 20);
-		getContentPane().add(bAnadir);
 
 		separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(505, 146, 2, 311);
+		separator.setBounds(251, 86, 2, 447);
 		getContentPane().add(separator);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(564, 151, 525, 232);
+		scrollPane.setBounds(571, 86, 497, 374);
 		getContentPane().add(scrollPane);
 
 		tReservas = new JTable();
 		tReservas.setModel(new DefaultTableModel(
 				new Object[][] {
-					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null},
 				},
 				new String[] {
-						"Nº Licencia", "Socio", "Instalación", "Fecha", "Hora Inico", "Hora Fin"
+						"Nº Licencia", "Instalación", "Fecha", "Hora Inico", "Hora Fin"
 				}
 		));
 		scrollPane.setViewportView(tReservas);
 
 		bReservar = new JButton("Reservar");
 		bReservar.setEnabled(false);
-		bReservar.setBounds(854, 410, 235, 23);
+		bReservar.setBounds(833, 478, 235, 23);
 		getContentPane().add(bReservar);
 		
 		bEliminar = new JButton("Eliminar");
 		bEliminar.setEnabled(false);
-		bEliminar.setBounds(564, 410, 235, 23);
+		bEliminar.setBounds(571, 478, 235, 23);
 		getContentPane().add(bEliminar);
+		
+		bAnadir = new JButton("Añadir");
+		bAnadir.setBounds(330, 435, 138, 20);
+		getContentPane().add(bAnadir);
+		
+		separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(545, 86, 2, 447);
+		getContentPane().add(separator_1);
+		
+		lSeleccion = new JLabel("Seleccione los socios:");
+		lSeleccion.setEnabled(false);
+		lSeleccion.setBounds(22, 207, 339, 14);
+		getContentPane().add(lSeleccion);
+		
+		listGrupo = new JList();
+		listGrupo.setModel(new DefaultListModel<>());
+		listGrupo.setEnabled(false);
+		listGrupo.setBounds(39, 232, 152, 222);
+		getContentPane().add(listGrupo);
+		
+		rbtnIndividual = new JRadioButton("Reserva individual");
+		bgReservas.add(rbtnIndividual);
+		rbtnIndividual.setBounds(39, 89, 182, 23);
+		getContentPane().add(rbtnIndividual);
+		
+		rbtnGrupo = new JRadioButton("Reserva en grupo");
+		bgReservas.add(rbtnGrupo);
+		rbtnGrupo.setBounds(39, 178, 182, 23);
+		getContentPane().add(rbtnGrupo);
+		
+		lNombre = new JLabel("Nombre: ");
+		lNombre.setBounds(37, 36, 68, 14);
+		getContentPane().add(lNombre);
+		
+		tfNombre = new JTextField();
+		tfNombre.setBounds(114, 33, 107, 20);
+		getContentPane().add(tfNombre);
+		tfNombre.setColumns(10);
+		
+		lApellido1 = new JLabel("Apellido 1:");
+		lApellido1.setBounds(231, 36, 85, 14);
+		getContentPane().add(lApellido1);
+		
+		tfApellido1 = new JTextField();
+		tfApellido1.setBounds(307, 33, 116, 20);
+		getContentPane().add(tfApellido1);
+		tfApellido1.setColumns(10);
+		
+		lApellido2 = new JLabel("Apellido 2:");
+		lApellido2.setBounds(439, 36, 78, 14);
+		getContentPane().add(lApellido2);
+		
+		tfApellido2 = new JTextField();
+		tfApellido2.setColumns(10);
+		tfApellido2.setBounds(527, 33, 138, 20);
+		getContentPane().add(tfApellido2);
 
 	}
 
@@ -195,30 +234,6 @@ public class RealizarReservaView extends JFrame {
 
 	public void setTfNLicencia(JTextField tfNLicencia) {
 		this.tfNLicencia = tfNLicencia;
-	}
-
-	public JTextField getTfNombre() {
-		return tfNombre;
-	}
-
-	public void setTfNombre(JTextField tfNombre) {
-		this.tfNombre = tfNombre;
-	}
-
-	public JTextField getTfApellido1() {
-		return tfApellido1;
-	}
-
-	public void setTfApellido1(JTextField tfApellido1) {
-		this.tfApellido1 = tfApellido1;
-	}
-
-	public JTextField getTfApellido2() {
-		return tfApellido2;
-	}
-
-	public void setTfApellido2(JTextField tfApellido2) {
-		this.tfApellido2 = tfApellido2;
 	}
 
 	public JTextField getTfCorreo() {
@@ -307,6 +322,74 @@ public class RealizarReservaView extends JFrame {
 
 	public void setScrollPane(JScrollPane scrollPane) {
 		this.scrollPane = scrollPane;
+	}
+
+	public JList getListGrupo() {
+		return listGrupo;
+	}
+
+	public void setListGrupo(JList listGrupo) {
+		this.listGrupo = listGrupo;
+	}
+
+	public JRadioButton getRbtnIndividual() {
+		return rbtnIndividual;
+	}
+
+	public void setRbtnIndividual(JRadioButton rbtnIndividual) {
+		this.rbtnIndividual = rbtnIndividual;
+	}
+
+	public JRadioButton getRbtnGrupo() {
+		return rbtnGrupo;
+	}
+
+	public void setRbtnGrupo(JRadioButton rbtnGrupo) {
+		this.rbtnGrupo = rbtnGrupo;
+	}
+
+	public ButtonGroup getBgReservas() {
+		return bgReservas;
+	}
+
+	public JTextField getTfNombre() {
+		return tfNombre;
+	}
+
+	public void setTfNombre(JTextField tfNombre) {
+		this.tfNombre = tfNombre;
+	}
+
+	public JTextField getTfApellido1() {
+		return tfApellido1;
+	}
+
+	public void setTfApellido1(JTextField tfApellido1) {
+		this.tfApellido1 = tfApellido1;
+	}
+
+	public JTextField getTfApellido2() {
+		return tfApellido2;
+	}
+
+	public void setTfApellido2(JTextField tfApellido2) {
+		this.tfApellido2 = tfApellido2;
+	}
+
+	public JLabel getlNLicencia() {
+		return lNLicencia;
+	}
+
+	public void setlNLicencia(JLabel lNLicencia) {
+		this.lNLicencia = lNLicencia;
+	}
+
+	public JLabel getlSeleccion() {
+		return lSeleccion;
+	}
+
+	public void setlSeleccion(JLabel lSeleccion) {
+		this.lSeleccion = lSeleccion;
 	}
 	
 	
