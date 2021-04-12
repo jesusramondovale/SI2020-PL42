@@ -1,11 +1,10 @@
 package giis.demo.ProyectoClub.Controller;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 
 import javax.swing.table.TableModel;
-
 import giis.demo.ProyectoClub.DTO.MostrarInstalacionesDTO;
 import giis.demo.ProyectoClub.Model.MostrarInstalacionesModel;
 import giis.demo.ProyectoClub.View.MostrarInstalacionesView;
@@ -20,9 +19,8 @@ public class MostrarInstalacionesController {
 	
 	public void initView() {
 		
-		
-		
 		this.view.getFrame().setVisible(true);
+		
 	}
 	
 	public void initController(){
@@ -40,6 +38,7 @@ public class MostrarInstalacionesController {
 	
 		this.model = m;
 		this.view = v;
+		this.initView();
 	
 	}
 	

@@ -37,8 +37,8 @@ public class MostrarInstalacionesModel {
 			
 	
 		
-	private void validateFechaSeleccionada(Date seleccionada){
-		validateCondition(seleccionada.compareTo(hoy)<=0,"La fecha seleccionada no puede ser anterior a la de hoy!");
+	private void validateFechaSeleccionada(java.util.Date date){
+		validateCondition(date.compareTo(hoy)<=0,"La fecha seleccionada no puede ser anterior a la de hoy!");
 		
 	}
  
@@ -57,15 +57,15 @@ public class MostrarInstalacionesModel {
 	}
 	
 	
-	public List<MostrarInstalacionesDTO> getListaInstalaciones(Date fecha, String tipo){
+	public List<MostrarInstalacionesDTO> getListaInstalaciones(java.util.Date date, String tipo){
 				
-		if (fecha == null){
+		if (date == null){
 			return db.executeQueryPojo(MostrarInstalacionesDTO.class, SQL_INSTALACIONES,tipo);
 		}
 		
 		else {	
-			validateFechaSeleccionada(fecha);
-			String fechaValue=Util.dateToIsoString(fecha);
+			validateFechaSeleccionada(date);
+			String fechaValue=Util.dateToIsoString(date);
 			return db.executeQueryPojo(MostrarInstalacionesDTO.class, SQL_INSTALACIONES_FECHA, fechaValue,tipo);
 		}
 			

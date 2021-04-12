@@ -6,6 +6,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import giis.demo.ProyectoClub.Controller.CrearAsambleasController;
+import giis.demo.ProyectoClub.Controller.MostrarInstalacionesController;
+import giis.demo.ProyectoClub.Model.CrearAsambleasModel;
+import giis.demo.ProyectoClub.Model.MostrarInstalacionesModel;
+import giis.demo.ProyectoClub.View.CrearAsambleasView;
+import giis.demo.ProyectoClub.View.MostrarInstalacionesView;
 import giis.demo.tkrun.*;
 
 /**
@@ -48,7 +55,7 @@ public class SwingMain {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Main");
-		frame.setBounds(0, 0, 287, 185);
+		frame.setBounds(0, 0, 426, 318);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
@@ -58,6 +65,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
+		
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarTkrun);
 		
@@ -69,6 +77,8 @@ public class SwingMain {
 				db.createDatabase(false);
 			}
 		});
+		
+		
 		frame.getContentPane().add(btnInicializarBaseDeDatos);
 			
 		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
@@ -79,9 +89,40 @@ public class SwingMain {
 				db.loadDatabase();
 			}
 		});
+		
 		frame.getContentPane().add(btnCargarDatosIniciales);
+		
+		JButton btnMostrarInstalacionesDisponibles = new JButton("Mostrar Instalaciones Disponibles");
+		frame.getContentPane().add(btnMostrarInstalacionesDisponibles);
+		btnMostrarInstalacionesDisponibles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){   
+				
+				MostrarInstalacionesModel model = new MostrarInstalacionesModel();
+				MostrarInstalacionesView view = new MostrarInstalacionesView();
+				MostrarInstalacionesController controller = new MostrarInstalacionesController(model, view);
+				controller.initController();
+				
+			}
+		
+		});
+		
+		JButton btnCrearNuevaAsamblea = new JButton("Crear Nueva Asamblea");
+		frame.getContentPane().add(btnCrearNuevaAsamblea);
+		btnCrearNuevaAsamblea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){   
+					
+				CrearAsambleasModel model = new CrearAsambleasModel();
+				CrearAsambleasView view = new CrearAsambleasView();
+				CrearAsambleasController controller = new CrearAsambleasController(model, view);
+				controller.initController();
+			}
+		});
+			
+		
+						
 	}
-
+	
+	
 	public JFrame getFrame() { return this.frame; }
 	
 }

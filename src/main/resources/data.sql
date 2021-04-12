@@ -49,7 +49,7 @@ insert into recibo (id_recibo, num_recibo , concepto , fecha_valor , fecha_emisi
 
 
 
-insert into asamblea (id_asamblea , tipo , orden_dia , fecha , hora) values 
+insert into asamblea (id_asamblea , tipo , orden_dia , fecha , hora1, hora2) values 
 
       (1, 'Ordinaria', '1.Limpieza Ventanas 2.Limpieza Escalera', '2021-03-15', 17:00:00),
       (2, 'Extraordinaria', '1.Arreglo luces 2.Limpieza Ventanas 3.Sacar basura', '2021-04-20', 12:00:00),
