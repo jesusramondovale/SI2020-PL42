@@ -7,12 +7,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import giis.demo.ProyectoClub.Controller.CrearAsambleasController;
-import giis.demo.ProyectoClub.Controller.MostrarInstalacionesController;
-import giis.demo.ProyectoClub.Model.CrearAsambleasModel;
-import giis.demo.ProyectoClub.Model.MostrarInstalacionesModel;
-import giis.demo.ProyectoClub.View.CrearAsambleasView;
-import giis.demo.ProyectoClub.View.MostrarInstalacionesView;
+
+import giis.demo.ProyectoClub.Controller.MostrarSociosController;
+import giis.demo.ProyectoClub.Model.MostrarSociosModel;
+import giis.demo.ProyectoClub.View.MostrarSociosView;
 import giis.demo.tkrun.*;
 
 /**
@@ -92,30 +90,18 @@ public class SwingMain {
 		
 		frame.getContentPane().add(btnCargarDatosIniciales);
 		
-		JButton btnMostrarInstalacionesDisponibles = new JButton("Mostrar Instalaciones Disponibles");
-		frame.getContentPane().add(btnMostrarInstalacionesDisponibles);
-		btnMostrarInstalacionesDisponibles.addActionListener(new ActionListener() {
+		JButton btnMostrarSocios = new JButton("Mostrar Socios");
+		frame.getContentPane().add(btnMostrarSocios);
+		btnMostrarSocios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){   
 				
-				MostrarInstalacionesModel model = new MostrarInstalacionesModel();
-				MostrarInstalacionesView view = new MostrarInstalacionesView();
-				MostrarInstalacionesController controller = new MostrarInstalacionesController(model, view);
+				MostrarSociosModel model = new MostrarSociosModel();
+				MostrarSociosView view = new MostrarSociosView();
+				MostrarSociosController controller = new MostrarSociosController(model, view);
 				controller.initController();
 				
 			}
 		
-		});
-		
-		JButton btnCrearNuevaAsamblea = new JButton("Crear Nueva Asamblea");
-		frame.getContentPane().add(btnCrearNuevaAsamblea);
-		btnCrearNuevaAsamblea.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){   
-					
-				CrearAsambleasModel model = new CrearAsambleasModel();
-				CrearAsambleasView view = new CrearAsambleasView();
-				CrearAsambleasController controller = new CrearAsambleasController(model, view);
-				controller.initController();
-			}
 		});
 			
 		
