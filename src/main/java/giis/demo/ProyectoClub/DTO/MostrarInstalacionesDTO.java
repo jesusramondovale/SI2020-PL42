@@ -1,51 +1,96 @@
 package giis.demo.ProyectoClub.DTO;
 
-import java.sql.Date;
-import java.sql.Time;
+
+
 
 public class MostrarInstalacionesDTO {
 
-	private String tipo;
-	private Date fecha;
-	private Time horaIni ;
-	private Time horaFin ;
 	
-	public MostrarInstalacionesDTO(){}
-	public MostrarInstalacionesDTO(String tipo, Date fecha, Time horaIni, Time horaFin){
-		this.fecha = fecha;
-		this.tipo = tipo;
-		this.horaIni = horaIni;
-		this.horaFin = horaFin;
+	private int idReserva;
+	private int idSocio;
+	private String instalacion;
+	private String fechaReserva;
+	private String horaInicio ;
+	private String horaFin ;
+	
+	
+
+	public MostrarInstalacionesDTO() {}
+
+	public MostrarInstalacionesDTO(int idReserva, int idSocio, String instalacion, String fechaReserva, String horaInicio,
+			String horaFin) {
 		
+		this.idReserva = idReserva;
+		this.idSocio = idSocio;
+		this.instalacion = instalacion;
+		this.fechaReserva = fechaReserva;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
 	}
 	
 	
-	public String getTipo() {
-		return tipo;
+	
+	public MostrarInstalacionesDTO(int idReserva, String instalacion, String fechaReserva, String horaInicio,
+			String horaFin) {
+		super();
+		this.idReserva = idReserva;
+		this.instalacion = instalacion;
+		this.fechaReserva = fechaReserva;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+
+	public String getInstalacion() {
+		return instalacion;
+	}
+	public void setInstalacion(String tipo) {
+		this.instalacion = tipo;
 	}
 	
-	public Date getFecha() {
-		return fecha;
+	public String getFechaReserva() {
+		return fechaReserva;
 	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-	
-	public Time getHoraIni() {
-		return horaIni;
-	}
-	public void setHoraIni(Time horaIni) {
-		this.horaIni = horaIni;
+	public void setFechaReserva(String fecha) {
+		this.fechaReserva = fecha;
 	}
 	
-	public Time getHoraFin() {
+	public String getHoraInicio() {
+		return horaInicio;
+	}
+	public void setHoraInicio(String horaIni) {
+		this.horaInicio = horaIni;
+	}
+	
+	public String getHoraFin() {
 		return horaFin;
 	}
-	public void setHoraFin(Time horaFin) {
+	public void setHoraFin(String horaFin) {
 		this.horaFin = horaFin;
+	}
+	
+	@Override
+	public String toString() {
+		return "Instalación [Tipo: " + instalacion + "Fecha=" + fechaReserva + ", Hora Ini=" + horaInicio + ", Hora Fin=" + horaFin + "]";
+	}
+
+
+	public int getIdReserva() {
+		return idReserva;
+	}
+
+
+	public void setIdReserva(int idReserva) {
+		this.idReserva = idReserva;
+	}
+
+
+	public int getIdSocio() {
+		return idSocio;
+	}
+
+
+	public void setIdSocio(int idSocio) {
+		this.idSocio = idSocio;
 	}
 	
 	

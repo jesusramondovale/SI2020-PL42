@@ -66,6 +66,7 @@ public class CarrerasController {
 	 * y usar metodo de SwingUtil para crear un tablemodel que se asigna finalmente a la tabla.
 	 */
 	public void getListaCarreras() {
+		
 		List<CarreraDisplayDTO> carreras=model.getListaCarreras(Util.isoStringToDate(view.getFechaHoy()));
 		TableModel tmodel=SwingUtil.getTableModelFromPojos(carreras, new String[] {"id", "descr", "estado"});
 		view.getTablaCarreras().setModel(tmodel);
@@ -79,6 +80,9 @@ public class CarrerasController {
 		ComboBoxModel<Object> lmodel=SwingUtil.getComboModelFromList(carrerasList);
 		view.getListaCarreras().setModel(lmodel);
 	}
+	
+	
+	
 	/**
 	 * Restaura la informacion del detalle de la carrera para visualizar los valores correspondientes
 	 * a la ultima clave almacenada.
@@ -94,6 +98,9 @@ public class CarrerasController {
 			this.updateDetail();
 		}
 	}
+	
+	
+	
 	/**
 	 * Al seleccionar un item de la tabla muestra el detalle con el valor del porcentaje de descuento
 	 * de la carrera seleccinada y los valores de esta entidad

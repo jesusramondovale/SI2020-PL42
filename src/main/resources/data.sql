@@ -1,61 +1,81 @@
 --Datos para carga inicial de la base de datos
 
 delete from socio;
+INSERT INTO socio (idSocio,dniSocio,numLicencia,nombreSocio,apellido1Socio,apellido2socio,sexo,fechaNacimiento,club,numCuenta,cuota,dniTutor,dniTecnico) VALUES 
+	(1,'12345678P','11111','Pelayo','Argüelles','Paniagua','M','1988-06-25','Club Información','ES85 1234 5678 9101 1121 3141',15.60,'11223344T','22334455Z');
+INSERT INTO socio (idSocio,dniSocio,numLicencia,nombreSocio,apellido1Socio,apellido2socio,sexo,fechaNacimiento,club,numCuenta,cuota,dniTutor,dniTecnico) VALUES	
+	(2,'12345678J','22222','Jesus','Ramon','Do Vale','M','1995-12-07','Club Información','ES20 1111 2222 3333 4444 5555',15.60,'12312300M','57442168L');
+INSERT INTO socio (idSocio,dniSocio,numLicencia,nombreSocio,apellido1Socio,apellido2socio,sexo,fechaNacimiento,club,numCuenta,cuota,dniTutor,dniTecnico) VALUES
+	(3,'12345678C','33333','Inés','Nistal','Piquero','F','2004-02-11','Club Información','ES44 1515 1312 1110 9876 5432', 10.20,'56789101K','10850777D');
+
 delete from tecnico;
-delete from licencia;
-delete from recibo;
-delete from asamblea;
+INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellido2Tecnico,idLicencia, numCuenta,cuota) VALUES
+	(1,'22334455Z','Pelayo','Ramon','Nistal',4,'ES33 1616 1213 1111 9876 5432',27.00);
+INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellido2Tecnico,idLicencia,numCuenta,cuota) VALUES
+	(2,'10850777D','Jesús','Argüelles','Piquero',5,'ES55 1315 1413 1112 9876 5432',27.00);
 
-
-
-insert into socio(id, DNI , nombre , sexo  , fecha_nac, club , num_licencia , IBAN , cuota , DNI_tutor, DNI_tecnico) values 
+delete from juez;
+INSERT INTO juez(idJuez,dniJuez,nombreJuez,apellido1Juez,apellido2Juez,idLicencia, numCuenta,cuota) VALUES
+	(1,'11223344W','Ines','Paniagua','DoVale',6,'ES22 2626 2223 2121 8765 4321',27.00);
+INSERT INTO juez (idJuez,dniJuez,nombreJuez,apellido1Juez,apellido2Juez,idLicencia,numCuenta,cuota) VALUES
+	(2,'88866777C','Jesús','Nistal','Arguelles',7,'ES45 2325 2423 2112 8765 4321',27.00);	
 	
-        (1, 00000000A ,'Marta Perez Lopez','M','1965-12-06', 0000001, 'ES6000491500051234567892' , 250 ,  , 73264894D),
-        (2, 00000001B ,'Jorge Martinez Sanchez','H','1974-04-01', 0000002, 'ES6000446350056789567892' , 275 ,  , 4523194H),
-        (3, 00000002C  ,'Jesus Ramon Ramon','H','1998-06-04', 0000003, 'ES6000491475131245107892' , 220 ,  , 56410347R),
-        (4, 00000003D ,'Diego Gonzalez Prieto','H','1985-09-10', 0000004, 'ES4984491450151264037954' , 350 ,  , c); 
+delete from licencia;
+INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
+	(1,'PPA11111','Pagada');
+INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
+	(2,'PPA22222','Pagada');
+INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
+	(3,'PPA33333','Pendiente de pago');
+INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
+	(4,'PPA44444','Pagada');
+INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES
+	(5,'PPA55555','Pagada');
+
+delete from reservas;
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(1,1,'Piscina','2021-04-16','8.30','9.30');
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(2,2,'Gimnasio','2021-04-16','9.30','10.30');
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(3,3,'Campo','2021-04-16','10.30','11.30');
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(4,4,'Galería','2021-04-16','11.30','12.30');
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(5,5,'Cancha de baloncesto','2021-04-16','12.30','13.00');
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(6,6,'Pista de tenis','2021-04-16','13.30','14.30');
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(7,7,'Campo de rugby','2021-04-16','11.30','12.30');
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(8,8,'Campo de hockey','2021-04-16','11.30','12.30');
+INSERT INTO reservas (idReserva,idSocio,instalacion,fechaReserva,horaInicio,horaFin) VALUES
+	(9,9,'Pista de Atletismo','2021-04-16','11.30','12.30');
 
 
+delete from asambleas;
+INSERT INTO asambleas (idAsamblea,tipo,ordenDia,fechaAsamblea,hora1,hora2) VALUES
+	(1,'Ordinaria','Presentacion de la mesa y lectura de presupuestos','2021-04-02',10.00,11.00);
+INSERT INTO asambleas (idAsamblea,tipo,ordenDia,fechaAsamblea,hora1,hora2) VALUES
+	(2,'Extraordinaria','','2021-03-30',12.00,13.00);
 
-insert into tecnico (id_tecnico , DNI_tecnico , nombre_tecnico, num_licencia) values 
-
-       (1, 73264894D, 'Rodrigo Nuñez Gavela', 696969), 
-       (2, 4523194H , 'Mario Mendez Martinez', 888888), 
-       (3, 56410347R, 'Maria Rodriguez Prieto', 123123),
-       (4, 65138741S, 'Luis Ramon Guerrero', 987987); 
-
-
-
-
-insert into licencia (id_licencia , num_licencia, estado) values 
-
-       (1, 0000001, 'Pagada'), 
-       (2, 0000002, 'Pendiente'),
-       (3, 0000003, 'Pendiente'),
-       (4, 0000004, 'Pagada'), 
-       (5, 696969 , 'Pagada'),
-       (6, 888888 , 'Pagada'),
-       (7, 123123 , 'Pagada'),
-       (8, 987987 , 'Pagada');
-
-
-
-insert into recibo (id_recibo, num_recibo , concepto , fecha_valor , fecha_emision , datos_socio ) values 
-     
-      (1, 000001, 'Pago matricula total', '2020-05-17', 2020-05-22', 'Marta Perez Lopez'),
-      (2, 000002, 'Pago matricula parcial', '2020-11-07', 2020-11-13', 'Jorge Martinez Sanchez'),
-      (3, 000003, 'Pago matricula', '2021-01-02', 2021-01-06', 'Jesus Ramon Ramon'),
-      (4, 000004, 'Reserva', '2021-02-14', 2021-02-21', 'Diego Gonzalez Prieto'); 
-
-
-
-insert into asamblea (id_asamblea , tipo , orden_dia , fecha , hora1, hora2) values 
-
-      (1, 'Ordinaria', '1.Limpieza Ventanas 2.Limpieza Escalera', '2021-03-15', 17:00:00),
-      (2, 'Extraordinaria', '1.Arreglo luces 2.Limpieza Ventanas 3.Sacar basura', '2021-04-20', 12:00:00),
-      (3, 'Ordinaria', '1.Eleccion presidente 2.Arreglo caldera', '2021-03-15', 15:15:00),
-      (4, 'Extraordinaria', '1.Reparto tareas limpieza 2.Contratacion portero', '2021-03-23', 16:30:00); 
-
+delete from instalacion;
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
+	(1, 'Piscina');
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
+	(2, 'Gimnasio');
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
+	(3, 'Pista de atletismo');
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
+	(4, 'Cancha de baloncesto');
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
+	(5, 'Cancha de balonmano');
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
+	(6, 'Pista de tenis');
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
+	(7, 'Campo de hockey');
+INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
+	(8, 'Campo de rugby');
 
 
 

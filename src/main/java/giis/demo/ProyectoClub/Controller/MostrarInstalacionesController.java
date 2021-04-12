@@ -1,6 +1,6 @@
 package giis.demo.ProyectoClub.Controller;
 
-import java.util.Date;
+
 import java.util.List;
 
 
@@ -16,6 +16,13 @@ public class MostrarInstalacionesController {
 	private MostrarInstalacionesModel model;
 	private MostrarInstalacionesView view;
 	
+	public MostrarInstalacionesController(MostrarInstalacionesModel m, MostrarInstalacionesView v){
+	
+		this.model = m;
+		this.view = v;
+		this.initView();
+	
+	}
 	
 	public void initView() {
 		
@@ -24,6 +31,8 @@ public class MostrarInstalacionesController {
 	}
 	
 	public void initController(){
+		
+		this.view.getFrame().setVisible(true);
 		
 		//Funcion del botón APLICAR FILTRO -> Muestra la lista de instalaciones 
 		view.getBtnAplicarFiltro().addActionListener(e -> SwingUtil.exceptionWrapper(() -> getListaInstalaciones()));
@@ -34,19 +43,24 @@ public class MostrarInstalacionesController {
 	}
 	
 	
-	public MostrarInstalacionesController(MostrarInstalacionesModel m, MostrarInstalacionesView v){
-	
-		this.model = m;
-		this.view = v;
-		this.initView();
-	
-	}
-	
+	/**
+	 * La obtencion de la lista de instalaciones solo necesita obtener la lista de objetos del modelo 
+	 * y usar metodo de SwingUtil para crear un tablemodel que se asigna finalmente a la tabla.
+	 */
 	public void getListaInstalaciones() {
 		
-		List<MostrarInstalacionesDTO> listaInstalaciones=model.getListaInstalaciones((Date) Util.isoStringToDate(view.getFecha()),view.getTipo());
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(listaInstalaciones, new String[] {"TIPO", "FECHA", "HORA DE INICIO", "HORA DE FIN"});
+		//System.out.println("\n Fecha seleccionada : " + view.getFecha() );
+		//System.out.println("\n Tipo seleccionado : " + view.getTipo());
 		
+		// Delega en la capa Modelo para que se encargue de ejecutar las consultas
+		List<MostrarInstalacionesDTO> instalaciones=model.getListaInstalaciones(Util.isoStringToDate(view.getFecha()),view.getTipo());
+		//System.out.println("\n Aqui llega" );
+		
+		// Crea un objeto tabla del GUI con los valores devueltos de las instalaciones
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(instalaciones, new String[] { 
+										"idReserva", "idSocio" , "instalacion", "fechaReserva", "horaInicio", "horaFin"});
+		
+		// Asigna a la tabla de la vista el modelo generado
 		view.getTablaInstalaciones().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTablaInstalaciones());
 			
@@ -54,9 +68,14 @@ public class MostrarInstalacionesController {
 	
 	public void reseteaTablaInstalaciones(){
 		
-		List<MostrarInstalacionesDTO> listaInstalaciones=model.getInstalacionesTrasBorrado();
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(listaInstalaciones, new String[] {"TIPO", "FECHA", "HORA DE INICIO", "HORA DE FIN"});
+		// Delega en la capa Modelo para que se encargue de ejecutar las consultas
+		List<MostrarInstalacionesDTO> instalaciones=model.getInstalacionesTrasBorrado();
 		
+		// Crea un objeto tabla del GUI con los datos devueltos de las consultas 
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(instalaciones, new String[] {
+										"idReserva", "idSocio" ,"instalacion","fechaReserva", "horaInicio", "horaFin"});
+		
+		// Asigna a la nueva tabla reseteada de la vista el modelo generado
 		view.getTablaInstalaciones().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTablaInstalaciones());
 		

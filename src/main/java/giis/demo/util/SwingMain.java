@@ -7,11 +7,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import giis.demo.ProyectoClub.Controller.CrearAsambleasController;
 import giis.demo.ProyectoClub.Controller.MostrarInstalacionesController;
-import giis.demo.ProyectoClub.Model.CrearAsambleasModel;
 import giis.demo.ProyectoClub.Model.MostrarInstalacionesModel;
-import giis.demo.ProyectoClub.View.CrearAsambleasView;
 import giis.demo.ProyectoClub.View.MostrarInstalacionesView;
 import giis.demo.tkrun.*;
 
@@ -92,9 +89,10 @@ public class SwingMain {
 		
 		frame.getContentPane().add(btnCargarDatosIniciales);
 		
-		JButton btnMostrarInstalacionesDisponibles = new JButton("Mostrar Instalaciones Disponibles");
-		frame.getContentPane().add(btnMostrarInstalacionesDisponibles);
-		btnMostrarInstalacionesDisponibles.addActionListener(new ActionListener() {
+		JButton btnMostrarInstalaciones = new JButton("Mostrar Instalaciones");
+		frame.getContentPane().add(btnMostrarInstalaciones);
+		
+		btnMostrarInstalaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){   
 				
 				MostrarInstalacionesModel model = new MostrarInstalacionesModel();
@@ -106,19 +104,7 @@ public class SwingMain {
 		
 		});
 		
-		JButton btnCrearNuevaAsamblea = new JButton("Crear Nueva Asamblea");
-		frame.getContentPane().add(btnCrearNuevaAsamblea);
-		btnCrearNuevaAsamblea.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){   
-					
-				CrearAsambleasModel model = new CrearAsambleasModel();
-				CrearAsambleasView view = new CrearAsambleasView();
-				CrearAsambleasController controller = new CrearAsambleasController(model, view);
-				controller.initController();
-			}
-		});
-			
-		
+
 						
 	}
 	
