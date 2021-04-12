@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import giis.demo.util.Util;
+import giis.demo.proyectoClub.DTO.JuezDTO;
 import giis.demo.proyectoClub.DTO.LicenciaDTO;
-import giis.demo.proyectoClub.DTO.SocioDTO;
-import giis.demo.proyectoClub.DTO.TecnicoDTO;
 import giis.demo.util.ApplicationException;
 import giis.demo.util.Database;
 /**
@@ -23,30 +22,29 @@ import giis.demo.util.Database;
  * <br/>Si utilizase algún otro framework para manejar la persistencia, la funcionalidad proporcionada por esta clase sería la asignada
  * a los Servicios, Repositorios y DAOs.
  */
-public class NuevoSocioModelo {
+public class NuevoJuezModel {
 	
 
 	private Database db=new Database();
 	
-	public void nuevoSocio(SocioDTO socio) {
+	public void nuevoJuez(JuezDTO juez) {
 		
 		Connection dbConnection=null;
 		PreparedStatement preparedStatement=null;
 		
-		String sql= "Insert INTO Socio (id_socio,dni,nombre,sexo,fechaNacimiento,club,licencia,tecnico)"
+		String sql= "Insert INTO juez (idJuez,dniJuez,nombreJuez,apellido1Juez,apellido2Juez,idLicencia,numCuenta,cuota)"
 				+ "VALUES (?,?,?,?,?,?,?,?)";
 		try {
 			dbConnection=db.getConnection();
 			preparedStatement=dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, socio.getIdSocio());
-			preparedStatement.setString(2, socio.getDni());
-			preparedStatement.setString(3, socio.getNombre());
-			preparedStatement.setString(4, socio.getSexo());
-			preparedStatement.setString(5, socio.getFechaNacimiento());
-			preparedStatement.setString(6, socio.getClub());
-			preparedStatement.setString(7, socio.getLicencia());
-			preparedStatement.setString(8, socio.getDniTecnico());
-			
+			preparedStatement.setInt(1, juez.getIdjuez());
+			preparedStatement.setString(2, juez.getDniJuez());
+			preparedStatement.setString(3, juez.getNombreJuez());
+			preparedStatement.setString(4, juez.getApellido1Juez());
+			preparedStatement.setString(5, juez.getApellido2Juez());
+			preparedStatement.setString(6, juez.getLicenciaJuez());
+			preparedStatement.setString(7, juez.getNumeroCuenta());
+			preparedStatement.setFloat(8, juez.getCuota());
 			preparedStatement.executeUpdate();
 			
 			dbConnection.close();
@@ -54,59 +52,6 @@ public class NuevoSocioModelo {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void nuevoSocioMenor(SocioDTO socio) {
-			
-			Connection dbConnection=null;
-			PreparedStatement preparedStatement=null;
-			
-			String sql= "Insert INTO Socio (id_socio,dni,nombre,sexo,fechaNacimiento,club,licencia,nombreTutor,dniTutor,tecnico)"
-					+ "VALUES (?,?,?,?,?,?,?,?)";
-			try {
-				dbConnection=db.getConnection();
-				preparedStatement=dbConnection.prepareStatement(sql);
-				preparedStatement.setInt(1, socio.getIdSocio());
-				preparedStatement.setString(2, socio.getDni());
-				preparedStatement.setString(3, socio.getNombre());
-				preparedStatement.setString(4, socio.getSexo());
-				preparedStatement.setString(5, socio.getFechaNacimiento());
-				preparedStatement.setString(6, socio.getClub());
-				preparedStatement.setString(7, socio.getLicencia());
-				preparedStatement.setString(8, socio.getNombreTutor());
-				preparedStatement.setString(9, socio.getDniTutor());
-				preparedStatement.setString(10, socio.getDniTecnico());
-				
-				preparedStatement.executeUpdate();
-				
-				dbConnection.close();
-				
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-	}
-	
-	public void nuevoTecnico(TecnicoDTO tec) {
-		
-		Connection dbConnection=null;
-		PreparedStatement preparedStatement=null;
-		String sql= "Insert INTO Tecnico (id_tecnico,dni,nombre,fechaNacimiento)"
-				+ "VALUES (?,?,?,?)";
-		try {
-			dbConnection=db.getConnection();
-			preparedStatement=dbConnection.prepareStatement(sql);
-			preparedStatement.setInt(1, tec.getIdTecnico());
-			preparedStatement.setString(2, tec.getDniTecnico());
-			preparedStatement.setString(3, tec.getNombreTecnico());
-			preparedStatement.setString(4, tec.getLicenciaTecnico());
-			preparedStatement.executeUpdate();
-			
-			dbConnection.close();
-		}catch(SQLException e) {
-		e.printStackTrace();
-		}
-
-
 	}
 	
 	public void nuevaLicencia(LicenciaDTO lic) {
@@ -128,6 +73,14 @@ public class NuevoSocioModelo {
 			e.printStackTrace();
 			}
 	}
+	
+	
+	
+
+
+	
+	
+	
 	
 	public int NextID(String id_buscar,  String tabla) {
 		Connection dbConnection=null;

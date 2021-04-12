@@ -13,11 +13,13 @@ import javax.swing.ComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import giis.demo.proyectoClub.DTO.JuezDTO;
 import giis.demo.proyectoClub.DTO.LicenciaDTO;
-import giis.demo.proyectoClub.DTO.SocioDTO;
-import giis.demo.proyectoClub.DTO.TecnicoDTO;
-import giis.demo.proyectoClub.View.SocioVista;
-import giis.demo.proyectoClub.model.NuevoSocioModelo;
+
+import giis.demo.proyectoClub.View.nuevoJuezVista;
+
+import giis.demo.proyectoClub.model.NuevoJuezModel;
+
 import giis.demo.util.ApplicationException;
 import giis.demo.util.SwingUtil;
 import giis.demo.util.Util;
@@ -28,17 +30,17 @@ import giis.demo.util.Util;
  * -instanciando el controlador con la vista y el modelo
  * -ejecutando initController que instalara los manejadores de eventos
  */
-public class NuevoSocioControlador {
-	private NuevoSocioModelo model;
-	private SocioVista view;
+public class NuevoJuezControlador {
+	private NuevoJuezModel model;
+	private nuevoJuezVista view;
 	
-	int edad;
-	boolean esMenor;
-	SocioDTO socio;
-	//TecnicoDTO tecnico;
+	float cuota;
+	
+	JuezDTO juez;
+	
 	LicenciaDTO licencia;
 
-	public NuevoSocioControlador(NuevoSocioModelo m, SocioVista v) {
+	public NuevoJuezControlador(NuevoJuezModel m, nuevoJuezVista v) {
 		this.model = m;
 		this.view = v;
 		//no hay inicializacion especifica del modelo, solo de la vista
@@ -81,61 +83,20 @@ public class NuevoSocioControlador {
 		
 	}
 	
-	public void edadSocio() {
-		
-		Date fecha=new Date();
-		try {
-			fecha = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH).parse(view.getTextFieldFechaNacimiento().toString());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Date hoy=new Date();
-		if(fecha.after(hoy)) {
-			view.Error("La fecha de nacimiento no puede ser posterior al día de hoy");
-		}
-		else {
-			long diff = hoy.getTime() - fecha.getTime();
-			Calendar c = Calendar.getInstance();
-			c.setTimeInMillis(diff);
 	
-			edad = 	c.get(Calendar.YEAR)-1970;
-			
-			if (edad< 18) {
-				view.getTextFieldDniTutor().setEditable(true);
-				view.getTextFieldNombreTutor().setEditable(true);
-				esMenor=true;
-			}
-			else {
-				view.getTextFieldDniTutor().setEditable(false);
-				view.getTextFieldNombreTutor().setEditable(false);
-				esMenor=false;
-			}
-		}
-		
-	}
 	public void introduceDatos() {
-		edadSocio();
-		int id_Socio=model.NextID("id_socio", "Socio");
-		int id_Tecnico=model.NextID("id_tecnico","Tecnico");
-		int id_Licencia=model.NextID("id_licencia", "Licencia");
+		cuota=(float) 27.00;
+		int id_Juez=model.NextID("idJuez","juez");
+		int id_Licencia=model.NextID("idLicencia", "Licencia");
 		//tecnico= new TecnicoDTO(id_Tecnico,view.getTextFieldNombreTecnico().getText(),view.getTextFieldDNITecnico().getText(),view.getTextFieldLicenciaTecnico().getText());
 		licencia= new LicenciaDTO(id_Licencia,view.getTextFieldLicencia().getText(),"Pendiente de Pago");
-		if(!esMenor) {
-			socio=new SocioDTO(id_Socio,view.getTextFieldNombre().getText(),view.getTextFieldDni().getText(),view.getTextFieldFechaNacimiento().getText(),
-					view.getTextFieldSexo().getText(),view.getTextFieldClub().getText(),view.getTextFieldLicencia().getText(),view.getTextFieldDniTecnico().getText());
-			model.nuevoSocio(socio);
-			//model.nuevoTecnico(tecnico);
+		
+			juez=new JuezDTO(id_Juez,view.getTextFieldDni().getText(),view.getTextFieldNombre().getText(),view.getTextFieldApellido1().getText(),
+					view.getTextFieldApellido2().getText(),view.getTextFieldLicencia().getText(),view.getTextFieldNumeroCuenta().getText(),cuota);
+			
+			model.nuevoJuez(juez);
 			model.nuevaLicencia(licencia);
-		}
-		else {
-			socio=new SocioDTO(id_Socio,view.getTextFieldNombre().getText(),view.getTextFieldDni().getText(),view.getTextFieldFechaNacimiento().getText(),
-					view.getTextFieldSexo().getText(),view.getTextFieldClub().getText(),view.getTextFieldLicencia().getText(),
-					view.getTextFieldNombreTutor().getText(),view.getTextFieldDniTutor().getText(),view.getTextFieldDniTecnico().getText());
-			model.nuevoSocioMenor(socio);
-			//model.nuevoTecnico(tecnico);
-			model.nuevaLicencia(licencia);
-		}
+		
 		
 	}
 	

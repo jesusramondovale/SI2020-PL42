@@ -9,10 +9,16 @@ INSERT INTO socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2socio,se
 	(3,'12345678C','Inés','Nistal','Piquero','F','2004-02-11','Club Información','PA33333','ES44 1515 1312 1110 9876 5432', 10.20,'56789101K','10850777D');
 
 delete from tecnico;
-INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellido2Tecnico,idLicencia) VALUES
-	(1,'22334455Z','Pelayo','Ramon','Nistal',4);
-INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellido2Tecnico,idLicencia) VALUES
-	(2,'10850777D','Jesús','Argüelles','Piquero',5);
+INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellido2Tecnico,idLicencia, numCuenta,cuota) VALUES
+	(1,'22334455Z','Pelayo','Ramon','Nistal',4,'ES33 1616 1213 1111 9876 5432',27.00);
+INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellido2Tecnico,idLicencia,numCuenta,cuota) VALUES
+	(2,'10850777D','Jesús','Argüelles','Piquero',5,'ES55 1315 1413 1112 9876 5432',27.00);
+
+delete from juez;
+INSERT INTO juez(idJuez,dniJuez,nombreJuez,apellido1Juez,apellido2Juez,idLicencia, numCuenta,cuota) VALUES
+	(1,'11223344W','Ines','Paniagua','DoVale',6,'ES22 2626 2223 2121 8765 4321',27.00);
+INSERT INTO juez (idJuez,dniJuez,nombreJuez,apellido1Juez,apellido2Juez,idLicencia,numCuenta,cuota) VALUES
+	(2,'88866777C','Jesús','Nistal','Arguelles',7,'ES45 2325 2423 2112 8765 4321',27.00);	
 	
 delete from licencia;
 INSERT INTO licencia (idLicencia,numLicencia,estadoLicencia) VALUES

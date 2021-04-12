@@ -28,6 +28,20 @@ CREATE TABLE tecnico (
 	apellido1Tecnico TEXT NOT NULL,
 	apellido2Tecnico TEXT NOT NULL,
 	idLicencia INTEGER,
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
+	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
+);
+drop table juez;
+CREATE TABLE juez (
+	idJuez INTEGER PRIMARY KEY AUTOINCREMENT,
+	dniJuez TEXT NOT NULL,
+	nombreJuez TEXT NOT NULL, 
+	apellido1Juez TEXT NOT NULL,
+	apellido2Juez TEXT NOT NULL,
+	idLicencia INTEGER,
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
 	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
 );
 

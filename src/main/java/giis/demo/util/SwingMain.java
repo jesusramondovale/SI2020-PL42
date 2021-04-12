@@ -7,18 +7,23 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import giis.demo.proyectoClub.Controller.NuevoJuezControlador;
 import giis.demo.proyectoClub.Controller.NuevoSocioControlador;
+import giis.demo.proyectoClub.Controller.NuevoTecnicoControlador;
 import giis.demo.proyectoClub.Controller.PagarLicenciaControlador;
 import giis.demo.proyectoClub.Controller.RealizarReservaController;
 import giis.demo.proyectoClub.Controller.ReciboCuotaController;
 import giis.demo.proyectoClub.Controller.RenovarLicenciaController;
-import giis.demo.proyectoClub.View.NuevoSocioVista;
 import giis.demo.proyectoClub.View.PagarLicenciaVista;
 import giis.demo.proyectoClub.View.RealizarReservaView;
 import giis.demo.proyectoClub.View.ReciboCuotaView;
 import giis.demo.proyectoClub.View.RenovarLicenciaView;
 import giis.demo.proyectoClub.View.SocioVista;
+import giis.demo.proyectoClub.View.nuevoJuezVista;
+import giis.demo.proyectoClub.View.nuevoTecnicoVista;
+import giis.demo.proyectoClub.model.NuevoJuezModel;
 import giis.demo.proyectoClub.model.NuevoSocioModelo;
+import giis.demo.proyectoClub.model.NuevoTecnicoModel;
 import giis.demo.proyectoClub.model.PagarLicenciaModelo;
 import giis.demo.proyectoClub.model.RealizarReservaModel;
 import giis.demo.proyectoClub.model.ReciboCuotaModel;
@@ -86,6 +91,26 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarNuevoSocio);
+		
+		JButton btnEjecutarNuevoTecnico = new JButton("Nuevo Tecnico");
+		btnEjecutarNuevoSocio.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				NuevoTecnicoControlador controller=new NuevoTecnicoControlador(new NuevoTecnicoModel(), new nuevoTecnicoVista());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnEjecutarNuevoTecnico);
+		
+		JButton btnEjecutarNuevoJuez = new JButton("Nuevo Juez");
+		btnEjecutarNuevoSocio.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				NuevoJuezControlador controller=new NuevoJuezControlador(new NuevoJuezModel(), new nuevoJuezVista());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnEjecutarNuevoJuez);
 
 		JButton btnEjecutarPagarLicencia = new JButton("PagarLicencia");
 		btnEjecutarPagarLicencia.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado

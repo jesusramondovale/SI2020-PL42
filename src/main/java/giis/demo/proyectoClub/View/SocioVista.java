@@ -20,9 +20,7 @@ public class SocioVista {
 	private JTextField textFieldSexo;
 	private JTextField textFieldClub;
 	private JTextField textFieldLicencia;
-	private JTextField textFieldNombreTecnico;
-	private JTextField textFieldDNITecnico;
-	private JTextField textFieldLicenciaTecnico;
+	private JTextField textFieldDniTecnico;
 	private JTextField textFieldNombreTutor;
 	private JTextField textFieldDniTutor;
 	private JCheckBox  chckbxDatos;
@@ -136,35 +134,15 @@ public class SocioVista {
 		lblNewLabel_8.setBounds(10, 300, 148, 14);
 		frame.getContentPane().add(lblNewLabel_8);
 		
-		JLabel lblNewLabel_9 = new JLabel("Nombre");
-		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_9.setBounds(10, 344, 90, 14);
-		frame.getContentPane().add(lblNewLabel_9);
-		
-		JLabel lblNewLabel_10 = new JLabel("DNI");
-		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_10.setBounds(10, 369, 46, 14);
-		frame.getContentPane().add(lblNewLabel_10);
-		
-		JLabel lblNewLabel_11 = new JLabel("Licencia");
+		JLabel lblNewLabel_11 = new JLabel("Dni");
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_11.setBounds(10, 394, 78, 14);
 		frame.getContentPane().add(lblNewLabel_11);
 		
-		textFieldNombreTecnico = new JTextField();
-		textFieldNombreTecnico.setBounds(160, 343, 176, 20);
-		frame.getContentPane().add(textFieldNombreTecnico);
-		textFieldNombreTecnico.setColumns(10);
-		
-		textFieldDNITecnico = new JTextField();
-		textFieldDNITecnico.setBounds(160, 368, 176, 20);
-		frame.getContentPane().add(textFieldDNITecnico);
-		textFieldDNITecnico.setColumns(10);
-		
-		textFieldLicenciaTecnico = new JTextField();
-		textFieldLicenciaTecnico.setBounds(160, 393, 176, 20);
-		frame.getContentPane().add(textFieldLicenciaTecnico);
-		textFieldLicenciaTecnico.setColumns(10);
+		textFieldDniTecnico = new JTextField();
+		textFieldDniTecnico.setBounds(160, 393, 176, 20);
+		frame.getContentPane().add(textFieldDniTecnico);
+		textFieldDniTecnico.setColumns(10);
 		
 		chckbxDatos = new JCheckBox("Acepto la cesion de mis datos personales");
 		chckbxDatos.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -258,29 +236,17 @@ public class SocioVista {
 		this.textFieldLicencia = textFieldLicencia;
 	}
 
-	public JTextField getTextFieldNombreTecnico() {
-		return textFieldNombreTecnico;
+	
+
+	public JTextField getTextFieldDniTecnico() {
+		return textFieldDniTecnico;
 	}
 
-	public void setTextFieldNombreTecnico(JTextField textFieldNombreTecnico) {
-		this.textFieldNombreTecnico = textFieldNombreTecnico;
+	public void setTextFieldDniTecnico(JTextField textFieldDniTecnico) {
+		this.textFieldDniTecnico = textFieldDniTecnico;
 	}
 
-	public JTextField getTextFieldDNITecnico() {
-		return textFieldDNITecnico;
-	}
-
-	public void setTextFieldDNITecnico(JTextField textFieldDNITecnico) {
-		this.textFieldDNITecnico = textFieldDNITecnico;
-	}
-
-	public JTextField getTextFieldLicenciaTecnico() {
-		return textFieldLicenciaTecnico;
-	}
-
-	public void setTextFieldLicenciaTecnico(JTextField textFieldLicenciaTecnico) {
-		this.textFieldLicenciaTecnico = textFieldLicenciaTecnico;
-	}
+	
 
 	public JTextField getTextFieldNombreTutor() {
 		return textFieldNombreTutor;
