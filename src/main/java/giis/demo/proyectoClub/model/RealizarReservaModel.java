@@ -34,7 +34,7 @@ public class RealizarReservaModel {
 		// TODO Auto-generated method stub
 		String sql = "INSERT INTO reservas (idSocio, instalacion, fechaReserva, horaInicio, horaFin) values (?,?,?,?,?)";
 		String fechaInicio = Util.dateToIsoString(fecha);
-		db.executeUpdate(sql, idSocio, instalacion, fecha, hinicio, hfin);
+		db.executeUpdate(sql, idSocio, instalacion, fechaInicio, hinicio, hfin);
 	}
 
 	public List<Object[]> obtenerID(String numLicencia) {
