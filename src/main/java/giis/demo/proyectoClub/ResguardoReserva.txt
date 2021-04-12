@@ -1,9 +1,23 @@
 RESGUARDO RESERVA DE INSTALACIÓN
 
-Reserva realizada por:Ines Nistal Piquero
-SOCIO PPA11111:
+Reserva realizada por:   
+SOCIO PA11111:
 
-Instalación reservada: campo de hockey
-Fecha de reserva: 12-04-2021
-Hora inicio de reserva: 08:00	Hora fin de reserva: 09:00
+Instalación reservada: gimnasio
+Fecha de reserva: 2021-04-12
+Hora inicio de reserva: 07:00	Hora fin de reserva: 09:00
+
+
+SOCIO PA22222:
+
+Instalación reservada: gimnasio
+Fecha de reserva: 2021-04-12
+Hora inicio de reserva: 07:00	Hora fin de reserva: 09:00
+
+
+SOCIO PA33333:
+
+Instalación reservada: gimnasio
+Fecha de reserva: 2021-04-12
+Hora inicio de reserva: 07:00	Hora fin de reserva: 09:00
 
