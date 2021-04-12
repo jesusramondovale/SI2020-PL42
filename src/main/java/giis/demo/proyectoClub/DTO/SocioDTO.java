@@ -10,10 +10,11 @@ public class SocioDTO {
 	private String licencia;
 	private String nombreTutor;
 	private String dniTutor;
+	private String dniTecnico;
 	
 	
 	public SocioDTO(int idSocio, String nombre, String dni, String fechaNacimiento, String sexo, String club,
-			String licencia, String nombreTutor, String dniTutor) {
+			String licencia, String nombreTutor,String dniTutor,String dniTecinco) {
 		super();
 		this.idSocio = idSocio;
 		this.nombre = nombre;
@@ -24,10 +25,11 @@ public class SocioDTO {
 		this.licencia = licencia;
 		this.nombreTutor = nombreTutor;
 		this.dniTutor = dniTutor;
+		this.dniTecnico= dniTecnico;
 	}
 	
 	public SocioDTO(int idSocio, String nombre, String dni, String fechaNacimiento, String sexo, String club,
-			String licencia) {
+			String licencia,String dniTecnico) {
 		super();
 		this.idSocio = idSocio;
 		this.nombre = nombre;
@@ -36,6 +38,7 @@ public class SocioDTO {
 		this.sexo = sexo;
 		this.club = club;
 		this.licencia = licencia;
+		this.dniTecnico= dniTecnico;
 		
 	}
 
@@ -109,6 +112,15 @@ public class SocioDTO {
 
 	public void setDniTutor(String dniTutor) {
 		this.dniTutor = dniTutor;
+	}
+	
+
+	public String getDniTecnico() {
+		return dniTecnico;
+	}
+
+	public void setDniTecnico(String dniTecnico) {
+		this.dniTecnico = dniTecnico;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellid
 delete from juez;
 INSERT INTO juez(idJuez,dniJuez,nombreJuez,apellido1Juez,apellido2Juez,idLicencia, numCuenta,cuota) VALUES
 	(1,'11223344W','Ines','Paniagua','DoVale',6,'ES22 2626 2223 2121 8765 4321',27.00);
-INSERT INTO tecnico (idTecnico,dniTecnico,nombreTecnico,apellido1Tecnico,apellido2Tecnico,idLicencia,numCuenta,cuota) VALUES
+INSERT INTO juez (idJuez,dniJuez,nombreJuez,apellido1Juez,apellido2Juez,idLicencia,numCuenta,cuota) VALUES
 	(2,'88866777C','Jesús','Nistal','Arguelles',7,'ES45 2325 2423 2112 8765 4321',27.00);	
 	
 delete from licencia;
