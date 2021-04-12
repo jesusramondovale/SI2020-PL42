@@ -7,10 +7,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
-import giis.demo.ProyectoClub.Controller.MostrarSociosController;
-import giis.demo.ProyectoClub.Model.MostrarSociosModel;
-import giis.demo.ProyectoClub.View.MostrarSociosView;
+import giis.demo.ProyectoClub.Controller.CrearAsambleasController;
+import giis.demo.ProyectoClub.Model.CrearAsambleasModel;
+import giis.demo.ProyectoClub.View.CrearAsambleasView;
 import giis.demo.tkrun.*;
 
 /**
@@ -90,14 +89,14 @@ public class SwingMain {
 		
 		frame.getContentPane().add(btnCargarDatosIniciales);
 		
-		JButton btnMostrarSocios = new JButton("Mostrar Socios");
-		frame.getContentPane().add(btnMostrarSocios);
-		btnMostrarSocios.addActionListener(new ActionListener() {
+		JButton btnAsambleas = new JButton("Crear Asamblea");
+		frame.getContentPane().add(btnAsambleas);
+		btnAsambleas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){   
 				
-				MostrarSociosModel model = new MostrarSociosModel();
-				MostrarSociosView view = new MostrarSociosView();
-				MostrarSociosController controller = new MostrarSociosController(model, view);
+				CrearAsambleasModel model = new CrearAsambleasModel();
+				CrearAsambleasView view = new CrearAsambleasView();
+				CrearAsambleasController controller = new CrearAsambleasController(model, view);
 				controller.initController();
 				
 			}
