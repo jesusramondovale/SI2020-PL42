@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import giis.demo.ProyectoClub.Controller.CrearAsambleasController;
-import giis.demo.ProyectoClub.Model.CrearAsambleasModel;
+import giis.demo.ProyectoClub.Model.CrearAsambleaModel;
 import giis.demo.ProyectoClub.View.CrearAsambleasView;
 import giis.demo.tkrun.*;
 
@@ -94,7 +94,7 @@ public class SwingMain {
 		btnAsambleas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){   
 				
-				CrearAsambleasModel model = new CrearAsambleasModel();
+				CrearAsambleaModel model = new CrearAsambleaModel();
 				CrearAsambleasView view = new CrearAsambleasView();
 				CrearAsambleasController controller = new CrearAsambleasController(model, view);
 				controller.initController();

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import org.apache.commons.lang3.math.NumberUtils;
 
 //import giis.demo.ProyectoClub.DTO.CrearAsambleasDTO;
-import giis.demo.ProyectoClub.Model.CrearAsambleasModel;
+import giis.demo.ProyectoClub.Model.CrearAsambleaModel;
 import giis.demo.ProyectoClub.View.CrearAsambleasView;
 import giis.demo.util.SwingUtil;
 import giis.demo.util.Util;
@@ -17,10 +17,10 @@ import giis.demo.util.Util;
 
 public class CrearAsambleasController {
 
-	private CrearAsambleasModel model; // No se usa 
+	private CrearAsambleaModel model; // No se usa 
 	private CrearAsambleasView view;
 
-	public CrearAsambleasController(CrearAsambleasModel m, CrearAsambleasView v) {
+	public CrearAsambleasController(CrearAsambleaModel m, CrearAsambleasView v) {
 		this.model = m;
 		this.view = v;
 		this.initView();
