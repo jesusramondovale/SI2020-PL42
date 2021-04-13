@@ -77,3 +77,15 @@ create table instalacion (
 		idInstalacion INTEGER PRIMARY KEY AUTOINCREMENT,
 		nombreInstalacion TEXT NOT NULL
 );
+
+drop table recibos;
+create table recibos (
+		idRecibo INTEGER PRIMARY KEY AUTOINCREMENT,
+		idSocio INTEGER,
+		fechaValor TEXT NOT NULL,
+		fechaEmision TEXT NOT NULL,
+		concepto TEXT NOT NULL,
+		importe TEXT NOT NULL,
+		numCuenta TEXT NOT NULL,
+		FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
+);

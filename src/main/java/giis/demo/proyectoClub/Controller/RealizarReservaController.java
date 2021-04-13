@@ -59,9 +59,9 @@ public class RealizarReservaController {
 		addLicencias();
 		eliminarDatosTabla();
 		view.setVisible(true);
-		
+
 		view.getRbtnIndividual().setSelected(true);
-		
+
 		view.getbCancelar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)));
 		view.getbAnadir().addActionListener(new ActionListener() {
 			@Override
@@ -71,7 +71,7 @@ public class RealizarReservaController {
 				view.getbReservar().setEnabled(true);
 			}
 		});
-		
+
 		view.getRbtnIndividual().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +83,7 @@ public class RealizarReservaController {
 				eliminarDatosTabla();
 			}
 		});
-		
+
 		view.getRbtnGrupo().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -95,7 +95,7 @@ public class RealizarReservaController {
 				eliminarDatosTabla();
 			}
 		});
-		
+
 		view.gettReservas().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -146,7 +146,7 @@ public class RealizarReservaController {
 	public void insertarFechaReserva(){
 
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 		Date fechaSistema = new Date(cal.getTimeInMillis());
 		String fecha = formatter.format(fechaSistema);
@@ -179,7 +179,7 @@ public class RealizarReservaController {
 
 		DefaultTableModel m = (DefaultTableModel) view.gettReservas().getModel();
 		Object [] datos = new Object[5];
-		
+
 		if(view.getRbtnIndividual().isSelected()) {
 			datos[0] = view.getTfNLicencia().getText();
 			datos[1] = view.getCbInstalacion().getSelectedItem().toString();
@@ -202,7 +202,7 @@ public class RealizarReservaController {
 
 		view.gettReservas().setModel(m);
 	}
-	
+
 	/**
 	 * Elimina la fila seleccionada de la tabla
 	 */
@@ -215,7 +215,7 @@ public class RealizarReservaController {
 		}
 		JOptionPane.showMessageDialog(null, "Selección eliminada");
 	}
-	
+
 	/**
 	 * Elimina todos las filas de la tabla
 	 */
@@ -227,32 +227,57 @@ public class RealizarReservaController {
 			m.removeRow(0);
 		}
 	}
-	
+
+	/**
+	 * 	Metodo para convertir el String de cbFecha a Date
+	 */
+	public static Date convFecha(String fecha) {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaDate = null;
+		try {
+			fechaDate = formato.parse(fecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fechaDate;
+	}
 	/**
 	 * Añadir la reserva del socio en la tabla reservas de la BD
 	 */
 	public void reservar() {
-
+		
+		DefaultTableModel m = (DefaultTableModel) view.gettReservas().getModel();
+		int f = view.gettReservas().getRowCount();
+		
 		int id = 0;
 		if(view.getRbtnIndividual().isSelected()) {
 			List<Object[]> idSocio = model.obtenerID(view.getTfNLicencia().getText());
 			for(int i = 0; i < idSocio.size(); i++) {
 				id = (Integer) idSocio.get(i)[i];
+				model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
+						convFecha(view.getCbFecha().getSelectedItem().toString()), 
+						view.getCbHInicio().getSelectedItem().toString(),
+						view.getCbHFin().getSelectedItem().toString());
 			}
 		}
 		else {
-			List<String> elem = view.getListGrupo().getSelectedValuesList();
-			for(int i = 0; i < elem.size(); i++) {
-				List<Object[]> idSocio = model.obtenerID(elem.get(i));
+			for(int i = 0; i < f; i++) {
+				String numLicencia = m.getValueAt(i, 0).toString();
+				List<Object[]> idSocio = model.obtenerID(numLicencia);
 				for(int j = 0; j < idSocio.size(); j++) {
 					id = (Integer) idSocio.get(j)[j];
+					model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
+							convFecha(view.getCbFecha().getSelectedItem().toString()), 
+							view.getCbHInicio().getSelectedItem().toString(),
+							view.getCbHFin().getSelectedItem().toString());
 				}
 			}
 		}
-		model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
+		/*model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
 				Util.isoStringToDate(view.getCbFecha().getSelectedItem().toString()), 
 				view.getCbHInicio().getSelectedItem().toString(),
-				view.getCbHFin().getSelectedItem().toString());
+				view.getCbHFin().getSelectedItem().toString());*/
 
 		generarResguardoReserva();
 

@@ -12,9 +12,11 @@ import giis.demo.proyectoClub.Controller.NuevoSocioControlador;
 import giis.demo.proyectoClub.Controller.NuevoTecnicoControlador;
 import giis.demo.proyectoClub.Controller.PagarLicenciaControlador;
 import giis.demo.proyectoClub.Controller.RealizarReservaController;
+import giis.demo.proyectoClub.Controller.ReciboCuotaController;
 import giis.demo.proyectoClub.Controller.RenovarLicenciaController;
 import giis.demo.proyectoClub.View.PagarLicenciaVista;
 import giis.demo.proyectoClub.View.RealizarReservaView;
+import giis.demo.proyectoClub.View.ReciboCuotaView;
 import giis.demo.proyectoClub.View.RenovarLicenciaView;
 import giis.demo.proyectoClub.View.SocioVista;
 import giis.demo.proyectoClub.View.nuevoJuezVista;
@@ -24,6 +26,7 @@ import giis.demo.proyectoClub.model.NuevoSocioModelo;
 import giis.demo.proyectoClub.model.NuevoTecnicoModel;
 import giis.demo.proyectoClub.model.PagarLicenciaModelo;
 import giis.demo.proyectoClub.model.RealizarReservaModel;
+import giis.demo.proyectoClub.model.ReciboCuotaModel;
 import giis.demo.proyectoClub.model.RenovarLicenciaModel;
 import giis.demo.tkrun.*;
 
@@ -138,6 +141,16 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnRenovarLicencia);
+		
+		JButton btnReciboCuota = new JButton("Recibo Cuota");
+		btnReciboCuota.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				ReciboCuotaController controller=new ReciboCuotaController(new ReciboCuotaModel(), new ReciboCuotaView());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnReciboCuota);
 
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
 		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
