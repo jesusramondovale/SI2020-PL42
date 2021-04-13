@@ -1,41 +1,83 @@
 --Primero se deben borrar todas las tablas (de detalle a maestro) y lugo anyadirlas (de maestro a detalle)
 --(en este caso en cada una de las aplicaciones (tkrun y descuento) se usa solo una tabla, por lo que no hace falta)
 
---Para giis.demo.tkrun:
+--Para giis.demo.proyectoClub
 
 drop table socio;
+CREATE TABLE socio (
+	idSocio INTEGER PRIMARY KEY AUTOINCREMENT,
+	dniSocio TEXT NOT NULL, 
+	numLicencia INTEGER NOT NULL,
+	nombreSocio TEXT NOT NULL, 
+	apellido1Socio TEXT NOT NULL,
+	apellido2Socio TEXT NOT NULL,
+	sexo TEXT NOT NULL,
+	fechaNacimiento DATE NOT NULL,
+	club TEXT NOT NULL,	
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
+	dniTutor TEXT,
+	dniTecnico TEXT
+);
+
 drop table tecnico;
+CREATE TABLE tecnico (
+	idTecnico INTEGER PRIMARY KEY AUTOINCREMENT,
+	dniTecnico TEXT NOT NULL,
+	nombreTecnico TEXT NOT NULL, 
+	apellido1Tecnico TEXT NOT NULL,
+	apellido2Tecnico TEXT NOT NULL,
+	idLicencia INTEGER,
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
+	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
+);
+drop table juez;
+CREATE TABLE juez (
+	idJuez INTEGER PRIMARY KEY AUTOINCREMENT,
+	dniJuez TEXT NOT NULL,
+	nombreJuez TEXT NOT NULL, 
+	apellido1Juez TEXT NOT NULL,
+	apellido2Juez TEXT NOT NULL,
+	idLicencia INTEGER,
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
+	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
+);
+
 drop table licencia;
-drop table recibo;
-drop table asamblea;
-drop table reserva;
+CREATE TABLE licencia (
+	idLicencia INTEGER PRIMARY KEY AUTOINCREMENT,
+	numLicencia TEXT NOT NULL,
+	estadoLicencia TEXT NOT NULL
+);
 
+drop table reservas;
+CREATE TABLE reservas (
+	idReserva INTEGER PRIMARY KEY AUTOINCREMENT,
+	idSocio INTEGER,
+	instalacion TEXT NOT NULL,
+	fechaReserva DATE NOT NULL,
+	horaInicio TEXT NOT NULL,
+	horaFin TEXT NOT NULL,
+	FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
+);
+ 
+drop table asambleas;
+create table asambleas (
+	idAsamblea INTEGER PRIMARY KEY AUTOINCREMENT,
+	tipo TEXT NOT NULL,
+	ordenDia TEXT NOT NULL,
+	fechaAsamblea DATE NOT NULL,
+	hora1 TEXT NOT NULL,
+	hora2 TEXT NOT NULL
+);
 
-create table Socio (id_socio int primary key not null, DNI varchar(12) not null, nombre varchar(32) not null, sexo varchar(1) not null, fecha_nac date not null, club varchar (12) not null, 
-                    num_licencia int not null, IBAN int not null, cuota int not null, DNI_tutor varchar (12), DNI_tecnico varchar(12),
-                    foreign key(DNI_tecnico) references tecnico(id_tecnico));  
-
-
-
-create table tecnico (id_tecnico int primary key not null, DNI_tecnico varchar (12) not null, nombre_tecnico varchar (32) not null, num_licencia int not null); 
-
-
-
-create table licencia (id_licencia int primary key not null, num_licencia int not null, estado varchar(12) not null);
-
-
-
-create table recibo (id_recibo int primary key not null, num_recibo int not null, concepto varchar(32) not null, fecha_valor date not null, fecha_emision date not null, datos_socio int not null,
-                    foreign key (datos_socio) references socio(id_socio)); 
-
-
-
-create table asamblea (id_asamblea int primary key not null, tipo varchar(12) not null, orden_dia varchar(120) not null, fecha date not null, hora_1 time not null, hora_2 time not null); 
-
-
-
-create table reserva (id_reserva primary key not null, id_socio int not null, tipo_instalacion varchar(32) not null, fecha date not null, hora_ini time not null, hora_fin time not null,
-                      foreign key (id_socio) references socio(id_socio)); 
+drop table instalacion;
+create table instalacion (
+		idInstalacion INTEGER PRIMARY KEY AUTOINCREMENT,
+		nombreInstalacion TEXT NOT NULL
+);
 
      
 
