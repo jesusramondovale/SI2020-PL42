@@ -1,0 +1,23 @@
+RESGUARDO RESERVA DE INSTALACIÓN
+
+Reserva realizada por:   
+SOCIO PA11111:
+
+Instalación reservada: gimnasio
+Fecha de reserva: 2021-04-12
+Hora inicio de reserva: 07:00	Hora fin de reserva: 09:00
+
+
+SOCIO PA22222:
+
+Instalación reservada: gimnasio
+Fecha de reserva: 2021-04-12
+Hora inicio de reserva: 07:00	Hora fin de reserva: 09:00
+
+
+SOCIO PA33333:
+
+Instalación reservada: gimnasio
+Fecha de reserva: 2021-04-12
+Hora inicio de reserva: 07:00	Hora fin de reserva: 09:00
+

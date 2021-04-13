@@ -1,7 +1,11 @@
 package giis.demo.proyectoClub.Controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,8 +15,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +27,8 @@ import javax.swing.text.View;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import giis.demo.proyectoClub.DTO.InstalacionDisplayDTO;
+import giis.demo.proyectoClub.DTO.SocioDTO;
+import giis.demo.proyectoClub.DTO.SocioDisplayDTO;
 import giis.demo.proyectoClub.View.RealizarReservaView;
 import giis.demo.proyectoClub.model.RealizarReservaModel;
 import giis.demo.util.SwingUtil;
@@ -31,13 +39,11 @@ public class RealizarReservaController {
 
 	private RealizarReservaModel model;
 	private RealizarReservaView view;
-	private String lastSelectedKey=""; //recuerda la ultima fila seleccionada para restaurarla cuando cambie la tabla de reservas
 
-	
 	public RealizarReservaController(RealizarReservaModel m, RealizarReservaView v) {
 		this.model = m;
 		this.view = v;
-		
+
 		this.initView();
 	}
 
@@ -50,26 +56,62 @@ public class RealizarReservaController {
 	public void initController() {
 		addInstalacion();
 		insertarFechaReserva();
+		addLicencias();
+		eliminarDatosTabla();
 		view.setVisible(true);
-		
+
+		view.getRbtnIndividual().setSelected(true);
+
 		view.getbCancelar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)));
-		view.getbAnadir().addActionListener(e -> SwingUtil.exceptionWrapper(() -> comprobarLicencia()));
-		
+		view.getbAnadir().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				addReserva();
+				view.getbReservar().setEnabled(true);
+			}
+		});
+
+		view.getRbtnIndividual().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				view.getListGrupo().setEnabled(false);
+				view.getlSeleccion().setEnabled(false);
+				view.getTfNLicencia().setEnabled(true);
+				view.getlNLicencia().setEnabled(true);
+				eliminarDatosTabla();
+			}
+		});
+
+		view.getRbtnGrupo().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				view.getTfNLicencia().setEnabled(false);
+				view.getlNLicencia().setEnabled(false);
+				view.getListGrupo().setEnabled(true);
+				view.getlSeleccion().setEnabled(true);
+				eliminarDatosTabla();
+			}
+		});
+
 		view.gettReservas().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				view.getbEliminar().setEnabled(true);
+				view.getbReservar().setEnabled(true);
 			}
 		});
-		
+
 		view.getbEliminar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> eliminarSeleccion()));
 		view.getbReservar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> reservar()));
-		
-		
+
+
 	}
 
 	public void initView() {
-		
+
 		//Abre la ventana (sustituye al main generado por WindowBuilder)
 		view.getRealizarReserva().setVisible(true); 
 	}	
@@ -97,117 +139,184 @@ public class RealizarReservaController {
 			}			
 		}
 	}
-	
+
+	/**
+	 * Metodo que añade a cbFecha el día actual y el día siguiente para realizar una reserva
+	 */
 	public void insertarFechaReserva(){
-		
+
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 		Date fechaSistema = new Date(cal.getTimeInMillis());
 		String fecha = formatter.format(fechaSistema);
 		view.getCbFecha().addItem(fecha);
-		
+
 		cal.setTime(fechaSistema);
 		cal.add(Calendar.DAY_OF_YEAR, 1);
 		Date fechaSig = cal.getTime();
 		String fecha2 = formatter.format(fechaSig);
 		view.getCbFecha().addItem(fecha2);
 	}
-	
-	public void comprobarLicencia() {
-		String nlicencia = view.getTfNLicencia().getText();
-		if(model.getNLicencia(nlicencia)==null) {
-			JOptionPane pane = new JOptionPane("El número de licencia introducido es erróneo.", 
-					JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
-			JDialog d = pane.createDialog(pane, "Nº licencia erróneo");
-			d.setLocation(200, 200);
-			d.setVisible(true);
+
+	/**
+	 * Metodo que añade a la lista los elementos de busqueda sql
+	 */
+	public void addLicencias() {
+		List<SocioDisplayDTO> socios = model.getLicencias();
+
+		DefaultListModel m = (DefaultListModel) view.getListGrupo().getModel();
+		for (int i = 0; i < socios.size(); i++) {
+			m.addElement(socios.get(i).getNumLicencia());
 		}
-		else {
-			comprobarNombre();
-		}
+		view.getListGrupo().setModel(m);
 	}
-	
-	public void comprobarNombre() {
-		String nombre = view.getTfNombre().getText();
-		String apellido1 = view.getTfApellido1().getText();
-		String apellido2 = view.getTfApellido2().getText();
-		if(model.getNombApe(nombre,apellido1,apellido2)==null) {
-			JOptionPane pane = new JOptionPane("Nombre o apellidos erroneos", 
-					JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
-			JDialog d = pane.createDialog(pane, "Error datos");
-			d.setLocation(200, 200);
-			d.setVisible(true);
-		}
-		else {
-			comprobarHoraReserva();
-		}
-	}
-	
-	public void comprobarHoraReserva() {
-		
-		float horaInicio = (float) Double.parseDouble((String) view.getCbHInicio().getSelectedItem());
-		float horaFin = (float) Double.parseDouble((String) view.getCbHFin().getSelectedItem());
-		
-		if(horaInicio-horaFin <= 0.0) {
-			JOptionPane pane = new JOptionPane("Las horas seleccionadas son incorrectas./nPor favor, seleccione horas distintas entre sí "
-					+ "o/ncompruebe que la hora de inicio sea inferior a la hora de fin.", 
-					JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
-			JDialog d = pane.createDialog(pane, "Error hora reserva");
-			d.setLocation(200, 200);
-			d.setVisible(true);
-		}
-		else {
-			addReserva();
-			view.getbReservar().setEnabled(true);
-		}
-	}
-	
+
+	/**
+	 * Método que añade la seleccion del socio en la tabla
+	 */
 	public void addReserva() {
-		
+
 		DefaultTableModel m = (DefaultTableModel) view.gettReservas().getModel();
-		
-		Object [] datos = new Object[6];
-		datos[0] = view.getTfNLicencia().getText();
-		datos[1] = view.getTfNombre().getText() + " " + view.getTfApellido1() + " " + view.getTfApellido2().getText();
-		datos[2] = view.getCbInstalacion().getSelectedItem().toString();
-		datos[3] = view.getCbFecha().getSelectedItem().toString();
-		datos[4] = view.getCbHInicio().getSelectedItem().toString();
-		datos[5] = view.getCbHFin().getSelectedItem().toString();
-		
-		m.addRow(datos);
+		Object [] datos = new Object[5];
+
+		if(view.getRbtnIndividual().isSelected()) {
+			datos[0] = view.getTfNLicencia().getText();
+			datos[1] = view.getCbInstalacion().getSelectedItem().toString();
+			datos[2] = view.getCbFecha().getSelectedItem().toString();
+			datos[3] = view.getCbHInicio().getSelectedItem().toString();
+			datos[4] = view.getCbHFin().getSelectedItem().toString();
+			m.addRow(datos);
+		} 
+		else {
+			List<String> elem = view.getListGrupo().getSelectedValuesList();
+			for(int i = 0; i < elem.size(); i++) {
+				datos[0] = elem.get(i);
+				datos[1] = view.getCbInstalacion().getSelectedItem().toString();
+				datos[2] = view.getCbFecha().getSelectedItem().toString();
+				datos[3] = view.getCbHInicio().getSelectedItem().toString();
+				datos[4] = view.getCbHFin().getSelectedItem().toString();
+				m.addRow(datos);
+			}
+		}
+
 		view.gettReservas().setModel(m);
 	}
-	
+
+	/**
+	 * Elimina la fila seleccionada de la tabla
+	 */
 	public void eliminarSeleccion() {
 		DefaultTableModel m = (DefaultTableModel) view.gettReservas().getModel();
 		int[] f = view.gettReservas().getSelectedRows();
+
+		for(int i = 0; i<f.length; i++) {
+			m.removeRow(f[i]-i);
+		}
+		JOptionPane.showMessageDialog(null, "Selección eliminada");
+	}
+
+	/**
+	 * Elimina todos las filas de la tabla
+	 */
+	public void eliminarDatosTabla() {
+		DefaultTableModel m = (DefaultTableModel) view.gettReservas().getModel();
+		int f = view.gettReservas().getRowCount();
+
+		for(int i = 0; i < f; i++) {
+			m.removeRow(0);
+		}
+	}
+
+	/**
+	 * 	Metodo para convertir el String de cbFecha a Date
+	 */
+	public static Date convFecha(String fecha) {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaDate = null;
+		try {
+			fechaDate = formato.parse(fecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fechaDate;
+	}
+	/**
+	 * Añadir la reserva del socio en la tabla reservas de la BD
+	 */
+	public void reservar() {
 		
-		if (f != null) {
-			
-			int confirmar = JOptionPane.showConfirmDialog(null,  "¿Está seguro de que desea eliminar la selección?");
-			if(JOptionPane.OK_OPTION==confirmar) {
-				for(int i = 0; i<f.length; i++) {
-					m.removeRow(f[i]-i);
-				}
-				JOptionPane.showMessageDialog(null, "Selección eliminada");
+		DefaultTableModel m = (DefaultTableModel) view.gettReservas().getModel();
+		int f = view.gettReservas().getRowCount();
+		
+		int id = 0;
+		if(view.getRbtnIndividual().isSelected()) {
+			List<Object[]> idSocio = model.obtenerID(view.getTfNLicencia().getText());
+			for(int i = 0; i < idSocio.size(); i++) {
+				id = (Integer) idSocio.get(i)[i];
+				model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
+						convFecha(view.getCbFecha().getSelectedItem().toString()), 
+						view.getCbHInicio().getSelectedItem().toString(),
+						view.getCbHFin().getSelectedItem().toString());
 			}
 		}
 		else {
-			JOptionPane pane = new JOptionPane("No hay reservas seleccionadas", 
-					JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
-			JDialog d = pane.createDialog(pane, "Aviso");
-			d.setLocation(200, 200);
-			d.setVisible(true);
+			for(int i = 0; i < f; i++) {
+				String numLicencia = m.getValueAt(i, 0).toString();
+				List<Object[]> idSocio = model.obtenerID(numLicencia);
+				for(int j = 0; j < idSocio.size(); j++) {
+					id = (Integer) idSocio.get(j)[j];
+					model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
+							convFecha(view.getCbFecha().getSelectedItem().toString()), 
+							view.getCbHInicio().getSelectedItem().toString(),
+							view.getCbHFin().getSelectedItem().toString());
+				}
+			}
 		}
-	}
-	
-	public void reservar() {
-		
-		int idSocio = model.obtenerSocio();
-		model.addReserva(idSocio, view.getCbInstalacion().getSelectedItem().toString(), 
+		/*model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
 				Util.isoStringToDate(view.getCbFecha().getSelectedItem().toString()), 
-				(float) Double.parseDouble(view.getCbHInicio().getSelectedItem().toString()),
-				(float) Double.parseDouble(view.getCbHFin().getSelectedItem().toString()));
+				view.getCbHInicio().getSelectedItem().toString(),
+				view.getCbHFin().getSelectedItem().toString());*/
+
+		generarResguardoReserva();
+
+		JOptionPane pane = new JOptionPane("Reserva realizada con éxito.\nSe ha generado el resguardo de la reserva."
+				+ "\nEnviado a: " + view.getTfCorreo().getText(), 
+				JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+		JDialog d = pane.createDialog(pane, "Reserva realizada.");
+		d.setLocation(200, 200);
+		d.setVisible(true);
+	}
+
+	/**
+	 * Método que genera el resguardo de la reserva del socio
+	 */
+	public void generarResguardoReserva() {
+		FileWriter f;
+		try {
+			f = new FileWriter("C:\\Users\\inipi\\OneDrive\\Documentos\\GitHub\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ResguardoReserva.txt");
+			f.write("RESGUARDO RESERVA DE INSTALACIÓN\n"
+					+ "\nReserva realizada por: " + view.getTfNombre().getText() + " " + view.getTfApellido1().getText() + " " + view.getTfApellido2().getText());
+			DefaultTableModel m = (DefaultTableModel) view.gettReservas().getModel();
+			for(int i = 0; i < m.getRowCount(); i++) {
+				String nLicencia = (String) m.getValueAt(i, 0);
+				String inst = view.getCbInstalacion().getSelectedItem().toString();
+				String fecha = view.getCbFecha().getSelectedItem().toString();
+				String hinicio = view.getCbHInicio().getSelectedItem().toString();
+				String hfin = view.getCbHFin().getSelectedItem().toString();
+				f.write("\nSOCIO " + nLicencia + ":\n"
+						+ "\nInstalación reservada: " + inst
+						+ "\nFecha de reserva: " + fecha
+						+ "\nHora inicio de reserva: " + hinicio
+						+ "\tHora fin de reserva: " + hfin
+						+ "\n\n");
+			}
+			f.close();
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -2,40 +2,53 @@ package giis.demo.proyectoClub.DTO;
 
 public class SocioDTO {
 	private int idSocio;
-	private String nombre;
 	private String dni;
+	private String nombre;
+	private String apellido1;
+	private String apellido2;
 	private String fechaNacimiento;
 	private String sexo;
 	private String club;
 	private String licencia;
-	private String nombreTutor;
+	private String numCuenta;
+	private float cuota;
 	private String dniTutor;
+	private String dniTecnico;
 	
 	
-	public SocioDTO(int idSocio, String nombre, String dni, String fechaNacimiento, String sexo, String club,
-			String licencia, String nombreTutor, String dniTutor) {
+	public SocioDTO(int idSocio, String dni, String nombre,String apellido1,String apellido2, String fechaNacimiento, String sexo, String club,
+			String licencia, String numCuenta,float cuota,String dniTutor,String dniTecnico) {
 		super();
 		this.idSocio = idSocio;
-		this.nombre = nombre;
 		this.dni = dni;
+		this.nombre = nombre;
+		this.apellido1=apellido1;
+		this.apellido2=apellido2;
 		this.fechaNacimiento = fechaNacimiento;
 		this.sexo = sexo;
 		this.club = club;
 		this.licencia = licencia;
-		this.nombreTutor = nombreTutor;
+		this.numCuenta=numCuenta;
+		this.cuota=cuota;
 		this.dniTutor = dniTutor;
+		this.dniTecnico= dniTecnico;
 	}
 	
-	public SocioDTO(int idSocio, String nombre, String dni, String fechaNacimiento, String sexo, String club,
-			String licencia) {
+	public SocioDTO(int idSocio, String dni, String nombre,String apellido1,String apellido2, String fechaNacimiento, String sexo, String club,
+			String licencia,String numCuenta,float cuota,String dniTecnico) {
 		super();
 		this.idSocio = idSocio;
-		this.nombre = nombre;
 		this.dni = dni;
+		this.nombre = nombre;
+		this.apellido1=apellido1;
+		this.apellido2=apellido2;
 		this.fechaNacimiento = fechaNacimiento;
 		this.sexo = sexo;
 		this.club = club;
 		this.licencia = licencia;
+		this.numCuenta=numCuenta;
+		this.cuota=cuota;
+		this.dniTecnico= dniTecnico;
 		
 	}
 
@@ -95,12 +108,40 @@ public class SocioDTO {
 		this.licencia = licencia;
 	}
 
-	public String getNombreTutor() {
-		return nombreTutor;
+	
+
+	public String getApellido1() {
+		return apellido1;
 	}
 
-	public void setNombreTutor(String nombreTutor) {
-		this.nombreTutor = nombreTutor;
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+	}
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
+	}
+
+	public String getNumCuenta() {
+		return numCuenta;
+	}
+
+	public void setNumCuenta(String numCuenta) {
+		this.numCuenta = numCuenta;
+	}
+	
+	
+
+	public float getCuota() {
+		return cuota;
+	}
+
+	public void setCuota(float cuota) {
+		this.cuota = cuota;
 	}
 
 	public String getDniTutor() {
@@ -110,13 +151,25 @@ public class SocioDTO {
 	public void setDniTutor(String dniTutor) {
 		this.dniTutor = dniTutor;
 	}
+	
+
+	public String getDniTecnico() {
+		return dniTecnico;
+	}
+
+	public void setDniTecnico(String dniTecnico) {
+		this.dniTecnico = dniTecnico;
+	}
 
 	@Override
 	public String toString() {
-		return "SocioDTO [idSocio=" + idSocio + ", nombre=" + nombre + ", dni=" + dni + ", fechaNacimiento="
-				+ fechaNacimiento + ", sexo=" + sexo + ", club=" + club + ", licencia=" + licencia + ", nombreTutor="
-				+ nombreTutor + ", dniTutor=" + dniTutor + "]";
+		return "SocioDTO [idSocio=" + idSocio + ", dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1
+				+ ", apellido2=" + apellido2 + ", fechaNacimiento=" + fechaNacimiento + ", sexo=" + sexo + ", club="
+				+ club + ", licencia=" + licencia + ", numCuenta=" + numCuenta + ", cuota=" + cuota + ", dniTutor="
+				+ dniTutor + ", dniTecnico=" + dniTecnico + "]";
 	}
+
+	
 	
 	
 	

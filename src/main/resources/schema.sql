@@ -13,7 +13,7 @@ CREATE TABLE socio (
 	sexo TEXT,
 	fechaNacimiento DATE NOT NULL,
 	club TEXT NOT NULL,
-	numLicencia INTEGER,
+	numLicencia TEXT NOT NULL,
 	numCuenta TEXT NOT NULL,
 	cuota FLOAT,
 	dniTutor TEXT,
@@ -28,6 +28,20 @@ CREATE TABLE tecnico (
 	apellido1Tecnico TEXT NOT NULL,
 	apellido2Tecnico TEXT NOT NULL,
 	idLicencia INTEGER,
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
+	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
+);
+drop table juez;
+CREATE TABLE juez (
+	idJuez INTEGER PRIMARY KEY AUTOINCREMENT,
+	dniJuez TEXT NOT NULL,
+	nombreJuez TEXT NOT NULL, 
+	apellido1Juez TEXT NOT NULL,
+	apellido2Juez TEXT NOT NULL,
+	idLicencia INTEGER,
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
 	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
 );
 
@@ -35,18 +49,8 @@ drop table licencia;
 CREATE TABLE licencia (
 	idLicencia INTEGER PRIMARY KEY AUTOINCREMENT,
 	numLicencia TEXT NOT NULL,
-	estadoLicencia TEXT NOT NULL
-);
-
-drop table recibo;
-CREATE TABLE recibo (
-	idRecibo INTEGER PRIMARY KEY AUTOINCREMENT,
-	numRecibo TEXT NOT NULL,
-	concepto TEXT NOT NULL,
-	fechaV DATE NOT NULL,
-	fechaE DATE NOT NULL,
-	idSocio INTEGER,
-	FOREIGN KEY (idSocio) REFERENCES socio(idSocio)
+	estadoLicencia TEXT NOT NULL,
+	precio FLOAT
 );
 
 drop table reservas;
@@ -55,7 +59,7 @@ CREATE TABLE reservas (
 	idSocio INTEGER,
 	instalacion TEXT NOT NULL,
 	fechaReserva DATE NOT NULL,
-	horaInicio TEXT NOT NULL,
+	horaInicio FLOAT NOT NULL,
 	horaFin TEXT NOT NULL,
 	FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
 );
@@ -75,4 +79,14 @@ create table instalacion (
 		nombreInstalacion TEXT NOT NULL
 );
 
-
+drop table recibos;
+create table recibos (
+		idRecibo INTEGER PRIMARY KEY AUTOINCREMENT,
+		idSocio INTEGER,
+		fechaValor TEXT NOT NULL,
+		fechaEmision TEXT NOT NULL,
+		concepto TEXT NOT NULL,
+		importe TEXT NOT NULL,
+		numCuenta TEXT NOT NULL,
+		FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
+);

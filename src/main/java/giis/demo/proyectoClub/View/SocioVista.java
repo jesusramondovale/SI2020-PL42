@@ -14,19 +14,23 @@ import javax.swing.JButton;
 public class SocioVista {
 
 	private JFrame frame;
-	private JTextField textFieldNombre;
 	private JTextField textFieldDni;
+	private JTextField textFieldNombre;
 	private JTextField textFieldFechaNacimiento;
 	private JTextField textFieldSexo;
 	private JTextField textFieldClub;
 	private JTextField textFieldLicencia;
-	private JTextField textFieldNombreTecnico;
-	private JTextField textFieldDNITecnico;
-	private JTextField textFieldLicenciaTecnico;
-	private JTextField textFieldNombreTutor;
+	private JTextField textFieldDniTecnico;
 	private JTextField textFieldDniTutor;
 	private JCheckBox  chckbxDatos;
 	private JButton btnCrearLicencia;
+	private JTextField textFieldApellido1;
+	private JTextField textFieldApellido2;
+	private JTextField textFieldNumCuenta;
+	private JLabel lblCuotaCalculada;
+	private JLabel lblDatosTutor;
+	private JLabel lblDniTutor;
+	private JCheckBox chckbxMenor;
 
 	/**
 	 * Launch the application.
@@ -73,133 +77,147 @@ public class SocioVista {
 		
 		JLabel lblNewLabel_2 = new JLabel("Nombre");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_2.setBounds(10, 96, 90, 14);
+		lblNewLabel_2.setBounds(10, 121, 90, 14);
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("DNI");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3.setBounds(10, 121, 46, 14);
+		lblNewLabel_3.setBounds(10, 96, 46, 14);
 		frame.getContentPane().add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Fecha de Nacimiento");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_4.setBounds(10, 146, 148, 14);
+		lblNewLabel_4.setBounds(10, 227, 148, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Sexo");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_5.setBounds(10, 171, 46, 14);
+		lblNewLabel_5.setBounds(10, 263, 46, 14);
 		frame.getContentPane().add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("Club");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_6.setBounds(10, 196, 46, 14);
+		lblNewLabel_6.setBounds(10, 288, 46, 14);
 		frame.getContentPane().add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("Licencia");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_7.setBounds(10, 221, 110, 14);
+		lblNewLabel_7.setBounds(10, 313, 110, 14);
 		frame.getContentPane().add(lblNewLabel_7);
 		
-		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(160, 95, 176, 20);
-		frame.getContentPane().add(textFieldNombre);
-		textFieldNombre.setColumns(10);
-		
 		textFieldDni = new JTextField();
-		textFieldDni.setBounds(160, 120, 176, 20);
+		textFieldDni.setBounds(160, 95, 176, 20);
 		frame.getContentPane().add(textFieldDni);
 		textFieldDni.setColumns(10);
 		
+		textFieldNombre = new JTextField();
+		textFieldNombre.setBounds(160, 120, 176, 20);
+		frame.getContentPane().add(textFieldNombre);
+		textFieldNombre.setColumns(10);
+		
 		textFieldFechaNacimiento = new JTextField();
-		textFieldFechaNacimiento.setBounds(160, 145, 176, 20);
+		textFieldFechaNacimiento.setBounds(161, 226, 176, 20);
 		frame.getContentPane().add(textFieldFechaNacimiento);
 		textFieldFechaNacimiento.setColumns(10);
 		
 		textFieldSexo = new JTextField();
-		textFieldSexo.setBounds(160, 170, 176, 20);
+		textFieldSexo.setBounds(160, 257, 176, 20);
 		frame.getContentPane().add(textFieldSexo);
 		textFieldSexo.setColumns(10);
 		
 		textFieldClub = new JTextField();
-		textFieldClub.setBounds(160, 195, 176, 20);
+		textFieldClub.setBounds(160, 287, 176, 20);
 		frame.getContentPane().add(textFieldClub);
 		textFieldClub.setColumns(10);
 		
 		textFieldLicencia = new JTextField();
-		textFieldLicencia.setBounds(160, 220, 176, 20);
+		textFieldLicencia.setBounds(160, 312, 176, 20);
 		frame.getContentPane().add(textFieldLicencia);
 		textFieldLicencia.setColumns(10);
 		
 		JLabel lblNewLabel_8 = new JLabel("Datos Técnico");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_8.setBounds(10, 300, 148, 14);
+		lblNewLabel_8.setBounds(10, 389, 148, 14);
 		frame.getContentPane().add(lblNewLabel_8);
 		
-		JLabel lblNewLabel_9 = new JLabel("Nombre");
-		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_9.setBounds(10, 344, 90, 14);
-		frame.getContentPane().add(lblNewLabel_9);
-		
-		JLabel lblNewLabel_10 = new JLabel("DNI");
-		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_10.setBounds(10, 369, 46, 14);
-		frame.getContentPane().add(lblNewLabel_10);
-		
-		JLabel lblNewLabel_11 = new JLabel("Licencia");
+		JLabel lblNewLabel_11 = new JLabel("Dni");
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_11.setBounds(10, 394, 78, 14);
+		lblNewLabel_11.setBounds(10, 414, 78, 14);
 		frame.getContentPane().add(lblNewLabel_11);
 		
-		textFieldNombreTecnico = new JTextField();
-		textFieldNombreTecnico.setBounds(160, 343, 176, 20);
-		frame.getContentPane().add(textFieldNombreTecnico);
-		textFieldNombreTecnico.setColumns(10);
-		
-		textFieldDNITecnico = new JTextField();
-		textFieldDNITecnico.setBounds(160, 368, 176, 20);
-		frame.getContentPane().add(textFieldDNITecnico);
-		textFieldDNITecnico.setColumns(10);
-		
-		textFieldLicenciaTecnico = new JTextField();
-		textFieldLicenciaTecnico.setBounds(160, 393, 176, 20);
-		frame.getContentPane().add(textFieldLicenciaTecnico);
-		textFieldLicenciaTecnico.setColumns(10);
+		textFieldDniTecnico = new JTextField();
+		textFieldDniTecnico.setBounds(160, 413, 176, 20);
+		frame.getContentPane().add(textFieldDniTecnico);
+		textFieldDniTecnico.setColumns(10);
 		
 		chckbxDatos = new JCheckBox("Acepto la cesion de mis datos personales");
 		chckbxDatos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxDatos.setBounds(3, 466, 333, 23);
 		frame.getContentPane().add(chckbxDatos);
 		
-		JLabel lblNewLabel_12 = new JLabel("Datos Tutor");
-		lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_12.setBounds(628, 60, 193, 14);
-		frame.getContentPane().add(lblNewLabel_12);
+		lblDatosTutor = new JLabel("Datos Tutor");
+		lblDatosTutor.setEnabled(false);
+		lblDatosTutor.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblDatosTutor.setBounds(628, 95, 193, 14);
+		frame.getContentPane().add(lblDatosTutor);
 		
-		JLabel lblNewLabel_13 = new JLabel("Nombre");
-		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_13.setBounds(628, 98, 78, 14);
-		frame.getContentPane().add(lblNewLabel_13);
-		
-		JLabel lblNewLabel_14 = new JLabel("DNI");
-		lblNewLabel_14.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_14.setBounds(628, 126, 46, 14);
-		frame.getContentPane().add(lblNewLabel_14);
-		
-		textFieldNombreTutor = new JTextField();
-		textFieldNombreTutor.setBounds(716, 95, 183, 20);
-		frame.getContentPane().add(textFieldNombreTutor);
-		textFieldNombreTutor.setColumns(10);
+		lblDniTutor = new JLabel("DNI");
+		lblDniTutor.setEnabled(false);
+		lblDniTutor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDniTutor.setBounds(628, 121, 46, 14);
+		frame.getContentPane().add(lblDniTutor);
 		
 		textFieldDniTutor = new JTextField();
+		textFieldDniTutor.setEnabled(false);
 		textFieldDniTutor.setBounds(716, 120, 183, 20);
 		frame.getContentPane().add(textFieldDniTutor);
 		textFieldDniTutor.setColumns(10);
 		
 		btnCrearLicencia = new JButton("Crear Licencia");
+		btnCrearLicencia.setEnabled(false);
 		btnCrearLicencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCrearLicencia.setBounds(751, 447, 148, 44);
 		frame.getContentPane().add(btnCrearLicencia);
+		
+		JLabel lblNewLabel_9 = new JLabel("Apellido1");
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9.setBounds(10, 151, 129, 20);
+		frame.getContentPane().add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_10 = new JLabel("Apellido2");
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_10.setBounds(10, 182, 78, 20);
+		frame.getContentPane().add(lblNewLabel_10);
+		
+		textFieldApellido1 = new JTextField();
+		textFieldApellido1.setBounds(160, 151, 176, 20);
+		frame.getContentPane().add(textFieldApellido1);
+		textFieldApellido1.setColumns(10);
+		
+		textFieldApellido2 = new JTextField();
+		textFieldApellido2.setBounds(160, 184, 176, 20);
+		frame.getContentPane().add(textFieldApellido2);
+		textFieldApellido2.setColumns(10);
+		
+		JLabel lblNewLabel_15 = new JLabel("Numero de cuenta");
+		lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_15.setBounds(10, 344, 129, 14);
+		frame.getContentPane().add(lblNewLabel_15);
+		
+		textFieldNumCuenta = new JTextField();
+		textFieldNumCuenta.setBounds(160, 343, 176, 20);
+		frame.getContentPane().add(textFieldNumCuenta);
+		textFieldNumCuenta.setColumns(10);
+		
+		lblCuotaCalculada = new JLabel("");
+		lblCuotaCalculada.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCuotaCalculada.setBounds(628, 315, 268, 29);
+		frame.getContentPane().add(lblCuotaCalculada);
+		
+		chckbxMenor = new JCheckBox("Soy menor , autorizado por un tutor");
+		chckbxMenor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxMenor.setBounds(628, 59, 268, 23);
+		frame.getContentPane().add(chckbxMenor);
 	}
 
 	public JFrame getFrame() {
@@ -211,19 +229,19 @@ public class SocioVista {
 	}
 
 	public JTextField getTextFieldNombre() {
-		return textFieldNombre;
-	}
-
-	public void setTextFieldNombre(JTextField textFieldNombre) {
-		this.textFieldNombre = textFieldNombre;
-	}
-
-	public JTextField getTextFieldDni() {
 		return textFieldDni;
 	}
 
+	public void setTextFieldNombre(JTextField textFieldNombre) {
+		this.textFieldDni = textFieldNombre;
+	}
+
+	public JTextField getTextFieldDni() {
+		return textFieldNombre;
+	}
+
 	public void setTextFieldDni(JTextField textFieldDni) {
-		this.textFieldDni = textFieldDni;
+		this.textFieldNombre = textFieldDni;
 	}
 
 	public JTextField getTextFieldFechaNacimiento() {
@@ -257,38 +275,52 @@ public class SocioVista {
 	public void setTextFieldLicencia(JTextField textFieldLicencia) {
 		this.textFieldLicencia = textFieldLicencia;
 	}
+	
+	
 
-	public JTextField getTextFieldNombreTecnico() {
-		return textFieldNombreTecnico;
+	
+
+	public JTextField getTextFieldApellido1() {
+		return textFieldApellido1;
 	}
 
-	public void setTextFieldNombreTecnico(JTextField textFieldNombreTecnico) {
-		this.textFieldNombreTecnico = textFieldNombreTecnico;
+	public void setTextFieldApellido1(JTextField textFieldApellido1) {
+		this.textFieldApellido1 = textFieldApellido1;
 	}
 
-	public JTextField getTextFieldDNITecnico() {
-		return textFieldDNITecnico;
+	public JTextField getTextFieldApellido2() {
+		return textFieldApellido2;
 	}
 
-	public void setTextFieldDNITecnico(JTextField textFieldDNITecnico) {
-		this.textFieldDNITecnico = textFieldDNITecnico;
+	public void setTextFieldApellido2(JTextField textFieldApellido2) {
+		this.textFieldApellido2 = textFieldApellido2;
 	}
 
-	public JTextField getTextFieldLicenciaTecnico() {
-		return textFieldLicenciaTecnico;
+	public JTextField getTextFieldNumCuenta() {
+		return textFieldNumCuenta;
 	}
 
-	public void setTextFieldLicenciaTecnico(JTextField textFieldLicenciaTecnico) {
-		this.textFieldLicenciaTecnico = textFieldLicenciaTecnico;
+	public void setTextFieldNumCuenta(JTextField textFieldNumCuenta) {
+		this.textFieldNumCuenta = textFieldNumCuenta;
 	}
 
-	public JTextField getTextFieldNombreTutor() {
+	public JTextField getTextFieldDniTecnico() {
+		return textFieldDniTecnico;
+	}
+
+	public void setTextFieldDniTecnico(JTextField textFieldDniTecnico) {
+		this.textFieldDniTecnico = textFieldDniTecnico;
+	}
+
+	
+
+	/*public JTextField getTextFieldNombreTutor() {
 		return textFieldNombreTutor;
 	}
 
 	public void setTextFieldNombreTutor(JTextField textFieldNombreTutor) {
 		this.textFieldNombreTutor = textFieldNombreTutor;
-	}
+	}*/
 
 	public JTextField getTextFieldDniTutor() {
 		return textFieldDniTutor;
@@ -314,6 +346,42 @@ public class SocioVista {
 		this.btnCrearLicencia = btnCrearLicencia;
 	}
 	
+	
+	
+	public JLabel getLblCuotaCalculada() {
+		return lblCuotaCalculada;
+	}
+
+	public void setLblCuotaCalculada(JLabel lblCuotaCalculada) {
+		this.lblCuotaCalculada = lblCuotaCalculada;
+	}
+	
+	
+
+	public JLabel getLblDatosTutor() {
+		return lblDatosTutor;
+	}
+
+	public void setLblDatosTutor(JLabel lblDatosTutor) {
+		this.lblDatosTutor = lblDatosTutor;
+	}
+
+	public JLabel getLblDniTutor() {
+		return lblDniTutor;
+	}
+
+	public void setLblDniTutor(JLabel lblDniTutor) {
+		this.lblDniTutor = lblDniTutor;
+	}
+
+	public JCheckBox getChckbxMenor() {
+		return chckbxMenor;
+	}
+
+	public void setChckbxMenor(JCheckBox chckbxMenor) {
+		this.chckbxMenor = chckbxMenor;
+	}
+
 	public void Error(String error) {
 		JOptionPane.showInputDialog(this, error);
 	}

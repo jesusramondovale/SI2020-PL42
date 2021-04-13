@@ -28,24 +28,28 @@ public class NuevoSocioModelo {
 
 	private Database db=new Database();
 	
-	public void nuevoSocio(SocioDTO socio, TecnicoDTO tec) {
+	public void nuevoSocio(SocioDTO socio) {
 		
 		Connection dbConnection=null;
 		PreparedStatement preparedStatement=null;
 		
-		String sql= "Insert INTO Socio (id_socio,dni,nombre,sexo,fechaNacimiento,club,licencia,tecnico)"
-				+ "VALUES (?,?,?,?,?,?,?,?)";
+		String sql= "Insert INTO Socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2Socio,sexo,fechaNacimiento,club,numLicencia,numCuenta,cuota,dniTecnico)"
+				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			dbConnection=db.getConnection();
 			preparedStatement=dbConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, socio.getIdSocio());
 			preparedStatement.setString(2, socio.getDni());
 			preparedStatement.setString(3, socio.getNombre());
-			preparedStatement.setString(4, socio.getSexo());
-			preparedStatement.setString(5, socio.getFechaNacimiento());
-			preparedStatement.setString(6, socio.getClub());
-			preparedStatement.setString(7, socio.getLicencia());
-			preparedStatement.setString(8, tec.getDniTecnico());
+			preparedStatement.setString(4, socio.getApellido1());
+			preparedStatement.setString(5, socio.getApellido2());
+			preparedStatement.setString(6, socio.getSexo());
+			preparedStatement.setString(7, socio.getFechaNacimiento());
+			preparedStatement.setString(8, socio.getClub());
+			preparedStatement.setString(9, socio.getLicencia());
+			preparedStatement.setString(10, socio.getNumCuenta());
+			preparedStatement.setFloat(11, socio.getCuota());
+			preparedStatement.setString(12, socio.getDniTecnico());
 			
 			preparedStatement.executeUpdate();
 			
@@ -56,26 +60,29 @@ public class NuevoSocioModelo {
 		}
 	}
 	
-	public void nuevoSocioMenor(SocioDTO socio, TecnicoDTO tec) {
+	public void nuevoSocioMenor(SocioDTO socio) {
 			
 			Connection dbConnection=null;
 			PreparedStatement preparedStatement=null;
 			
-			String sql= "Insert INTO Socio (id_socio,dni,nombre,sexo,fechaNacimiento,club,licencia,nombreTutor,dniTutor,tecnico)"
-					+ "VALUES (?,?,?,?,?,?,?,?)";
+			String sql= "Insert INTO Socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2Socio,sexo,fechaNacimiento,club,numLicencia,numCuenta,cuota,dniTutor,dniTecnico)"
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			try {
 				dbConnection=db.getConnection();
 				preparedStatement=dbConnection.prepareStatement(sql);
 				preparedStatement.setInt(1, socio.getIdSocio());
 				preparedStatement.setString(2, socio.getDni());
 				preparedStatement.setString(3, socio.getNombre());
-				preparedStatement.setString(4, socio.getSexo());
-				preparedStatement.setString(5, socio.getFechaNacimiento());
-				preparedStatement.setString(6, socio.getClub());
-				preparedStatement.setString(7, socio.getLicencia());
-				preparedStatement.setString(8, socio.getNombreTutor());
-				preparedStatement.setString(9, socio.getDniTutor());
-				preparedStatement.setString(10, tec.getDniTecnico());
+				preparedStatement.setString(4, socio.getApellido1());
+				preparedStatement.setString(5, socio.getApellido2());
+				preparedStatement.setString(6, socio.getSexo());
+				preparedStatement.setString(7, socio.getFechaNacimiento());
+				preparedStatement.setString(8, socio.getClub());
+				preparedStatement.setString(9, socio.getLicencia());
+				preparedStatement.setString(10, socio.getNumCuenta());
+				preparedStatement.setFloat(11, socio.getCuota());
+				preparedStatement.setString(12, socio.getDniTutor());
+				preparedStatement.setString(13, socio.getDniTecnico());
 				
 				preparedStatement.executeUpdate();
 				
@@ -86,7 +93,7 @@ public class NuevoSocioModelo {
 			}
 	}
 	
-	public void nuevoTecnico(TecnicoDTO tec) {
+	/*public void nuevoTecnico(TecnicoDTO tec) {
 		
 		Connection dbConnection=null;
 		PreparedStatement preparedStatement=null;
@@ -107,12 +114,12 @@ public class NuevoSocioModelo {
 		}
 
 
-	}
+	}*/
 	
 	public void nuevaLicencia(LicenciaDTO lic) {
 		Connection dbConnection=null;
 		PreparedStatement preparedStatement=null;
-		String sql= "Insert INTO Licencia (id_licencia,licencia,estado)"
+		String sql= "Insert INTO Licencia (idLicencia,numLicencia,estadoLicencia)"
 				+ "VALUES (?,?,?)";
 		try {
 			dbConnection=db.getConnection();

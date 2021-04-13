@@ -1,5 +1,7 @@
 package giis.demo.proyectoClub.Controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -16,7 +18,6 @@ import javax.swing.table.TableModel;
 import giis.demo.proyectoClub.DTO.LicenciaDTO;
 import giis.demo.proyectoClub.DTO.SocioDTO;
 import giis.demo.proyectoClub.DTO.TecnicoDTO;
-import giis.demo.proyectoClub.View.NuevoSocioVista;
 import giis.demo.proyectoClub.View.SocioVista;
 import giis.demo.proyectoClub.model.NuevoSocioModelo;
 import giis.demo.util.ApplicationException;
@@ -36,8 +37,10 @@ public class NuevoSocioControlador {
 	int edad;
 	boolean esMenor;
 	SocioDTO socio;
-	TecnicoDTO tecnico;
+	//TecnicoDTO tecnico;
 	LicenciaDTO licencia;
+	float cuota;
+	double descuento=0.4;
 
 	public NuevoSocioControlador(NuevoSocioModelo m, SocioVista v) {
 		this.model = m;
@@ -67,6 +70,18 @@ public class NuevoSocioControlador {
 				//SwingUtil.exceptionWrapper(() -> updateDetail());
 			//}
 		//});
+		view.getChckbxDatos().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.getBtnCrearLicencia().setEnabled(true);
+			}
+		});
+		view.getChckbxMenor().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.getLblDatosTutor().setEnabled(true);
+				view.getLblDniTutor().setEnabled(true);
+				view.getTextFieldDniTutor().setEnabled(true);
+			}
+		});
 	}
 	
 	public void initView() {
@@ -85,12 +100,13 @@ public class NuevoSocioControlador {
 	public void edadSocio() {
 		
 		Date fecha=new Date();
-		try {
-			fecha = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH).parse(view.getTextFieldFechaNacimiento().toString());
-		} catch (ParseException e) {
+		//try {
+			//fecha = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH).parse(view.getTextFieldFechaNacimiento().toString());
+			fecha = Util.isoStringToDate(view.getTextFieldFechaNacimiento().getText());
+		//} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		//}
 		Date hoy=new Date();
 		if(fecha.after(hoy)) {
 			view.Error("La fecha de nacimiento no puede ser posterior al día de hoy");
@@ -104,38 +120,63 @@ public class NuevoSocioControlador {
 			
 			if (edad< 18) {
 				view.getTextFieldDniTutor().setEditable(true);
-				view.getTextFieldNombreTutor().setEditable(true);
+				
 				esMenor=true;
 			}
 			else {
 				view.getTextFieldDniTutor().setEditable(false);
-				view.getTextFieldNombreTutor().setEditable(false);
+				
 				esMenor=false;
 			}
 		}
 		
 	}
-	public void introduceDatos() {
-		edadSocio();
-		int id_Socio=model.NextID("id_socio", "Socio");
-		int id_Tecnico=model.NextID("id_tecnico","Tecnico");
-		int id_Licencia=model.NextID("id_licencia", "Licencia");
-		tecnico= new TecnicoDTO(id_Tecnico,view.getTextFieldNombreTecnico().getText(),view.getTextFieldDNITecnico().getText(),view.getTextFieldLicenciaTecnico().getText());
-		licencia= new LicenciaDTO(id_Licencia,view.getTextFieldLicencia().getText(),"Pendiente de Pago");
-		if(!esMenor) {
-			socio=new SocioDTO(id_Socio,view.getTextFieldNombre().getText(),view.getTextFieldDni().getText(),view.getTextFieldFechaNacimiento().getText(),
-					view.getTextFieldSexo().getText(),view.getTextFieldClub().getText(),view.getTextFieldLicencia().getText());
-			model.nuevoSocio(socio, tecnico);
-			model.nuevoTecnico(tecnico);
-			model.nuevaLicencia(licencia);
+	
+	public float cuotaCalculada() {
+		cuota=(float)45.00;
+		Date fecha=new Date();
+		fecha = Util.isoStringToDate(view.getTextFieldFechaNacimiento().getText());
+		
+		Date hoy=new Date();
+		if(fecha.after(hoy)) {
+			view.Error("La fecha de nacimiento no puede ser posterior al día de hoy");
 		}
 		else {
-			socio=new SocioDTO(id_Socio,view.getTextFieldNombre().getText(),view.getTextFieldDni().getText(),view.getTextFieldFechaNacimiento().getText(),
-					view.getTextFieldSexo().getText(),view.getTextFieldClub().getText(),view.getTextFieldLicencia().getText(),
-					view.getTextFieldNombreTutor().getText(),view.getTextFieldDniTutor().getText());
-			model.nuevoSocioMenor(socio, tecnico);
-			model.nuevoTecnico(tecnico);
+			long diff = hoy.getTime() - fecha.getTime();
+			Calendar c = Calendar.getInstance();
+			c.setTimeInMillis(diff);
+			if (edad< 21 || edad > 50 ) {
+				cuota=(float)(cuota-(cuota*descuento));
+			}
+			
+			
+		}
+		return cuota;
+	}
+	
+	public void introduceDatos() {
+		edadSocio();
+		float cuotaFinal= cuotaCalculada();
+		int id_Socio=model.NextID("idSocio", "Socio");
+		int id_Licencia=model.NextID("idLicencia", "Licencia");
+		//tecnico= new TecnicoDTO(id_Tecnico,view.getTextFieldNombreTecnico().getText(),view.getTextFieldDNITecnico().getText(),view.getTextFieldLicenciaTecnico().getText());
+		licencia= new LicenciaDTO(id_Licencia,view.getTextFieldLicencia().getText(),"Pendiente de Pago");
+		if(!esMenor) {
+			socio=new SocioDTO(id_Socio,view.getTextFieldDni().getText(),view.getTextFieldNombre().getText(),view.getTextFieldApellido1().getText(),view.getTextFieldApellido2().getText(),view.getTextFieldFechaNacimiento().getText(),
+					view.getTextFieldSexo().getText(),view.getTextFieldClub().getText(),view.getTextFieldLicencia().getText(),view.getTextFieldNumCuenta().getText(),cuotaFinal,view.getTextFieldDniTecnico().getText());
+			model.nuevoSocio(socio);
+			//model.nuevoTecnico(tecnico);
 			model.nuevaLicencia(licencia);
+			view.getLblCuotaCalculada().setText("Cuota: "+ cuotaFinal);
+		}
+		else {
+			socio=new SocioDTO(id_Socio,view.getTextFieldDni().getText(),view.getTextFieldNombre().getText(),view.getTextFieldApellido1().getText(),view.getTextFieldApellido2().getText(),view.getTextFieldFechaNacimiento().getText(),
+					view.getTextFieldSexo().getText(),view.getTextFieldClub().getText(),view.getTextFieldLicencia().getText(),
+					view.getTextFieldNumCuenta().getText(),cuotaFinal,view.getTextFieldDniTutor().getText(),view.getTextFieldDniTecnico().getText());
+			model.nuevoSocioMenor(socio);
+			//model.nuevoTecnico(tecnico);
+			model.nuevaLicencia(licencia);
+			view.getLblCuotaCalculada().setText("Cuota: "+ cuotaFinal);
 		}
 		
 	}

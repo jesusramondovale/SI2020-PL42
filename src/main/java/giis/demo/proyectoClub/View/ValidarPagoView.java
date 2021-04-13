@@ -9,39 +9,31 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JCheckBox;
 
 public class ValidarPagoView extends JFrame {
 	
 	private JFrame ValidarPago;
 	private JLabel lSeleccion;
-	private JRadioButton rbLicencia;
-	private JButton bCancelar, bGenerarFichero;
+	private JButton bTramitar, bCancelar, bSeleccion, bAceptar;
+	private JTextField tfSeleccion;
+	private JCheckBox cbAlbaran;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ValidarPagoView frame = new ValidarPagoView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
 	public ValidarPagoView() {
 		
 		initialize();
-		
 	}
 	
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	public void initialize() {
 		
 		ValidarPago = new JFrame();
@@ -51,22 +43,39 @@ public class ValidarPagoView extends JFrame {
 		ValidarPago.getContentPane().setLayout(null);
 		getContentPane().setLayout(null);
 		
-		lSeleccion = new JLabel("Seleccione pago a comprobar:");
-		lSeleccion.setBounds(38, 33, 182, 14);
+		lSeleccion = new JLabel("Seleccionar fichero:");
+		lSeleccion.setBounds(35, 70, 126, 14);
 		getContentPane().add(lSeleccion);
 		
-		rbLicencia = new JRadioButton("Licencia");
-		rbLicencia.setBounds(68, 60, 111, 23);
-		getContentPane().add(rbLicencia);
-		
 		bCancelar = new JButton("Cancelar");
-		bCancelar.setBounds(38, 115, 89, 23);
+		bCancelar.setBounds(35, 175, 89, 23);
 		getContentPane().add(bCancelar);
 		
-		bGenerarFichero = new JButton("Generar fichero de movimientos");
-		bGenerarFichero.setEnabled(false);
-		bGenerarFichero.setBounds(197, 115, 202, 23);
-		getContentPane().add(bGenerarFichero);
+		bTramitar = new JButton("Tramitar licencias");
+		bTramitar.setEnabled(false);
+		bTramitar.setBounds(232, 124, 153, 23);
+		getContentPane().add(bTramitar);
+		
+		tfSeleccion = new JTextField();
+		tfSeleccion.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		tfSeleccion.setForeground(Color.GRAY);
+		tfSeleccion.setText("Seleccionar fichero de pago");
+		tfSeleccion.setEditable(false);
+		tfSeleccion.setBounds(171, 67, 140, 20);
+		getContentPane().add(tfSeleccion);
+		tfSeleccion.setColumns(10);
+		
+		bSeleccion = new JButton("Explorar");
+		bSeleccion.setBounds(321, 66, 89, 23);
+		getContentPane().add(bSeleccion);
+		
+		cbAlbaran = new JCheckBox("Generar albarán");
+		cbAlbaran.setBounds(35, 124, 159, 23);
+		getContentPane().add(cbAlbaran);
+		
+		bAceptar = new JButton("Aceptar");
+		bAceptar.setBounds(232, 175, 153, 23);
+		getContentPane().add(bAceptar);
 		
 	}
 	
@@ -78,12 +87,12 @@ public class ValidarPagoView extends JFrame {
 		ValidarPago = validarPago;
 	}
 
-	public JRadioButton getRbLicencia() {
-		return rbLicencia;
+	public JButton getbActualizar() {
+		return bTramitar;
 	}
 
-	public void setRbLicencia(JRadioButton rbLicencia) {
-		this.rbLicencia = rbLicencia;
+	public void setbActualizar(JButton bActualizar) {
+		this.bTramitar = bActualizar;
 	}
 
 	public JButton getbCancelar() {
@@ -94,13 +103,62 @@ public class ValidarPagoView extends JFrame {
 		this.bCancelar = bCancelar;
 	}
 
-	public JButton getbGenerarFichero() {
-		return bGenerarFichero;
+	public JButton getbSeleccion() {
+		return bSeleccion;
 	}
 
-	public void setbGenerarFichero(JButton bGenerarFichero) {
-		this.bGenerarFichero = bGenerarFichero;
+	public void setbSeleccion(JButton bSeleccion) {
+		this.bSeleccion = bSeleccion;
+	}
+
+	public JTextField getTfSeleccion() {
+		return tfSeleccion;
 	}
 	
+	public void setTfSeleccion(JTextField tfSeleccion) {
+		this.tfSeleccion = tfSeleccion;
+	}
+
+	/**
+	 * @return the bTramitar
+	 */
+	public JButton getbTramitar() {
+		return bTramitar;
+	}
+
+	/**
+	 * @param bTramitar the bTramitar to set
+	 */
+	public void setbTramitar(JButton bTramitar) {
+		this.bTramitar = bTramitar;
+	}
+
+	/**
+	 * @return the bAceptar
+	 */
+	public JButton getbAceptar() {
+		return bAceptar;
+	}
+
+	/**
+	 * @param bAceptar the bAceptar to set
+	 */
+	public void setbAceptar(JButton bAceptar) {
+		this.bAceptar = bAceptar;
+	}
+
+	/**
+	 * @return the cbAlbaran
+	 */
+	public JCheckBox getCbAlbaran() {
+		return cbAlbaran;
+	}
+
+	/**
+	 * @param cbAlbaran the cbAlbaran to set
+	 */
+	public void setCbAlbaran(JCheckBox cbAlbaran) {
+		this.cbAlbaran = cbAlbaran;
+	}
 	
 }

@@ -14,12 +14,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import giis.demo.proyectoClub.DTO.LicenciaDTO;
-import giis.demo.proyectoClub.DTO.SocioDTO;
 import giis.demo.proyectoClub.DTO.TecnicoDTO;
 
-import giis.demo.proyectoClub.View.PagarLicenciaVista;
-import giis.demo.proyectoClub.model.NuevoSocioModelo;
-import giis.demo.proyectoClub.model.PagarLicenciaModelo;
+import giis.demo.proyectoClub.View.nuevoTecnicoVista;
+
+import giis.demo.proyectoClub.model.NuevoTecnicoModel;
 import giis.demo.util.ApplicationException;
 import giis.demo.util.SwingUtil;
 import giis.demo.util.Util;
@@ -30,14 +29,17 @@ import giis.demo.util.Util;
  * -instanciando el controlador con la vista y el modelo
  * -ejecutando initController que instalara los manejadores de eventos
  */
-public class PagarLicenciaControlador {
-	private PagarLicenciaModelo model;
-	private PagarLicenciaVista view;
+public class NuevoTecnicoControlador {
+	private NuevoTecnicoModel model;
+	private nuevoTecnicoVista view;
 	
+	float cuota;
+	
+	TecnicoDTO tecnico;
 	
 	LicenciaDTO licencia;
 
-	public PagarLicenciaControlador(PagarLicenciaModelo m, PagarLicenciaVista v) {
+	public NuevoTecnicoControlador(NuevoTecnicoModel m, nuevoTecnicoVista v) {
 		this.model = m;
 		this.view = v;
 		//no hay inicializacion especifica del modelo, solo de la vista
@@ -53,7 +55,7 @@ public class PagarLicenciaControlador {
 		//ActionListener define solo un metodo actionPerformed(), es un interfaz funcional que se puede invocar de la siguiente forma:
 		//view.getBtnTablaCarreras().addActionListener(e -> getListaCarreras());
 		//ademas invoco el metodo que responde al listener en el exceptionWrapper para que se encargue de las excepciones
-		view.getBtnPagar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> pagarLicencia()));
+		view.getBtnCrearLicencia().addActionListener(e -> SwingUtil.exceptionWrapper(() -> introduceDatos()));
 	
 		//En el caso del mouse listener (para detectar seleccion de una fila) no es un interfaz funcional puesto que tiene varios metodos
 		//ver discusion: https://stackoverflow.com/questions/21833537/java-8-lambda-expressions-what-about-multiple-methods-in-nested-class
@@ -68,22 +70,33 @@ public class PagarLicenciaControlador {
 	}
 	
 	public void initView() {
-		//view.setVisible(true);
-		
+		view.getFrame().setVisible(true); 
+		//if(view.getChckbxDatos().isSelected()) {
+			//view.getBtnCrearLicencia().setVisible(true);
+		//}
+		//else {
+			//view.getBtnCrearLicencia().setVisible(false);
+		//}
 		
 		//Abre la ventana (sustituye al main generado por WindowBuilder)
-		view.getFrame().setVisible(true); 
+		
 	}
 	
 	
-	public void pagarLicencia() {
+	public void introduceDatos() {
+		cuota=(float) 27.00;
+		int id_Tecnico=model.NextID("idTecnico","tecnico");
+		int id_Licencia=model.NextID("idLicencia", "Licencia");
+		//tecnico= new TecnicoDTO(id_Tecnico,view.getTextFieldNombreTecnico().getText(),view.getTextFieldDNITecnico().getText(),view.getTextFieldLicenciaTecnico().getText());
+		licencia= new LicenciaDTO(id_Licencia,view.getTextFieldLicencia().getText(),"Pendiente de Pago");
 		
-			//view.getBtnPagar().setVisible(true);
-			view.getLblDatos1().setText("Titular de la cuenta: Club Informacion");
-			view.getLblDatos2().setText("Numero de cuenta: ES12 1234 5678 12345678");
-			//licencia.setLicencia(view.getTextFieldNumLicencia().getText());
-			licencia=new LicenciaDTO(view.getTextFieldNumLicencia().getText());
-			model.pagarLicencia(licencia);
+		tecnico=new TecnicoDTO(id_Tecnico,view.getTextFieldDni().getText(),view.getTextFieldNombre().getText(),view.getTextFieldApellido1().getText(),
+					view.getTextFieldApellido2().getText(),view.getTextFieldLicencia().getText(),view.getTextFieldNumeroCuenta().getText(),cuota);
+			
+		model.nuevoTecnico(tecnico);
+		model.nuevaLicencia(licencia);
+		view.getLblCuota().setText("Cuota: "+ cuota);
+		
 		
 	}
 	

@@ -34,12 +34,12 @@ public class PagarLicenciaModelo {
 	public void pagarLicencia(LicenciaDTO lic) {
 		Connection dbConnection=null;
 		PreparedStatement preparedStatement=null;
-		String sql= "UPDATE Licencia SET estado=? WHERE licencia=?";
+		String sql= "UPDATE Licencia SET estadoLicencia=? WHERE numLicencia=?";
 				
 		try {
 			dbConnection=db.getConnection();
 			preparedStatement=dbConnection.prepareStatement(sql);
-			preparedStatement.setString(1, "Pagado");
+			preparedStatement.setString(1, "Pagada");
 			preparedStatement.setString(2, lic.getLicencia());
 			
 			preparedStatement.executeUpdate();
