@@ -1,5 +1,6 @@
 package giis.demo.proyectoClub.Controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -51,13 +52,16 @@ public class ValidarPagoController {
 				// TODO Auto-generated method stub
 				JFileChooser jfcSeleccion = new JFileChooser();
 				jfcSeleccion.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+				jfcSeleccion.showOpenDialog(jfcSeleccion);
 				File fpagos = jfcSeleccion.getSelectedFile();
 				String ruta = fpagos.getAbsolutePath();
+				
+				view.getTfSeleccion().setText(fpagos.getName());
+				view.getTfSeleccion().setForeground(Color.black);
 				comprobarDatos(ruta);
 			}
 		});
-/*
+
 		view.getCbAlbaran().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -87,7 +91,7 @@ public class ValidarPagoController {
 				// TODO Auto-generated method stub
 				JOptionPane.showMessageDialog(null, "Se han validado los pagos", "Validación", JOptionPane.DEFAULT_OPTION);
 			}
-		});*/
+		});
 	}
 
 	public void initView() {
@@ -101,14 +105,8 @@ public class ValidarPagoController {
 		BufferedReader br = null;
 		try {
 
-			String[] cabecera = new String[] {"Licencia", "Precio", "Estado"};
 			br = new BufferedReader(new FileReader(ruta));
 			String line = br.readLine();
-			if(line.length() != cabecera.length) {
-				JOptionPane.showMessageDialog(null, "El fichero es erróneo", "Error", JOptionPane.DEFAULT_OPTION);
-				br.close();
-			}
-			line = br.readLine();
 			while(null != line) {
 				String[] fields = line.split(SEPARADOR);
 				String nlicencia = fields[0];
@@ -145,7 +143,7 @@ public class ValidarPagoController {
 
 		FileWriter file;
 		try {
-			file = new FileWriter("C:\\Users\\inipi\\git\\SI2020-PL42\\SI2020-PL42\\ValidacionLicencias.txt");
+			file = new FileWriter("C:\\Users\\inipi\\OneDrive\\Documentos\\GitHub\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\albaran.txt");
 			List<LicenciaDisplayDTO> licencias = model.getLicencias();
 
 			String s = "Nº LICENCIA\t\tPRECIO\t\tESTADO";

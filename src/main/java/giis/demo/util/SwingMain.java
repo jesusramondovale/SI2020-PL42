@@ -157,7 +157,7 @@ public class SwingMain {
 		frame.getContentPane().add(btnReciboCuota);
 
 		JButton btnValidarPago = new JButton("Validar Pagos");
-		btnReciboCuota.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+		btnValidarPago.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				ValidarPagoController controller=new ValidarPagoController(new ValidarPagoModel(), new ValidarPagoView());
 				controller.initController();
