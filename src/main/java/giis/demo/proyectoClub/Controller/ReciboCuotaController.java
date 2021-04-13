@@ -2,6 +2,8 @@ package giis.demo.proyectoClub.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
@@ -16,7 +18,6 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import giis.demo.proyectoClub.DTO.ReciboDisplayDTO;
 import giis.demo.proyectoClub.DTO.SociosDisplayDTO;
 import giis.demo.proyectoClub.View.ReciboCuotaView;
 import giis.demo.proyectoClub.model.ReciboCuotaModel;
@@ -42,16 +43,37 @@ public class ReciboCuotaController {
 	 */
 	public void initController() {
 		this.initView();
-		
-		view.getbRecibo().addActionListener(e ->insertarRecibo());
-		
+
+		view.getbRecibo().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				insertarRecibo();
+				generarRecibo();				
+			}
+		});
+
 		view.getbCancelar().addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				view.getFrame().setVisible(false);
 			}
 		});
-		
-		view.getCbSelec().addActionListener(e -> view.getbRecibo().setEnabled(true));
+
+		view.gettDatos().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				view.getbRecibo().setEnabled(true);
+			}
+		});
+
+		view.getCbSelec().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				view.getbRecibo().setEnabled(true);
+			}
+		});
+
 	}
 
 	public void initView() {
@@ -76,60 +98,47 @@ public class ReciboCuotaController {
 		view.getTfYear().setText(String.valueOf(y));
 
 		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
-		String datos[][] = new String[socios.size()][7];
+		m.removeRow(0);
+		String datos[] = new String[m.getColumnCount()];
 
-		for(int i = 0; i < socios.size(); i++) {
+		for(int i = 1; i <= socios.size(); i++) {
+			List<Object[]> n = model.getNombreSocio(i);
+			List<Object[]> a1 = model.getApe1Socio(i);
+			List<Object[]> a2 = model.getApe2Socio(i);
+			List<Object[]> c = model.getCuota(i);
+			List<Object[]> nc = model.getNumCuentaSocio(i);
 
-			datos[i][0] = "RGCC-"+ view.getTfYear().getText() + "-" + view.getCbMes().getSelectedItem().toString() + "-" + i+1;
-			datos[i][1] = "1/" + view.getCbMes().getSelectedItem().toString() + "/" + view.getTfYear().getText();
-			datos[i][2] = "15/" + view.getCbMes().getSelectedItem().toString() + "/" + view.getTfYear().getText();
-			datos[i][3] = "Cuota Club Mes " + view.getCbMes().getSelectedItem().toString();
-			datos[i][4] = "" + model.getCuota(socios.get(i).getIdSocio());
-			datos[i][5] =  "" + socios.get(i).getNombreSocio() + " " + socios.get(i).getApellido1Socio() + " " + socios.get(i).getApellido2Socio();
-			datos[i][6] = "" +socios.get(i).getNumCuentaSocio();
-			
+			datos[0] = "RGCC-"+ view.getTfYear().getText() + "-" + view.getCbMes().getSelectedItem().toString() + "-" + i;
+			datos[1] = "1-" + view.getCbMes().getSelectedItem().toString() + "-" + view.getTfYear().getText();
+			datos[2] = "15-" + view.getCbMes().getSelectedItem().toString() + "-" + view.getTfYear().getText();
+			datos[3] = "Cuota Club Mes " + view.getCbMes().getSelectedItem().toString();
+			for(int j = 0; j < n.size(); j ++) {
+				datos[4] = "" + c.get(j)[j];
+				datos[5] =  "" + n.get(j)[j] + " " + a1.get(j)[j] + " " + a2.get(j)[j];
+				datos[6] = "" + nc.get(j)[j];
+			}
 			m.addRow(datos);
+			view.gettDatos().setModel(m);
 		}
-		view.gettDatos().setModel(m);
 	}
 
-	public void generarRecibo(String nRecibo, String fValor, String fEmision, String concepto, String importe, String socio,
-			String numCuenta) {
+	public void generarRecibo() {
 
-		List<ReciboDisplayDTO> recibos = model.getRecibos();
-
+		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
 		FileWriter file;
 		try {
-			file = new FileWriter("C:\\Users\\inipi\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ReciboRLicencia.txt");
-			Object[][] elem = new Object[recibos.size()][2];
-			for(int i = 0; i < recibos.size(); i++) {
-				elem[i][0] = recibos.get(i).getnRecibo();
-			}
-			String r = "";
-			if(view.getCbSelec().isSelected()) {
-				for(int j = 0; j < recibos.size(); j++) {
-					r += "Nº DE RECIBO: " + nRecibo + "\nConcepto: " + concepto + 
-							"\n\tDatos del socio: " + socio + "\t\tNumero de cuenta: " + numCuenta +
-							"\n\tFecha de Valor: " + fValor + "\t\tFecha de Emisión: " + fEmision +
-							"\n\t\t\t\t\t\tTOTAL: " + importe;
-					file.write(r);
-				}
-			}
-			else {
-				if (view.gettDatos().getSelectedRow() != -1) {
-					r += "Nº DE RECIBO: " + nRecibo + "\nConcepto: " + concepto + 
-							"\n\tDatos del socio: " + socio + "\t\tNumero de cuenta: " + numCuenta +
-							"\n\tFecha de Valor: " + fValor + "\t\tFecha de Emisión: " + fEmision +
-							"\n\t\t\t\t\t\tTOTAL: " + importe;
-					file.write(r);
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Seleccione un recibo a generar", "Recibo mensual", JOptionPane.OK_OPTION);
-				}
+			for(int j = 0; j < m.getRowCount(); j++) {
+				String r = "";
+				file = new FileWriter("C:\\Users\\inipi\\OneDrive\\Documentos\\GitHub\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\" + m.getValueAt(j, 0));
+				r += "Nº DE RECIBO: " + m.getValueAt(j, 0) + "\nConcepto: " + m.getValueAt(j, 3) + 
+						"\n\tDatos del socio: " + m.getValueAt(j, 5) + "\t\tNumero de cuenta: " + m.getValueAt(j, 6) +
+						"\n\tFecha de Valor: " + m.getValueAt(j, 1) + "\t\tFecha de Emisión: " + m.getValueAt(j, 2) +
+						"\n\t\t\t\t\t\tTOTAL: " + m.getValueAt(j, 4);
+				file.write(r);
+				file.close();
 			}
 
-			JOptionPane.showConfirmDialog(null, "Los recibos mensuales han sido generados", "Recibo mensual", JOptionPane.OK_OPTION);
-			file.close();
+			JOptionPane.showConfirmDialog(null, "Los recibos mensuales han sido generados", "Recibo mensual", JOptionPane.DEFAULT_OPTION);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -148,7 +157,6 @@ public class ReciboCuotaController {
 				datos = (String[]) m.getValueAt(filas[i], j);
 			}
 			model.addRecibo(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]);
-			generarRecibo(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]);
 		}
 	}
 
