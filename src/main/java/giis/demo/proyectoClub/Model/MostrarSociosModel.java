@@ -1,9 +1,9 @@
-package giis.demo.ProyectoClub.Model;
+package giis.demo.proyectoClub.Model;
 
 
 import java.util.List;
 
-import giis.demo.ProyectoClub.DTO.MostrarSociosDTO;
+import giis.demo.proyectoClub.DTO.MostrarSociosDTO;
 import giis.demo.util.Database;
 
 

@@ -1,4 +1,4 @@
-package giis.demo.ProyectoClub.Controller;
+package giis.demo.proyectoClub.Controller;
 
 import java.util.Enumeration;
 import java.util.List;
@@ -8,9 +8,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
 
-import giis.demo.ProyectoClub.DTO.MostrarSociosDTO;
-import giis.demo.ProyectoClub.Model.MostrarSociosModel;
-import giis.demo.ProyectoClub.View.MostrarSociosView;
+import giis.demo.proyectoClub.DTO.MostrarSociosDTO;
+import giis.demo.proyectoClub.Model.MostrarSociosModel;
+import giis.demo.proyectoClub.View.MostrarSociosView;
 import giis.demo.util.SwingUtil;
 
 

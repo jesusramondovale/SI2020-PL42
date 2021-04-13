@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-import giis.demo.ProyectoClub.Controller.MostrarSociosController;
-import giis.demo.ProyectoClub.Model.MostrarSociosModel;
-import giis.demo.ProyectoClub.View.MostrarSociosView;
+import giis.demo.proyectoClub.Controller.MostrarSociosController;
+import giis.demo.proyectoClub.Model.MostrarSociosModel;
+import giis.demo.proyectoClub.View.MostrarSociosView;
 import giis.demo.tkrun.*;
 
 /**

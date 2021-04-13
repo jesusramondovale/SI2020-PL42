@@ -1,4 +1,4 @@
-package giis.demo.ProyectoClub.DTO;
+package giis.demo.proyectoClub.DTO;
 
 public class MostrarSociosDTO {
 
