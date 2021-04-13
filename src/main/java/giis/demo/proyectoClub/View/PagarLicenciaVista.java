@@ -1,26 +1,27 @@
 package giis.demo.proyectoClub.View;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
-import javax.swing.JButton;
 
-public class PagarLicenciaVista extends JFrame {
+public class PagarLicenciaVista {
 
-	private JPanel contentPane;
-	private JTextField textFieldLicencia;
+	private JFrame frame;
+	private JTextField textFieldNumLicencia;
 	private JComboBox comboBoxFormaDePago;
-	private JTextPane textPaneDatos;
+	private JLabel lblDatos1;
 	private JButton btnPagar;
+	private JLabel lblDatos2;
 
 	/**
 	 * Launch the application.
@@ -29,8 +30,8 @@ public class PagarLicenciaVista extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PagarLicenciaVista frame = new PagarLicenciaVista();
-					frame.setVisible(true);
+					PagarLicenciaVista window = new PagarLicenciaVista();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,69 +40,86 @@ public class PagarLicenciaVista extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
 	public PagarLicenciaVista() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1088, 777);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		frame.setBounds(100, 100, 1030, 571);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
-		JLabel lblLicencia = new JLabel("Numero de Licencia");
-		lblLicencia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblLicencia.setBounds(10, 32, 177, 14);
-		contentPane.add(lblLicencia);
+		JLabel lblNewLabel = new JLabel("PAGAR LICENCIA");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel.setBounds(10, 11, 201, 25);
+		frame.getContentPane().add(lblNewLabel);
 		
-		textFieldLicencia = new JTextField();
-		textFieldLicencia.setBounds(162, 30, 221, 20);
-		contentPane.add(textFieldLicencia);
-		textFieldLicencia.setColumns(10);
+		JLabel lblNewLabel_1 = new JLabel("Numero de licencia");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(10, 47, 148, 14);
+		frame.getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblFormaDePago = new JLabel("Forma de pago");
-		lblFormaDePago.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblFormaDePago.setBounds(10, 71, 102, 14);
-		contentPane.add(lblFormaDePago);
+		textFieldNumLicencia = new JTextField();
+		textFieldNumLicencia.setBounds(171, 46, 201, 20);
+		frame.getContentPane().add(textFieldNumLicencia);
+		textFieldNumLicencia.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Forma de pago");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(10, 72, 120, 19);
+		frame.getContentPane().add(lblNewLabel_2);
 		
 		comboBoxFormaDePago = new JComboBox();
-		comboBoxFormaDePago.setModel(new DefaultComboBoxModel(new String[] {"Transferencia"}));
-		comboBoxFormaDePago.setToolTipText("");
-		comboBoxFormaDePago.setBounds(162, 69, 221, 20);
-		contentPane.add(comboBoxFormaDePago);
+		comboBoxFormaDePago.setModel(new DefaultComboBoxModel(new String[] {"Trasfererncia"}));
+		comboBoxFormaDePago.setBounds(171, 71, 201, 20);
+		frame.getContentPane().add(comboBoxFormaDePago);
 		
-		JLabel lblDatosCuenta = new JLabel("DATOS DE LA CUENTA BANCARIA DEL CLUB");
-		lblDatosCuenta.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblDatosCuenta.setBounds(10, 159, 361, 14);
-		contentPane.add(lblDatosCuenta);
+		JLabel lblNewLabel_3 = new JLabel("Datos Cuenta Bancaria del Club");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel_3.setBounds(10, 127, 256, 14);
+		frame.getContentPane().add(lblNewLabel_3);
 		
-		textPaneDatos = new JTextPane();
-		textPaneDatos.setBounds(10, 191, 532, 354);
-		contentPane.add(textPaneDatos);
+		
 		
 		btnPagar = new JButton("PAGAR");
 		btnPagar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnPagar.setBounds(10, 631, 157, 62);
-		contentPane.add(btnPagar);
+		btnPagar.setBounds(523, 43, 148, 48);
+		frame.getContentPane().add(btnPagar);
 		
+		lblDatos1 = new JLabel("");
+		lblDatos1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDatos1.setBounds(10, 188, 317, 32);
+		frame.getContentPane().add(lblDatos1);
 		
-		
+		lblDatos2 = new JLabel("");
+		lblDatos2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDatos2.setBounds(10, 295, 317, 32);
+		frame.getContentPane().add(lblDatos2);
 	}
 
-	public JPanel getContentPane() {
-		return contentPane;
+	public JFrame getFrame() {
+		return frame;
 	}
 
-	public void setContentPane(JPanel contentPane) {
-		this.contentPane = contentPane;
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 
-	public JTextField getTextFieldLicencia() {
-		return textFieldLicencia;
+	
+	
+	public JTextField getTextFieldNumLicencia() {
+		return textFieldNumLicencia;
 	}
 
-	public void setTextFieldLicencia(JTextField textFieldLicencia) {
-		this.textFieldLicencia = textFieldLicencia;
+	public void setTextFieldNumLicencia(JTextField textFieldNumLicencia) {
+		this.textFieldNumLicencia = textFieldNumLicencia;
 	}
 
 	public JComboBox getComboBoxFormaDePago() {
@@ -112,12 +130,24 @@ public class PagarLicenciaVista extends JFrame {
 		this.comboBoxFormaDePago = comboBoxFormaDePago;
 	}
 
-	public JTextPane getTextPaneDatos() {
-		return textPaneDatos;
+	
+
+	
+
+	public JLabel getLblDatos1() {
+		return lblDatos1;
 	}
 
-	public void setTextPaneDatos(JTextPane textPaneDatos) {
-		this.textPaneDatos = textPaneDatos;
+	public void setLblDatos1(JLabel lblDatos1) {
+		this.lblDatos1 = lblDatos1;
+	}
+
+	public JLabel getLblDatos2() {
+		return lblDatos2;
+	}
+
+	public void setLblDatos2(JLabel lblDatos2) {
+		this.lblDatos2 = lblDatos2;
 	}
 
 	public JButton getBtnPagar() {
@@ -126,5 +156,9 @@ public class PagarLicenciaVista extends JFrame {
 
 	public void setBtnPagar(JButton btnPagar) {
 		this.btnPagar = btnPagar;
+	}
+
+	public void Error(String error) {
+		JOptionPane.showInputDialog(this, error);
 	}
 }

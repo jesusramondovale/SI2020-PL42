@@ -11,6 +11,9 @@ public class LicenciaDTO {
 		Licencia = licencia;
 		this.estado = estado;
 	}
+	public LicenciaDTO(String licencia) {
+		this.Licencia=licencia;
+	}
 
 	public int getIdLicencia() {
 		return idLicencia;

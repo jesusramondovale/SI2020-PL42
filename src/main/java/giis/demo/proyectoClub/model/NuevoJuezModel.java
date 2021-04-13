@@ -57,7 +57,7 @@ public class NuevoJuezModel {
 	public void nuevaLicencia(LicenciaDTO lic) {
 		Connection dbConnection=null;
 		PreparedStatement preparedStatement=null;
-		String sql= "Insert INTO Licencia (id_licencia,licencia,estado)"
+		String sql= "Insert INTO Licencia (idLicencia,numLicencia,estadoLicencia)"
 				+ "VALUES (?,?,?)";
 		try {
 			dbConnection=db.getConnection();

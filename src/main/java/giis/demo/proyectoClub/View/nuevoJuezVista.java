@@ -22,6 +22,7 @@ public class nuevoJuezVista {
 	private JTextField textFieldNumeroCuenta;
 	private JCheckBox  chckbxDatos;
 	private JButton btnCrearLicencia;
+	private JLabel lblCuota;
 
 	/**
 	 * Launch the application.
@@ -135,6 +136,11 @@ public class nuevoJuezVista {
 		btnCrearLicencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCrearLicencia.setBounds(751, 447, 148, 44);
 		frame.getContentPane().add(btnCrearLicencia);
+		
+		lblCuota = new JLabel("");
+		lblCuota.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCuota.setBounds(581, 75, 318, 35);
+		frame.getContentPane().add(lblCuota);
 	}
 
 	public JFrame getFrame() {
@@ -207,6 +213,16 @@ public class nuevoJuezVista {
 
 	public void setBtnCrearLicencia(JButton btnCrearLicencia) {
 		this.btnCrearLicencia = btnCrearLicencia;
+	}
+	
+	
+
+	public JLabel getLblCuota() {
+		return lblCuota;
+	}
+
+	public void setLblCuota(JLabel lblCuota) {
+		this.lblCuota = lblCuota;
 	}
 
 	public void Error(String error) {

@@ -1,11 +1,11 @@
 --Datos para carga inicial de la base de datos
 
 delete from socio;
-INSERT INTO socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2socio,sexo,fechaNacimiento,club,numLicencia,numCuenta,cuota,dniTutor,dniTecnico) VALUES 
+INSERT INTO socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2Socio,sexo,fechaNacimiento,club,numLicencia,numCuenta,cuota,dniTutor,dniTecnico) VALUES 
 	(1,'12345678P','Pelayo','Argüelles','Paniagua','M','1988-06-25','Club Información','PA11111','ES85 1234 5678 9101 1121 3141',15.60,'11223344T','22334455Z');
-INSERT INTO socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2socio,sexo,fechaNacimiento,club,numLicencia,numCuenta,cuota,dniTutor,dniTecnico) VALUES	
+INSERT INTO socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2Socio,sexo,fechaNacimiento,club,numLicencia,numCuenta,cuota,dniTutor,dniTecnico) VALUES	
 	(2,'12345678J','Jesus','Ramon','Do Vale','M','1995-12-07','Club Información','PA22222','ES20 1111 2222 3333 4444 5555',15.60,'12312300M','57442168L');
-INSERT INTO socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2socio,sexo,fechaNacimiento,club,numLicencia,numCuenta,cuota,dniTutor,dniTecnico) VALUES
+INSERT INTO socio (idSocio,dniSocio,nombreSocio,apellido1Socio,apellido2Socio,sexo,fechaNacimiento,club,numLicencia,numCuenta,cuota,dniTutor,dniTecnico) VALUES
 	(3,'12345678C','Inés','Nistal','Piquero','F','2004-02-11','Club Información','PA33333','ES44 1515 1312 1110 9876 5432', 10.20,'56789101K','10850777D');
 
 delete from tecnico;

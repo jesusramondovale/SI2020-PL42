@@ -90,7 +90,7 @@ public class SwingMain {
 		frame.getContentPane().add(btnEjecutarNuevoSocio);
 		
 		JButton btnEjecutarNuevoTecnico = new JButton("Nuevo Tecnico");
-		btnEjecutarNuevoSocio.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+		btnEjecutarNuevoTecnico.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				NuevoTecnicoControlador controller=new NuevoTecnicoControlador(new NuevoTecnicoModel(), new nuevoTecnicoVista());
 				controller.initController();
@@ -100,7 +100,7 @@ public class SwingMain {
 		frame.getContentPane().add(btnEjecutarNuevoTecnico);
 		
 		JButton btnEjecutarNuevoJuez = new JButton("Nuevo Juez");
-		btnEjecutarNuevoSocio.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+		btnEjecutarNuevoJuez.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				NuevoJuezControlador controller=new NuevoJuezControlador(new NuevoJuezModel(), new nuevoJuezVista());
 				controller.initController();

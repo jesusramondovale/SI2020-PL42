@@ -68,24 +68,23 @@ public class PagarLicenciaControlador {
 	}
 	
 	public void initView() {
-		view.setVisible(true);
+		//view.setVisible(true);
 		
 		
 		//Abre la ventana (sustituye al main generado por WindowBuilder)
-		//view.getFrame().setVisible(true); 
+		view.getFrame().setVisible(true); 
 	}
 	
 	
 	public void pagarLicencia() {
-		if (!view.getComboBoxFormaDePago().getSelectedItem().equals("Transferencia")) {
-			view.getBtnPagar().setVisible(false);
-		}
-		else {
-			view.getBtnPagar().setVisible(true);
-			view.getTextPaneDatos().setText("Titular de la cuenta: Club SI2021- PL42 \n Numero de cuenta(IBAN): ES12 1234 1234 123456789 \n" );
-			licencia.setLicencia(view.getTextFieldLicencia().getText());
+		
+			//view.getBtnPagar().setVisible(true);
+			view.getLblDatos1().setText("Titular de la cuenta: Club Informacion");
+			view.getLblDatos2().setText("Numero de cuenta: ES12 1234 5678 12345678");
+			//licencia.setLicencia(view.getTextFieldNumLicencia().getText());
+			licencia=new LicenciaDTO(view.getTextFieldNumLicencia().getText());
 			model.pagarLicencia(licencia);
-		}
+		
 	}
 	
 }

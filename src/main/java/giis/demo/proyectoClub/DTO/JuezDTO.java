@@ -9,7 +9,7 @@ public class JuezDTO {
 	private String licenciaJuez;
 	private String numeroCuenta;
 	private float cuota;
-	public JuezDTO(int idjuez, String nombreJuez, String dniJuez, String apellido1Juez, String apellido2Juez,
+	public JuezDTO(int idjuez,  String dniJuez, String nombreJuez,String apellido1Juez, String apellido2Juez,
 			String licenciaJuez, String numeroCuenta, float cuota) {
 		super();
 		this.idjuez = idjuez;

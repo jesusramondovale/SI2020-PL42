@@ -91,11 +91,12 @@ public class NuevoJuezControlador {
 		//tecnico= new TecnicoDTO(id_Tecnico,view.getTextFieldNombreTecnico().getText(),view.getTextFieldDNITecnico().getText(),view.getTextFieldLicenciaTecnico().getText());
 		licencia= new LicenciaDTO(id_Licencia,view.getTextFieldLicencia().getText(),"Pendiente de Pago");
 		
-			juez=new JuezDTO(id_Juez,view.getTextFieldDni().getText(),view.getTextFieldNombre().getText(),view.getTextFieldApellido1().getText(),
+		juez=new JuezDTO(id_Juez,view.getTextFieldDni().getText(),view.getTextFieldNombre().getText(),view.getTextFieldApellido1().getText(),
 					view.getTextFieldApellido2().getText(),view.getTextFieldLicencia().getText(),view.getTextFieldNumeroCuenta().getText(),cuota);
 			
-			model.nuevoJuez(juez);
-			model.nuevaLicencia(licencia);
+		model.nuevoJuez(juez);
+		model.nuevaLicencia(licencia);
+		view.getLblCuota().setText("Cuota: "+ cuota);
 		
 		
 	}
