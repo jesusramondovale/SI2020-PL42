@@ -78,6 +78,7 @@ public class CarrerasView {
 		tabCarreras.setName("tabCarreras");
 		tabCarreras.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabCarreras.setDefaultEditor(Object.class, null); //readonly
+		
 		JScrollPane tablePanel = new JScrollPane(tabCarreras);
 		frame.getContentPane().add(tablePanel, "cell 0 5,grow");
 		
@@ -103,6 +104,7 @@ public class CarrerasView {
 		tabDetalle.setRowSelectionAllowed(false);
 		tabDetalle.setDefaultEditor(Object.class, null); //readonly
 		tabDetalle.setBackground(SystemColor.control);
+		
 		JScrollPane tableDetallePanel = new JScrollPane(tabDetalle);
 		tableDetallePanel.setMinimumSize(new Dimension(200,95));
 		tableDetallePanel.setPreferredSize(new Dimension(300,95));

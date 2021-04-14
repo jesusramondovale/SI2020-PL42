@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -76,6 +75,29 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.5</version>
 		</dependency>
+		<!-- DEPENDENCIAS DE JESUS -->
+		<!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
+		<dependency>
+			<groupId>com.toedter</groupId>
+			<artifactId>jcalendar</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.jgoodies/jgoodies-common -->
+		<dependency>
+			<groupId>com.jgoodies</groupId>
+			<artifactId>jgoodies-common</artifactId>
+			<version>1.8.1</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.jgoodies/forms -->
+		<dependency>
+			<groupId>com.jgoodies</groupId>
+			<artifactId>forms</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -99,8 +121,8 @@
 					<!-- Sets the VM argument line used when unit tests are run under JaCoCo -->
 					<argLine>${surefireArgLine}</argLine>
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
-					<!--para evitar fallos con openjdk en linux-->
-                	<useSystemClassLoader>false</useSystemClassLoader>
+					<!--para evitar fallos con openjdk en linux -->
+					<useSystemClassLoader>false</useSystemClassLoader>
 				</configuration>
 			</plugin>
 			<!-- pruebas it: https://dzone.com/articles/integration-tests-with-maven -->
@@ -234,8 +256,7 @@
 										<include name="**/*.xml" />
 									</fileset>
 									<report format="frames" todir="target/site/junit-frames" />
-									<report format="noframes"
-										todir="target/site/junit-noframes" />
+									<report format="noframes" todir="target/site/junit-noframes" />
 								</junitreport>
 							</target>
 						</configuration>
@@ -249,8 +270,7 @@
 						<phase>install</phase>
 						<configuration>
 							<target>
-								<zip
-									destfile="${project.build.directory}/${project.build.finalName}.zip">
+								<zip destfile="${project.build.directory}/${project.build.finalName}.zip">
 									<zipfileset dir="src" prefix="src" />
 									<zipfileset dir=".settings" prefix=".settings" />
 									<zipfileset file="pom.xml" />
@@ -310,25 +330,62 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- empaqueta en un zip documentacion, index y archivos jar que seran accesibles desde web -->
+			<!-- empaqueta en un zip documentacion, index y archivos jar que seran 
+				accesibles desde web -->
 			<plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
 							<finalName>assembly</finalName>
-                            <descriptors>
-                                <descriptor>assembly.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
+							<descriptors>
+								<descriptor>assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											build-helper-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.12,)
+										</versionRange>
+										<goals>
+											<goal>add-test-source</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>

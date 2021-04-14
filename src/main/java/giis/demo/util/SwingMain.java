@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
 import giis.demo.proyectoClub.Controller.NuevoJuezControlador;
 import giis.demo.proyectoClub.Controller.NuevoSocioControlador;
 import giis.demo.proyectoClub.Controller.NuevoTecnicoControlador;
@@ -32,6 +33,12 @@ import giis.demo.proyectoClub.model.RealizarReservaModel;
 import giis.demo.proyectoClub.model.ReciboCuotaModel;
 import giis.demo.proyectoClub.model.RenovarLicenciaModel;
 import giis.demo.proyectoClub.model.ValidarPagoModel;
+
+
+import giis.demo.proyectoClub.Controller.MostrarSociosController;
+import giis.demo.proyectoClub.model.MostrarSociosModel;
+import giis.demo.proyectoClub.View.MostrarSociosView;
+
 import giis.demo.tkrun.*;
 
 /**
@@ -73,7 +80,7 @@ public class SwingMain {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Main");
-		frame.setBounds(0, 0, 287, 185);
+		frame.setBounds(0, 0, 635, 509);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
@@ -83,6 +90,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
+		
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarTkrun);
 
@@ -173,6 +181,8 @@ public class SwingMain {
 				db.createDatabase(false);
 			}
 		});
+		
+		
 		frame.getContentPane().add(btnInicializarBaseDeDatos);
 			
 		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
@@ -183,9 +193,28 @@ public class SwingMain {
 				db.loadDatabase();
 			}
 		});
+		
 		frame.getContentPane().add(btnCargarDatosIniciales);
+		
+		JButton btnMostrarSocios = new JButton("Mostrar Socios");
+		frame.getContentPane().add(btnMostrarSocios);
+		btnMostrarSocios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){   
+				
+				MostrarSociosModel model = new MostrarSociosModel();
+				MostrarSociosView view = new MostrarSociosView();
+				MostrarSociosController controller = new MostrarSociosController(model, view);
+				controller.initController();
+				
+			}
+		
+		});
+			
+		
+						
 	}
-
+	
+	
 	public JFrame getFrame() { return this.frame; }
 
 }

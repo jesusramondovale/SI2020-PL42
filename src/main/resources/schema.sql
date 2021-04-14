@@ -3,6 +3,85 @@
 
 --Para giis.demo.proyectoClub
 
+
+drop table socio;
+CREATE TABLE socio (
+	idSocio INTEGER PRIMARY KEY AUTOINCREMENT,
+	dniSocio TEXT NOT NULL, 
+	numLicencia INTEGER NOT NULL,
+	nombreSocio TEXT NOT NULL, 
+	apellido1Socio TEXT NOT NULL,
+	apellido2Socio TEXT NOT NULL,
+	sexo TEXT NOT NULL,
+	fechaNacimiento DATE NOT NULL,
+	club TEXT NOT NULL,	
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
+	dniTutor TEXT,
+	dniTecnico TEXT
+);
+
+drop table tecnico;
+CREATE TABLE tecnico (
+	idTecnico INTEGER PRIMARY KEY AUTOINCREMENT,
+	dniTecnico TEXT NOT NULL,
+	nombreTecnico TEXT NOT NULL, 
+	apellido1Tecnico TEXT NOT NULL,
+	apellido2Tecnico TEXT NOT NULL,
+	idLicencia INTEGER,
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
+	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
+);
+drop table juez;
+CREATE TABLE juez (
+	idJuez INTEGER PRIMARY KEY AUTOINCREMENT,
+	dniJuez TEXT NOT NULL,
+	nombreJuez TEXT NOT NULL, 
+	apellido1Juez TEXT NOT NULL,
+	apellido2Juez TEXT NOT NULL,
+	idLicencia INTEGER,
+	numCuenta TEXT NOT NULL,
+	cuota FLOAT,
+	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
+);
+
+drop table licencia;
+CREATE TABLE licencia (
+	idLicencia INTEGER PRIMARY KEY AUTOINCREMENT,
+	numLicencia TEXT NOT NULL,
+	estadoLicencia TEXT NOT NULL
+);
+
+drop table reservas;
+CREATE TABLE reservas (
+	idReserva INTEGER PRIMARY KEY AUTOINCREMENT,
+	idSocio INTEGER,
+	instalacion TEXT NOT NULL,
+	fechaReserva DATE NOT NULL,
+	horaInicio TEXT NOT NULL,
+	horaFin TEXT NOT NULL,
+	FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
+);
+ 
+drop table asambleas;
+create table asambleas (
+	idAsamblea INTEGER PRIMARY KEY AUTOINCREMENT,
+	tipo TEXT NOT NULL,
+	ordenDia TEXT NOT NULL,
+	fechaAsamblea DATE NOT NULL,
+	hora1 TEXT NOT NULL,
+	hora2 TEXT NOT NULL
+);
+
+drop table instalacion;
+create table instalacion (
+		idInstalacion INTEGER PRIMARY KEY AUTOINCREMENT,
+		nombreInstalacion TEXT NOT NULL
+);
+     
+>>>>>>> refs/remotes/origin/13681
+
 drop table socio;
 CREATE TABLE socio (
 	idSocio INTEGER PRIMARY KEY AUTOINCREMENT,
