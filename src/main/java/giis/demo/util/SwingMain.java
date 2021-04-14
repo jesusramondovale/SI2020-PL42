@@ -209,11 +209,10 @@ public class SwingMain {
 			}
 		
 		});
-			
 		
-						
-	}
-	
+		frame.getContentPane().add(btnMostrarSocios);
+							
+	}	
 	
 	public JFrame getFrame() { return this.frame; }
 
