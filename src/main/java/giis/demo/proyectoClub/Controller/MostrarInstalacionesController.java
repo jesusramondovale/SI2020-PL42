@@ -1,13 +1,13 @@
-package giis.demo.ProyectoClub.Controller;
+package giis.demo.proyectoClub.Controller;
 
 
 import java.util.List;
 
 
 import javax.swing.table.TableModel;
-import giis.demo.ProyectoClub.DTO.MostrarInstalacionesDTO;
-import giis.demo.ProyectoClub.Model.MostrarInstalacionesModel;
-import giis.demo.ProyectoClub.View.MostrarInstalacionesView;
+import giis.demo.proyectoClub.DTO.MostrarInstalacionesDTO;
+import giis.demo.proyectoClub.model.MostrarInstalacionesModel;
+import giis.demo.proyectoClub.View.MostrarInstalacionesView;
 import giis.demo.util.SwingUtil;
 import giis.demo.util.Util;
 

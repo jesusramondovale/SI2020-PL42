@@ -1,4 +1,4 @@
-package giis.demo.ProyectoClub.View;
+package giis.demo.proyectoClub.View;
 
 import java.awt.EventQueue;
 import java.sql.Date;

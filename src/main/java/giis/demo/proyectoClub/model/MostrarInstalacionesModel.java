@@ -1,9 +1,9 @@
-package giis.demo.ProyectoClub.Model;
+package giis.demo.proyectoClub.model;
 
 
 import java.util.*;
 
-import giis.demo.ProyectoClub.DTO.MostrarInstalacionesDTO;
+import giis.demo.proyectoClub.DTO.MostrarInstalacionesDTO;
 import giis.demo.util.ApplicationException;
 import giis.demo.util.Database;
 import giis.demo.util.Util;

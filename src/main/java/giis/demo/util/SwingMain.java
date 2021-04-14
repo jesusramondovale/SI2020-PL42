@@ -7,9 +7,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import giis.demo.ProyectoClub.Controller.MostrarInstalacionesController;
-import giis.demo.ProyectoClub.Model.MostrarInstalacionesModel;
-import giis.demo.ProyectoClub.View.MostrarInstalacionesView;
+import giis.demo.proyectoClub.Controller.MostrarInstalacionesController;
+import giis.demo.proyectoClub.model.MostrarInstalacionesModel;
+import giis.demo.proyectoClub.View.MostrarInstalacionesView;
 import giis.demo.tkrun.*;
 
 /**
