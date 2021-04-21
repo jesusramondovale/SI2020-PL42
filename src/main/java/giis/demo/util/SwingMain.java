@@ -7,9 +7,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import giis.demo.ProyectoClub.Controller.CrearAsambleasController;
-import giis.demo.ProyectoClub.Model.CrearAsambleaModel;
-import giis.demo.ProyectoClub.View.CrearAsambleasView;
+import giis.demo.proyectoClub.Controller.CrearAsambleasController;
+import giis.demo.proyectoClub.Model.CrearAsambleaModel;
+import giis.demo.proyectoClub.View.CrearAsambleasView;
 import giis.demo.tkrun.*;
 
 /**
