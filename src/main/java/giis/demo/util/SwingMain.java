@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-import giis.demo.proyectoClub.Controller.MostrarSociosController;
-import giis.demo.proyectoClub.Model.MostrarSociosModel;
-import giis.demo.proyectoClub.View.MostrarSociosView;
+//import giis.demo.proyectoClub.Controller.GenerarInformeSemanalController;
+//import giis.demo.proyectoClub.Model.GenerarInformeSemanalModel;
+import giis.demo.proyectoClub.View.GenerarInformeSemanalView;
 import giis.demo.tkrun.*;
 
 /**
@@ -89,20 +89,6 @@ public class SwingMain {
 		});
 		
 		frame.getContentPane().add(btnCargarDatosIniciales);
-		
-		JButton btnMostrarSocios = new JButton("Mostrar Socios");
-		frame.getContentPane().add(btnMostrarSocios);
-		btnMostrarSocios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){   
-				
-				MostrarSociosModel model = new MostrarSociosModel();
-				MostrarSociosView view = new MostrarSociosView();
-				MostrarSociosController controller = new MostrarSociosController(model, view);
-				controller.initController();
-				
-			}
-		
-		});
 			
 		
 						
