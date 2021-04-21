@@ -397,6 +397,7 @@ public class TableColumnAdjuster implements PropertyChangeListener, TableModelLi
 	 *  Toggle properties of the TableColumnAdjuster so the user can
 	 *  customize the functionality to their preferences
 	 */
+	@SuppressWarnings("serial")
 	class ToggleAction extends AbstractAction
 	{
 		private boolean isToggleDynamic;

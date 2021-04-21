@@ -7,7 +7,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+import giis.demo.proyectoClub.Controller.GenerarInformeSemanalController;
+import giis.demo.proyectoClub.Model.GenerarInformeSemanalModel;
 //import giis.demo.proyectoClub.Controller.GenerarInformeSemanalController;
 //import giis.demo.proyectoClub.Model.GenerarInformeSemanalModel;
 import giis.demo.proyectoClub.View.GenerarInformeSemanalView;
@@ -89,7 +90,21 @@ public class SwingMain {
 		});
 		
 		frame.getContentPane().add(btnCargarDatosIniciales);
+		
+		JButton btnGenerarInformeSemanal = new JButton("Generar Informe Semanal");
+		frame.getContentPane().add(btnGenerarInformeSemanal);
 			
+		btnGenerarInformeSemanal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){   
+				
+				GenerarInformeSemanalModel model = new GenerarInformeSemanalModel();
+				GenerarInformeSemanalView view = new GenerarInformeSemanalView();
+				GenerarInformeSemanalController controller = new GenerarInformeSemanalController(view,model);
+				controller.initController();
+				
+			}
+		
+		});
 		
 						
 	}
