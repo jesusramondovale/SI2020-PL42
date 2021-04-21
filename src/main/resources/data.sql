@@ -59,22 +59,11 @@ INSERT INTO asambleas (idAsamblea,tipo,ordenDia,fechaAsamblea,hora1,hora2) VALUE
 	(2,'Extraordinaria','','2021-03-30',12.00,13.00);
 
 delete from instalacion;
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(1, 'Piscina');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(2, 'Gimnasio');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(3, 'Pista de atletismo');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(4, 'Cancha de baloncesto');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(5, 'Cancha de balonmano');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(6, 'Pista de tenis');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(7, 'Campo de hockey');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(8, 'Campo de rugby');
+INSERT INTO instalacion (idInstalacion, nombreInstalacion, aforo) VALUES
+	(1, 'Galería', 0);
+INSERT INTO instalacion (idInstalacion, nombreInstalacion, aforo) VALUES
+	(2, 'Campo', 0);
+
 
 delete from recibos;
 INSERT INTO recibos (IdRecibo, idSocio, fechaValor, fechaEmision, concepto, importe, numCuenta) VALUES

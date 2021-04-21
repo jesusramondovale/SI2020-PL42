@@ -17,7 +17,8 @@ CREATE TABLE socio (
 	numCuenta TEXT NOT NULL,
 	cuota FLOAT,
 	dniTutor TEXT,
-	dniTecnico TEXT
+	dniTecnico TEXT,
+	grupoBurbuja INTEGER
 );
 
 drop table tecnico;
@@ -77,7 +78,8 @@ create table asambleas (
 drop table instalacion;
 create table instalacion (
 		idInstalacion INTEGER PRIMARY KEY AUTOINCREMENT,
-		nombreInstalacion TEXT NOT NULL
+		nombreInstalacion TEXT NOT NULL,
+		aforo INTEGER NOT NULL
 );
 
 drop table recibos;
