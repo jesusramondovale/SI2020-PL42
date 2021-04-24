@@ -56,12 +56,15 @@ public class RealizarReservaController {
 	public void initController() {
 		addInstalacion();
 		insertarFechaReserva();
+		insertarHorarioReserva();
 		addLicencias();
 		eliminarDatosTabla();
 		view.setVisible(true);
 
 		view.getRbtnIndividual().setSelected(true);
-
+		
+		view.getCbInstalacion().addActionListener(e -> SwingUtil.exceptionWrapper(() -> insertarHorarioReserva()));
+		
 		view.getbCancelar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)));
 		view.getbAnadir().addActionListener(new ActionListener() {
 			@Override
@@ -157,6 +160,29 @@ public class RealizarReservaController {
 		Date fechaSig = cal.getTime();
 		String fecha2 = formatter.format(fechaSig);
 		view.getCbFecha().addItem(fecha2);
+	}
+	
+	public void insertarHorarioReserva() {
+		String[] h1i = {"09:00", "10:00", "11:00", "12:00", "13:00", "16:00", "17:00", "18:00", "19:00"};
+		String[] h1f = {"10:00", "11:00", "12:00", "13:00", "14:00", "17:00", "18:00", "19:00", "20:00"};
+		String[] h2i = {"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"};
+		String[] h2f = {"10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"};
+		if(view.getCbInstalacion().getSelectedItem().toString().equals("Galería")) {
+			for(int i = 0; i < h1i.length; i++) {
+				view.getCbHInicio().addItem(h1i[i]);
+			}
+			for(int i = 0; i < h1f.length; i++) {
+				view.getCbHFin().addItem(h1f[i]);
+			}
+		}
+		if(view.getCbInstalacion().getSelectedItem().toString().equals("Campo")) {
+			for(int i = 0; i < h2i.length; i++) {
+				view.getCbHInicio().addItem(h2i[i]);
+			}
+			for(int i = 0; i < h2f.length; i++) {
+				view.getCbHFin().addItem(h2f[i]);
+			}
+		}
 	}
 
 	/**

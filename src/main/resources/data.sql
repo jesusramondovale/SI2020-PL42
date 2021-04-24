@@ -38,19 +38,8 @@ INSERT INTO asambleas (idAsamblea,tipo,ordenDia,fechaAsamblea,hora) VALUES
 
 delete from instalacion;
 INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(1, 'piscina');
+	(1, 'Galería');
 INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(2, 'gimnasio');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(3, 'pista de atletismo');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(4, 'cancha de baloncesto');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(5, 'cancha de balonmano');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(6, 'pista de tenis');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(7, 'campo de hockey');
-INSERT INTO instalacion (idInstalacion, nombreInstalacion) VALUES
-	(8, 'campo de rugby');
+	(2, 'Campo');
+
 
