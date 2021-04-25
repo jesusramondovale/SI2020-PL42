@@ -118,12 +118,12 @@ public class RealizarReservaView extends JFrame {
 		getContentPane().add(lHora);
 
 		cbHInicio = new JComboBox();
-		cbHInicio.setModel(new DefaultComboBoxModel(new String[] {"-- Hora inicio --", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"}));
+		cbHInicio.setModel(new DefaultComboBoxModel(new String[] {"-- Hora inicio --"}));
 		cbHInicio.setBounds(411, 303, 106, 22);
 		getContentPane().add(cbHInicio);
 
 		cbHFin = new JComboBox();
-		cbHFin.setModel(new DefaultComboBoxModel(new String[] {"-- Hora fin--", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"}));
+		cbHFin.setModel(new DefaultComboBoxModel(new String[] {"-- Hora fin --"}));
 		cbHFin.setBounds(411, 354, 106, 22);
 		getContentPane().add(cbHFin);
 

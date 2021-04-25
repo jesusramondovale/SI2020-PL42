@@ -24,9 +24,9 @@ public class RealizarReservaModel {
 		return db.executeQueryPojo(SocioDisplayDTO.class, sql);
 	}
 
-	public Object getNombApe(String nombre, String apellido1, String apellido2) {
+	public List<Object[]> getSocio(String nombre, String apellido1, String apellido2) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT nombreSocio from socio where nombreSocio=? AND apellido1socio=? AND apellido2socio=?";
+		String sql = "SELECT idSocio from socio where nombreSocio=? AND apellido1socio=? AND apellido2socio=?";
 		return db.executeQueryArray(sql, nombre, apellido1, apellido2);
 	}
 

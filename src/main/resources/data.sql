@@ -64,7 +64,6 @@ INSERT INTO instalacion (idInstalacion, nombreInstalacion, aforo) VALUES
 INSERT INTO instalacion (idInstalacion, nombreInstalacion, aforo) VALUES
 	(2, 'Campo', 0);
 
-
 delete from recibos;
 INSERT INTO recibos (IdRecibo, idSocio, fechaValor, fechaEmision, concepto, importe, numCuenta) VALUES
 	(1, 1, '2021-03-01', '2021-03-15', 'Cuota Club Mes Marzo', 15.60, 'ES85 1234 5678 9101 1121 3141');
