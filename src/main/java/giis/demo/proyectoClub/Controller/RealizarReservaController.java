@@ -62,15 +62,15 @@ public class RealizarReservaController {
 		view.setVisible(true);
 
 		view.getRbtnIndividual().setSelected(true);
-		
+
 		view.getCbInstalacion().addActionListener(e -> SwingUtil.exceptionWrapper(() -> insertarHorarioReserva()));
-		
+
 		view.getbCancelar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)));
 		view.getbAnadir().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				addReserva();
+				control();
 				view.getbReservar().setEnabled(true);
 			}
 		});
@@ -109,7 +109,6 @@ public class RealizarReservaController {
 
 		view.getbEliminar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> eliminarSeleccion()));
 		view.getbReservar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> reservar()));
-
 
 	}
 
@@ -161,12 +160,12 @@ public class RealizarReservaController {
 		String fecha2 = formatter.format(fechaSig);
 		view.getCbFecha().addItem(fecha2);
 	}
-	
+
 	public void insertarHorarioReserva() {
-		String[] h1i = {"09:00", "10:00", "11:00", "12:00", "13:00", "16:00", "17:00", "18:00", "19:00"};
-		String[] h1f = {"10:00", "11:00", "12:00", "13:00", "14:00", "17:00", "18:00", "19:00", "20:00"};
-		String[] h2i = {"09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"};
-		String[] h2f = {"10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"};
+		String[] h1i = {"09.00", "10.00", "11.00", "12.00", "13.00", "16.00", "17.00", "18.00", "19.00"};
+		String[] h1f = {"10.00", "11.00", "12.00", "13.00", "14.00", "17.00", "18.00", "19.00", "20.00"};
+		String[] h2i = {"09.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00", "21.00"};
+		String[] h2f = {"10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00", "21.00", "22.00"};
 		if(view.getCbInstalacion().getSelectedItem().toString().equals("Galería")) {
 			for(int i = 0; i < h1i.length; i++) {
 				view.getCbHInicio().addItem(h1i[i]);
@@ -196,6 +195,51 @@ public class RealizarReservaController {
 			m.addElement(socios.get(i).getNumLicencia());
 		}
 		view.getListGrupo().setModel(m);
+	}
+
+	/**
+	 * Metodo para controlar los datos de la reserva
+	 * Comprueba si el nombre y los apellidos del socio existen
+	 * Comprueba que se hayan seleccionado la instalacion y el horario que se desea
+	 * Comprueba que la hora de inicio sea mayor e igual que la hora de fin de la reserva
+	 */
+	public void control() {
+		List<Object[]> socio = model.getSocio(view.getTfNombre().getText(), view.getTfApellido1().getText(), view.getTfApellido2().getText());
+		if(!view.getCbHInicio().getSelectedItem().toString().equals("-- Hora inicio --") 
+				&& !view.getCbHFin().getSelectedItem().toString().equals("-- Hora fin --") 
+				&& !view.getCbInstalacion().getSelectedItem().toString().equals("-- Instalación --")
+				&& !view.getCbFecha().getSelectedItem().toString().equals("-- Fecha --")
+				&& !socio.isEmpty()) {
+			Double f = Double.parseDouble(view.getCbHFin().getSelectedItem().toString());
+			Double i = Double.parseDouble(view.getCbHInicio().getSelectedItem().toString());
+			if((f-i) <= 0 ) {
+				JOptionPane pane = new JOptionPane("La hora de fin de reserva no puede ser menor o igual a la hora de inicio.", 
+						JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+				JDialog d = pane.createDialog(pane, "Hora incorrecta");
+				d.setLocation(200, 200);
+				d.setVisible(true);
+			}
+			else {
+				addReserva();
+			}
+		}
+
+		else {
+			if(socio.isEmpty()) {
+				JOptionPane pane = new JOptionPane("El socio introducido no existe.\nRevise los datos", 
+						JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+				JDialog d = pane.createDialog(pane, "Socio incorrecto");
+				d.setLocation(200, 200);
+				d.setVisible(true);
+			}
+			else {
+				JOptionPane pane = new JOptionPane("Ningun campo puede estar vacío", 
+						JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+				JDialog d = pane.createDialog(pane, "Campos vacíos");
+				d.setLocation(200, 200);
+				d.setVisible(true);
+			}
+		}
 	}
 
 	/**
@@ -268,14 +312,15 @@ public class RealizarReservaController {
 		}
 		return fechaDate;
 	}
+	
 	/**
 	 * Añadir la reserva del socio en la tabla reservas de la BD
 	 */
 	public void reservar() {
-		
+
 		DefaultTableModel m = (DefaultTableModel) view.gettReservas().getModel();
 		int f = view.gettReservas().getRowCount();
-		
+
 		int id = 0;
 		if(view.getRbtnIndividual().isSelected()) {
 			List<Object[]> idSocio = model.obtenerID(view.getTfNLicencia().getText());
@@ -300,10 +345,6 @@ public class RealizarReservaController {
 				}
 			}
 		}
-		/*model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(), 
-				Util.isoStringToDate(view.getCbFecha().getSelectedItem().toString()), 
-				view.getCbHInicio().getSelectedItem().toString(),
-				view.getCbHFin().getSelectedItem().toString());*/
 
 		generarResguardoReserva();
 

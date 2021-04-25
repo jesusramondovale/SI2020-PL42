@@ -123,7 +123,7 @@ public class RealizarReservaView extends JFrame {
 		getContentPane().add(cbHInicio);
 
 		cbHFin = new JComboBox();
-		cbHFin.setModel(new DefaultComboBoxModel(new String[] {"-- Hora fin--"}));
+		cbHFin.setModel(new DefaultComboBoxModel(new String[] {"-- Hora fin --"}));
 		cbHFin.setBounds(411, 354, 106, 22);
 		getContentPane().add(cbHFin);
 
