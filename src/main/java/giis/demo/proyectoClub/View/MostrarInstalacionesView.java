@@ -27,7 +27,7 @@ public class MostrarInstalacionesView {
 	private JButton btnAplicarFiltro;
 	private JButton btnBorrarFiltro;
 	private JSpinner spnFecha;
-	private JComboBox<String> seleccInstall;
+
 
 	private JLabel lblSeleccInstal;
 	private JLabel lblSeleccFecha;
@@ -175,10 +175,10 @@ public class MostrarInstalacionesView {
     }
 
 	public JComboBox<String> getSeleccInstall() {
-		return this.seleccInstall;
+		return this.seleccInstal;
 	}
 
 	public void setSeleccInstall(JComboBox<String> seleccInstall) {
-		this.seleccInstall = seleccInstall;
+		this.seleccInstall = seleccInstal;
 	}
 }
