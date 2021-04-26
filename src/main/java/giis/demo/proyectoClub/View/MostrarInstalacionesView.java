@@ -179,6 +179,6 @@ public class MostrarInstalacionesView {
 	}
 
 	public void setSeleccInstall(JComboBox<String> seleccInstall) {
-		this.seleccInstall = seleccInstal;
+		this.seleccInstal = seleccInstal;
 	}
 }
