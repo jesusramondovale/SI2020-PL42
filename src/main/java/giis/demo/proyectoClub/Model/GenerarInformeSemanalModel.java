@@ -12,7 +12,6 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
@@ -38,7 +37,7 @@ public class GenerarInformeSemanalModel {
 	
 	// Revisar !!!
 	private static final String SQL_RESERVADOR=
-			"SELECT a.idSocio , a.grupoBurbuja , a.correo, b.horaInicio , b.horaFin "
+			"SELECT a.idSocio , a.grupoBurbuja , a.correo, b.fechaReserva , b.horaInicio , b.horaFin "
 					+ "FROM socio AS a "
 					+ "INNER JOIN reservas AS b "
 					+ "ON a.idSocio = b.idSocio "
@@ -68,13 +67,28 @@ public class GenerarInformeSemanalModel {
 		 */
 		List<GenerarInformeSemanalDTO> socios = db.executeQueryPojo(GenerarInformeSemanalDTO.class, SQL_RESERVADOR, Util.dateToIsoString(dateFin), Util.dateToIsoString(dateIni));
 		
-		System.out.printf(Util.dateToIsoString(dateIni) + "<->" + Util.dateToIsoString(dateFin) + "\n");
-		System.out.printf(socios.toString());
+		//System.out.printf(Util.dateToIsoString(dateIni) + "<->" + Util.dateToIsoString(dateFin) + "\n");
+		
+		/*
+		
+		for (GenerarInformeSemanalDTO socio : socios){
+		
+			
+			System.out.printf("ID : " + socio.getIdSocio() + "\n" +
+							   "Nombre : " + socio.getNombreSocio() + "\n" + 
+			                   "Hora ini : " + socio.getHoraIni() + "\n" + 
+			                   "Hora fin : " + socio.getHoraFin() + "\n"); 
+			          
+			                                                
+		}
+		*/
 		
 		// Creamos un documento PDF
+		
 		Document document = new Document();
+		
 		try {
-			PdfWriter.getInstance(document, new FileOutputStream("Informe.pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream("Informe_["+ Util.dateToIsoString(dateIni) + "]_[" + Util.dateToIsoString(dateFin) + "].pdf"));
 		} catch (FileNotFoundException e) {
 			System.err.println("Error creando el documento PDF");
 			e.printStackTrace();
@@ -83,22 +97,40 @@ public class GenerarInformeSemanalModel {
 			e.printStackTrace();
 		}
 
+		
 		document.open();
 
 		Font font1 = FontFactory.getFont(FontFactory.TIMES_ITALIC, 36, BaseColor.BLACK);
 		Chunk chunk1 = new Chunk("INFORME SEMANAL", font1);
 		
 		try {
+			document.add(new Paragraph("\n\n"));
 			document.add(chunk1);
-			document.add(new Paragraph("\n\n"));
-			document.add(new Paragraph("\n\n"));
+			
 		} catch (DocumentException e1) {
 			System.err.println("Error editando el documento PDF");
 			e1.printStackTrace();
 		}
 
+		Font fontFecha = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
 		Font font2 = FontFactory.getFont(FontFactory.COURIER, 20, BaseColor.BLACK);
-		Chunk chunk2 = new Chunk("--------------  Tabla de Socios que realizaron las reservas ------------------", font2);
+		Chunk chunkfecha1 = new Chunk("Fecha de inicio del informe : " + (Util.dateToIsoString(dateIni)),fontFecha);
+		Chunk chunkfecha2 = new Chunk("Fecha de final del informe : " + (Util.dateToIsoString(dateFin)),fontFecha);
+		
+		try {
+			document.add(new Paragraph("\n\n"));
+			document.add(chunkfecha1);
+			document.add(new Paragraph("\n\n"));
+			document.add(chunkfecha2);
+			document.add(new Paragraph("\n\n"));
+		} catch (DocumentException e1) {
+			System.err.println("Error editando el documento PDF");
+			e1.printStackTrace();
+		}
+		
+		
+		
+		Chunk chunk2 = new Chunk("--  Tabla de Socios que realizaron las reservas --", font2);
 		try {
 			document.add(chunk2);
 			document.add(new Paragraph("\n\n"));
@@ -109,8 +141,19 @@ public class GenerarInformeSemanalModel {
 		}
 
 		//Crea la tabla para los socios que realizaron las reservas
-		PdfPTable tablaReservadores = new PdfPTable(4);
+		PdfPTable tablaReservadores = new PdfPTable(6);
+		
+		float[] widths = new float[] { 30f , 45f, 100f, 65f, 40f, 40f };
+		try {
+			tablaReservadores.setWidths(widths);
+		} catch (DocumentException e2) {
+			System.err.println("Error editando el documento PDF");
+			e2.printStackTrace();
+		}
+		
 
+		
+		
 		//Inserta la cabecera para la tabla 
 		cabeceraReservadores(tablaReservadores);
 
@@ -130,7 +173,7 @@ public class GenerarInformeSemanalModel {
 		}
 
 
-		Chunk chunk3 = new Chunk("--------------  Tabla de Compañeros de Grupo Burbuja ------------------", font2);
+		Chunk chunk3 = new Chunk("--  Tabla de Compañeros de Grupo Burbuja --", font2);
 		try {
 			document.add(chunk3);
 			document.add(new Paragraph("\n\n"));
@@ -190,11 +233,11 @@ public class GenerarInformeSemanalModel {
 	}
 
 	private void cabeceraReservadores(PdfPTable table) {
-		Stream.of("ID de Socio", "Grupo Burbuja", "Correo electrónico", "Hora de inicio de la reserva" , "Hora de fin de la reserva")
+		Stream.of("ID de Socio", "Grupo Burbuja", "Correo electrónico", "Fecha de la reserva" , "Hora de inicio de la reserva" , "Hora de fin de la reserva")
 		.forEach(columnTitle -> {
 			PdfPCell header = new PdfPCell();
 			header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-			header.setBorderWidth(5);
+			header.setBorderWidth(2);
 			header.setPhrase(new Phrase(columnTitle));
 			table.addCell(header);
 		});
@@ -204,11 +247,40 @@ public class GenerarInformeSemanalModel {
 
 		for (GenerarInformeSemanalDTO socio : datos){
 
-			table.addCell(Integer.toString(socio.getIdSocio()));
-			table.addCell(Integer.toString(socio.getGrupoBurbuja()));
-			table.addCell(socio.getCorreo());
-			table.addCell(socio.getHoraIni());
-			table.addCell(socio.getHoraFin());
+			Chunk chunk1 = new Chunk(Integer.toString(socio.getIdSocio()));
+			Chunk chunk2 = new Chunk(Integer.toString(socio.getGrupoBurbuja()));
+			Chunk chunk3 = new Chunk(socio.getCorreo());
+			Chunk chunk4 = new Chunk(socio.getFechaReserva());
+			Chunk chunk5 = new Chunk(socio.getHoraInicio());
+			Chunk chunk6 = new Chunk(socio.getHoraFin());
+			
+			
+			
+			PdfPCell celda1 = new PdfPCell();
+			PdfPCell celda2 = new PdfPCell();
+			PdfPCell celda3 = new PdfPCell();
+			PdfPCell celda4 = new PdfPCell();
+			PdfPCell celda5 = new PdfPCell();
+			PdfPCell celda6 = new PdfPCell();
+			
+			celda1.addElement(chunk1);
+			celda2.addElement(chunk2);
+			celda3.addElement(chunk3);
+			celda4.addElement(chunk4);
+			celda5.addElement(chunk5);
+			celda6.addElement(chunk6);
+
+			
+				
+					
+			table.addCell(celda1);
+			table.addCell(celda2);
+			table.addCell(celda3);
+			table.addCell(celda4);
+			table.addCell(celda5);
+			table.addCell(celda6);
+
+			
 
 		}
 
@@ -231,9 +303,6 @@ public class GenerarInformeSemanalModel {
 		}
 
 	}
-
-
-
 
 
 

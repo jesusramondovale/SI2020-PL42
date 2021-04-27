@@ -13,6 +13,9 @@ public class GenerarInformeSemanalDTO {
 	private String sexo;
 	private Date fechaNacimiento;
 	private String club;
+	private String fechaReserva;
+	private String horaFin;
+	private String horaInicio;
 	private String numCuenta;
 	private float cuota;
 	private String dniTutor;
@@ -22,24 +25,28 @@ public class GenerarInformeSemanalDTO {
 	
 	private int idReserva;
 	private String instalacion;
-	private Date fechaReserva;
 	
-	private String horaIni;
-	private String horaFin;
+	
 	
 	
 	
 	
 
 
-	public GenerarInformeSemanalDTO(int idSocio, int grupoBurbuja, String correo, Date fechaReserva, String horaIni,
+	public GenerarInformeSemanalDTO() {
+		
+	}
+
+
+
+	public GenerarInformeSemanalDTO(int idSocio, int grupoBurbuja, String correo, String fechaReserva, String horaInicio,
 			String horaFin) {
 		super();
 		this.idSocio = idSocio;
 		this.grupoBurbuja = grupoBurbuja;
 		this.correo = correo;
 		this.fechaReserva = fechaReserva;
-		this.horaIni = horaIni;
+		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 	}
 
@@ -48,7 +55,7 @@ public class GenerarInformeSemanalDTO {
 	public GenerarInformeSemanalDTO(int idSocio, String dniSocio, int numLicencia, String nombreSocio,
 			String apellido1Socio, String apellido2Socio, String sexo, Date fechaNacimiento, String club,
 			String numCuenta, float cuota, String dniTutor, String dniTecnico, int grupoBurbuja, String correo,
-			String horaIni, String horaFin) {
+			String horaInicio, String horaFin) {
 		super();
 		this.idSocio = idSocio;
 		this.dniSocio = dniSocio;
@@ -65,18 +72,18 @@ public class GenerarInformeSemanalDTO {
 		this.dniTecnico = dniTecnico;
 		this.grupoBurbuja = grupoBurbuja;
 		this.correo = correo;
-		this.horaIni = horaIni;
+		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 	}
 	
 	
 	
-	public GenerarInformeSemanalDTO(int idSocio, int grupoBurbuja, String correo, String horaIni, String horaFin) {
+	public GenerarInformeSemanalDTO(int idSocio, int grupoBurbuja, String correo, String horaInicio, String horaFin) {
 		super();
 		this.idSocio = idSocio;
 		this.grupoBurbuja = grupoBurbuja;
 		this.correo = correo;
-		this.horaIni = horaIni;
+		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 	}
 
@@ -253,13 +260,13 @@ public class GenerarInformeSemanalDTO {
 	}
 
 
-	public String getHoraIni() {
-		return horaIni;
+	public String getHoraInicio() {
+		return horaInicio;
 	}
 
 
-	public void setHoraIni(String horaIni) {
-		this.horaIni = horaIni;
+	public void setHoraInicio(String horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
 
@@ -298,13 +305,13 @@ public class GenerarInformeSemanalDTO {
 
 
 
-	public Date getFechaReserva() {
+	public String getFechaReserva() {
 		return fechaReserva;
 	}
 
 
 
-	public void setFechaReserva(Date fechaReserva) {
+	public void setFechaReserva(String fechaReserva) {
 		this.fechaReserva = fechaReserva;
 	}
 	

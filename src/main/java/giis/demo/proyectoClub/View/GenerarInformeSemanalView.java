@@ -49,7 +49,7 @@ public class GenerarInformeSemanalView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 386, 286);
+		frame.setBounds(100, 100, 391, 259);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel lblSeleccioneLaFecha = new JLabel("Seleccione la fecha (inicio de semana) :");
