@@ -4,35 +4,39 @@ package giis.demo.proyectoClub.DTO;
 
 public class GenerarInformeSemanalDTO {
 
-	private String idSocio;
+	private int idSocio;
+	private int grupoBurbuja;
 	private String correo;
 	private String horaIni;
 	private String horaFin;
-	private int grupoBurbuja;
+	
 
 
-	public GenerarInformeSemanalDTO(String idSocio, String correo, String fechaIni, String fechaFin, int grupo) {
+	public GenerarInformeSemanalDTO(int idSocio, String correo, String fechaIni, String fechaFin, int grupo) {
+		
 		super();
 		this.idSocio = idSocio;
+		this.setGrupoBurbuja(grupo);
 		this.correo = correo;
 		this.horaIni = fechaIni;
 		this.horaFin = fechaFin;
-		this.setGrupoBurbuja(grupo);
+		
 	}
 
 	
 	
-	public GenerarInformeSemanalDTO(String correo) {
+	public GenerarInformeSemanalDTO(int grupo,String correo) {
 		super();
+		this.grupoBurbuja = grupo;
 		this.correo = correo;
 	}
 
 
 
-	public String getIdSocio() {
+	public int getIdSocio() {
 		return idSocio;
 	}
-	public void setIdSocio(String idSocio) {
+	public void setIdSocio(int idSocio) {
 		this.idSocio = idSocio;
 	}
 	public String getCorreo() {

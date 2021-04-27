@@ -15,7 +15,7 @@ import com.itextpdf.text.DocumentException;
 
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -66,8 +66,11 @@ public class GenerarInformeSemanalModel {
 		/*
 		 * La variable SOCIOS contendrá una lista de objetos DTO de socios que HAN REALIZADO LA RESERVA
 		 */
-		List<GenerarInformeSemanalDTO> socios = db.executeQueryPojo(GenerarInformeSemanalDTO.class, SQL_RESERVADOR, Util.dateToIsoString(dateIni), Util.dateToIsoString(dateFin));
-
+		List<GenerarInformeSemanalDTO> socios = db.executeQueryPojo(GenerarInformeSemanalDTO.class, SQL_RESERVADOR, Util.dateToIsoString(dateFin), Util.dateToIsoString(dateIni));
+		
+		System.out.printf(Util.dateToIsoString(dateIni) + "<->" + Util.dateToIsoString(dateFin) + "\n");
+		System.out.printf(socios.toString());
+		
 		// Creamos un documento PDF
 		Document document = new Document();
 		try {
@@ -82,10 +85,13 @@ public class GenerarInformeSemanalModel {
 
 		document.open();
 
-		Font font1 = FontFactory.getFont(FontFactory.COURIER, 36, BaseColor.BLACK);
-		Chunk chunk1 = new Chunk("------------------  INFORME SEMANAL ----------------------", font1);
+		Font font1 = FontFactory.getFont(FontFactory.TIMES_ITALIC, 36, BaseColor.BLACK);
+		Chunk chunk1 = new Chunk("INFORME SEMANAL", font1);
+		
 		try {
 			document.add(chunk1);
+			document.add(new Paragraph("\n\n"));
+			document.add(new Paragraph("\n\n"));
 		} catch (DocumentException e1) {
 			System.err.println("Error editando el documento PDF");
 			e1.printStackTrace();
@@ -95,6 +101,8 @@ public class GenerarInformeSemanalModel {
 		Chunk chunk2 = new Chunk("--------------  Tabla de Socios que realizaron las reservas ------------------", font2);
 		try {
 			document.add(chunk2);
+			document.add(new Paragraph("\n\n"));
+			document.add(new Paragraph("\n\n"));
 		} catch (DocumentException e1) {
 			System.err.println("Error editando el documento PDF");
 			e1.printStackTrace();
@@ -111,7 +119,11 @@ public class GenerarInformeSemanalModel {
 
 		// Añade la tabla al documento PDF
 		try {
+			
 			document.add(tablaReservadores);
+			document.add(new Paragraph("\n\n"));
+			document.add(new Paragraph("\n\n"));
+	        
 		} catch (DocumentException e) {
 			System.err.println("Error editando el documento PDF");
 			e.printStackTrace();
@@ -121,6 +133,9 @@ public class GenerarInformeSemanalModel {
 		Chunk chunk3 = new Chunk("--------------  Tabla de Compañeros de Grupo Burbuja ------------------", font2);
 		try {
 			document.add(chunk3);
+			document.add(new Paragraph("\n\n"));
+			document.add(new Paragraph("\n\n"));
+	        
 		} catch (DocumentException e1) {
 			System.err.println("Error editando el documento PDF");
 			e1.printStackTrace();
@@ -158,6 +173,8 @@ public class GenerarInformeSemanalModel {
 			System.err.println("Error añadiendo tabla de compañeros al documento PDF");
 			e.printStackTrace();
 		}
+		
+		document.close();
 
 	} // end generarInforme
 
@@ -187,7 +204,7 @@ public class GenerarInformeSemanalModel {
 
 		for (GenerarInformeSemanalDTO socio : datos){
 
-			table.addCell(socio.getIdSocio());
+			table.addCell(Integer.toString(socio.getIdSocio()));
 			table.addCell(Integer.toString(socio.getGrupoBurbuja()));
 			table.addCell(socio.getCorreo());
 			table.addCell(socio.getHoraIni());
