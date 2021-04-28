@@ -1,4 +1,4 @@
-package giis.demo.proyectoClub.Model;
+package giis.demo.proyectoClub.DTO;
 
 import java.sql.Time;
 import java.util.Date;
