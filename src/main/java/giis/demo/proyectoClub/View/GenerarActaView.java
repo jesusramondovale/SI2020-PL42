@@ -100,7 +100,7 @@ public class GenerarActaView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 450);
+		frame.setBounds(100, 100, 499, 510);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblOrdenDia = new JLabel("Orden del día de la Asamblea especificada:");

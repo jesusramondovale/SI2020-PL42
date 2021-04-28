@@ -2,6 +2,10 @@ package giis.demo.proyectoClub.DTO;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.Map;
+
+
+
 
 public class GenerarActaDTO {
 
@@ -14,11 +18,10 @@ public class GenerarActaDTO {
 	private Time hora1;
 	private Time hora2;
 	
-	private String[] propuestas;
-
+	private Map<String, int[]> propuestas;
 
 	public GenerarActaDTO(int idAsamblea, String tipo, String ordenDia, Date fechaAsamblea, Time hora1, Time hora2,
-			String[] propuestas) {
+			Map<String, int[]> propuestas) {
 		super();
 		this.idAsamblea = idAsamblea;
 		this.tipo = tipo;
@@ -29,16 +32,20 @@ public class GenerarActaDTO {
 		this.propuestas = propuestas;
 	}
 
-	
-	
-	public GenerarActaDTO(int idAsamblea, String ordenDia, String[] propuestas) {
+	public GenerarActaDTO(int idAsamblea, String ordenDia, Map<String, int[]> propuestas) {
 		super();
 		this.idAsamblea = idAsamblea;
 		this.ordenDia = ordenDia;
 		this.propuestas = propuestas;
 	}
 
+	public static int getMAX_PROPUESTAS() {
+		return MAX_PROPUESTAS;
+	}
 
+	public static void setMAX_PROPUESTAS(int mAX_PROPUESTAS) {
+		MAX_PROPUESTAS = mAX_PROPUESTAS;
+	}
 
 	public int getIdAsamblea() {
 		return idAsamblea;
@@ -88,19 +95,16 @@ public class GenerarActaDTO {
 		this.hora2 = hora2;
 	}
 
-	public String[] getPropuestas() {
+	public Map<String, int[]> getPropuestas() {
 		return propuestas;
 	}
 
-	public void setPropuestas(String[] propuestas) {
+	public void setPropuestas(Map<String, int[]> propuestas) {
 		this.propuestas = propuestas;
 	}
+
 	
-	public String MostrarPropuesta(int i){
-		
-		return this.propuestas[i];
-		
-	}
+
 	
 	
 	
