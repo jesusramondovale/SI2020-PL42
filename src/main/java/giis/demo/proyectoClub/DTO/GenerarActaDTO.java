@@ -1,6 +1,6 @@
 package giis.demo.proyectoClub.DTO;
 
-import java.sql.Time;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -15,12 +15,21 @@ public class GenerarActaDTO {
 	private String tipo;
 	private String ordenDia;
 	private Date fechaAsamblea;
-	private Time hora1;
-	private Time hora2;
+	private String hora1;
+	private String hora2;
 	
 	private Map<String, int[]> propuestas;
 
-	public GenerarActaDTO(int idAsamblea, String tipo, String ordenDia, Date fechaAsamblea, Time hora1, Time hora2,
+	
+	
+	
+	public GenerarActaDTO() {
+		super();
+	}
+	
+	
+
+	public GenerarActaDTO(int idAsamblea, String tipo, String ordenDia, Date fechaAsamblea, String hora1, String hora2,
 			Map<String, int[]> propuestas) {
 		super();
 		this.idAsamblea = idAsamblea;
@@ -79,19 +88,19 @@ public class GenerarActaDTO {
 		this.fechaAsamblea = fechaAsamblea;
 	}
 
-	public Time getHora1() {
+	public String getHora1() {
 		return hora1;
 	}
 
-	public void setHora1(Time hora1) {
+	public void setHora1(String hora1) {
 		this.hora1 = hora1;
 	}
 
-	public Time getHora2() {
+	public String getHora2() {
 		return hora2;
 	}
 
-	public void setHora2(Time hora2) {
+	public void setHora2(String hora2) {
 		this.hora2 = hora2;
 	}
 

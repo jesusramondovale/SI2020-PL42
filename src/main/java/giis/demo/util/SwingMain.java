@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import giis.demo.proyectoClub.Controller.GenerarActaController;
+import giis.demo.proyectoClub.Model.GenerarActaModel;
+import giis.demo.proyectoClub.View.GenerarActaView;
 //import giis.demo.proyectoClub.Controller.GenerarInformeSemanalController;
 //import giis.demo.proyectoClub.Model.GenerarInformeSemanalModel;
 //import giis.demo.proyectoClub.Controller.GenerarInformeSemanalController;
@@ -90,6 +93,21 @@ public class SwingMain {
 		});
 		
 		frame.getContentPane().add(btnCargarDatosIniciales);
+		
+		JButton btnGenerarActaDe = new JButton("Generar Acta de Asamblea");
+		frame.getContentPane().add(btnGenerarActaDe);
+		
+		btnGenerarActaDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){   
+				
+				GenerarActaModel model = new GenerarActaModel();
+				GenerarActaView view = new GenerarActaView();
+				GenerarActaController controller = new GenerarActaController(view,model);
+				controller.initController();
+				
+			}
+		
+		});
 		
 						
 	}

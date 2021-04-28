@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GenerarActaView {
 
@@ -19,23 +23,36 @@ public class GenerarActaView {
 	private JTextField tfIDFavor;
 	private JTextField tfIDContra;
 	private JTextField tfAsamblea;
+	private JButton btnSocioFavor;
+	private JButton btnSocioContra;
+	private JButton btnAnadirGeneral;
+	private JButton btnReset;
+	private JButton btnCrearActa;
+	private JButton btnOk;
 	
 	
-
-	public JTextField getTfIDFavor() {
-		return tfIDFavor;
+	public JTextField getTfAsamblea() {
+		return tfAsamblea;
 	}
 
-	public void setTfIDFavor(JTextField tfIDFavor) {
-		this.tfIDFavor = tfIDFavor;
+	public void setTfAsamblea(JTextField tfAsamblea) {
+		this.tfAsamblea = tfAsamblea;
 	}
 
-	public JTextField getTfIDContra() {
-		return tfIDContra;
+	public JButton getBtnAnadirGeneral() {
+		return btnAnadirGeneral;
 	}
 
-	public void setTfIDContra(JTextField tfIDContra) {
-		this.tfIDContra = tfIDContra;
+	public void setBtnAnadirGeneral(JButton btnAnadirGeneral) {
+		this.btnAnadirGeneral = btnAnadirGeneral;
+	}
+
+	public JButton getBtnReset() {
+		return btnReset;
+	}
+
+	public void setBtnReset(JButton btnReset) {
+		this.btnReset = btnReset;
 	}
 
 	/**
@@ -59,12 +76,48 @@ public class GenerarActaView {
 	 */
 	public GenerarActaView() {
 		initialize();
+		this.btnSocioContra.setEnabled(false);
+		this.btnSocioFavor.setEnabled(false);
+		
+	}
+
+	
+	
+	public JButton getBtnSocioFavor() {
+		return btnSocioFavor;
+	}
+
+	public void setBtnSocioFavor(JButton btnSocioFavor) {
+		this.btnSocioFavor = btnSocioFavor;
+	}
+
+	public JButton getBtnSocioContra() {
+		return btnSocioContra;
+	}
+
+	public void setBtnSocioContra(JButton btnSocioContra) {
+		this.btnSocioContra = btnSocioContra;
 	}
 
 	
 	
 	
-	
+	public JTextField getTfIDFavor() {
+		return tfIDFavor;
+	}
+
+	public void setTfIDFavor(JTextField tfIDFavor) {
+		this.tfIDFavor = tfIDFavor;
+	}
+
+	public JTextField getTfIDContra() {
+		return tfIDContra;
+	}
+
+	public void setTfIDContra(JTextField tfIDContra) {
+		this.tfIDContra = tfIDContra;
+	}
+
 	
 	
 	public JFrame getFrame() {
@@ -100,7 +153,7 @@ public class GenerarActaView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 499, 510);
+		frame.setBounds(100, 100, 480, 514);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblOrdenDia = new JLabel("Orden del día de la Asamblea especificada:");
@@ -113,22 +166,52 @@ public class GenerarActaView {
 		tfPropuestas = new JTextField();
 		tfPropuestas.setColumns(10);
 		
-		JButton btnSocioFavor = new JButton("Añadir Socio a Favor");
+		btnSocioFavor = new JButton("Añadir Socio a Favor");
 		
-		JButton btnSocioContra = new JButton("Añadir Socio en Contra");
+		btnSocioContra = new JButton("Añadir Socio en Contra");
 		
-		JButton btnCrearActa = new JButton("Crear Acta");
+		btnCrearActa = new JButton("Crear Acta");
 		
-		JButton btnReset = new JButton("Reset");
+		btnReset = new JButton("Reset");
 		
 		JLabel lblId = new JLabel("ID");
 		
 		JLabel lblId_1 = new JLabel("ID");
 		
 		tfIDFavor = new JTextField();
+		tfIDFavor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				
+				if (tfIDFavor.getText().length() != 0){
+					btnSocioFavor.setEnabled(true);
+				}
+				
+				else {
+					btnSocioFavor.setEnabled(false);
+				}
+				
+				
+			}
+		});
 		tfIDFavor.setColumns(10);
 		
 		tfIDContra = new JTextField();
+		tfIDContra.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if (tfIDContra.getText().length() != 0){
+					btnSocioContra.setEnabled(true);
+				}
+				
+				else {
+					btnSocioContra.setEnabled(false);
+					
+				}
+				
+			}
+		});
 		tfIDContra.setColumns(10);
 		
 		JLabel lblIndiqueElId = new JLabel("Indique el ID de la Asamblea:");
@@ -138,41 +221,56 @@ public class GenerarActaView {
 		
 		JLabel lblId_2 = new JLabel("ID");
 		
-		JButton btnOk = new JButton("OK");
+		btnOk = new JButton("OK");
+		
+		btnAnadirGeneral = new JButton("Añadir");
+		btnAnadirGeneral.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnReset)
-							.addPreferredGap(ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
-							.addComponent(btnCrearActa))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnSocioContra)
-							.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-							.addComponent(lblId_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfIDContra, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnSocioFavor)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblId)
-							.addGap(9)
-							.addComponent(tfIDFavor, 0, 0, Short.MAX_VALUE))
-						.addComponent(tfPropuestas, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
 						.addComponent(lblAadirPropuestaAprobada)
-						.addComponent(tfOrdenDia, 372, 372, 372)
-						.addComponent(lblOrdenDia, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-								.addComponent(lblId_2)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(tfAsamblea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnOk))
-							.addComponent(lblIndiqueElId)))
+						.addComponent(lblOrdenDia, GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblId_2)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tfAsamblea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnOk))
+						.addComponent(lblIndiqueElId)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addComponent(btnSocioContra)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(tfOrdenDia, Alignment.LEADING, 372, 372, Short.MAX_VALUE)
+								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnSocioFavor)
+										.addComponent(btnReset))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(47)
+											.addComponent(lblId)
+											.addGap(18)
+											.addComponent(tfIDFavor, 0, 0, Short.MAX_VALUE))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(50)
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+												.addComponent(btnCrearActa)
+												.addGroup(groupLayout.createSequentialGroup()
+													.addComponent(lblId_1)
+													.addGap(18)
+													.addComponent(tfIDContra, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+									.addComponent(tfPropuestas, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnAnadirGeneral)))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -192,24 +290,42 @@ public class GenerarActaView {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblAadirPropuestaAprobada)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tfPropuestas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnSocioFavor)
-							.addComponent(lblId))
-						.addComponent(tfIDFavor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tfPropuestas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAnadirGeneral))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnSocioFavor)
+						.addComponent(tfIDFavor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblId))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnSocioContra)
-						.addComponent(tfIDContra, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblId_1))
-					.addGap(40)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(tfIDContra, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblId_1)))
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnReset)
-						.addComponent(btnCrearActa))
-					.addContainerGap())
+						.addComponent(btnCrearActa)
+						.addComponent(btnReset))
+					.addGap(106))
 		);
 		frame.getContentPane().setLayout(groupLayout);
+	}
+
+	public JButton getBtnCrearActa() {
+		return btnCrearActa;
+	}
+
+	public void setBtnCrearActa(JButton btnCrearActa) {
+		this.btnCrearActa = btnCrearActa;
+	}
+
+	public JButton getBtnOk() {
+		return btnOk;
+	}
+
+	public void setBtnOk(JButton btnOk) {
+		this.btnOk = btnOk;
 	}
 }

@@ -73,7 +73,7 @@ delete from asambleas;
 INSERT INTO asambleas (idAsamblea,tipo,ordenDia,fechaAsamblea,hora1,hora2) VALUES
 	(1,'Ordinaria','Presentacion de la mesa y lectura de presupuestos','2021-04-02',10.00,11.00);
 INSERT INTO asambleas (idAsamblea,tipo,ordenDia,fechaAsamblea,hora1,hora2) VALUES
-	(2,'Extraordinaria','','2021-03-30',12.00,13.00);
+	(2,'Extraordinaria','Arreglo de la caldera','2021-03-30',12.00,13.00);
 
 
 
