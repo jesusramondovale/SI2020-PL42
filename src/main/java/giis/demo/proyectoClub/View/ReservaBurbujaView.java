@@ -34,10 +34,11 @@ public class ReservaBurbujaView extends JFrame {
 	private JScrollPane scrollPane;
 	private JLabel lNombre, lApellido1, lApellido2, lCorreo, lSocio, lLicencia, lInstalacion, lFecha, lHora;
 	private JRadioButton rbNGrupo, rbGrupo;
-	private JComboBox cbGrupo, cbSocioLibre, cbInstalacion, cbFecha, cbHInicio, cbHFin;
-	private JButton bAdd, bCancelar, bAddTabla, bEliminar, bReservar;
+	private JComboBox cbGrupo, cbInstalacion, cbFecha, cbHInicio, cbHFin;
+	private JButton bAdd, bCancelar, bAddTabla, bEliminar, bReservar, bAddSG, bEliminarSG, bEliminarNuevo;
 	private JSeparator separator, separator_1;
 	private JList listSeleccion, listNuevo;
+	private JTextField tfLicenciaG;
 
 	/**
 	 * Launch the application.
@@ -62,7 +63,7 @@ public class ReservaBurbujaView extends JFrame {
 		
 		ReservaBurbuja = new JFrame();
 		ReservaBurbuja.setTitle("Realizar reserva");
-		ReservaBurbuja.setBounds(100, 100, 1028, 573);
+		ReservaBurbuja.setBounds(100, 100, 1028, 636);
 		ReservaBurbuja.getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -109,16 +110,16 @@ public class ReservaBurbujaView extends JFrame {
 		
 		rbGrupo = new JRadioButton("Seleccionar grupo burbuja:");
 		grupo.add(rbGrupo);
-		rbGrupo.setBounds(28, 297, 172, 23);
+		rbGrupo.setBounds(28, 317, 172, 23);
 		ReservaBurbuja.getContentPane().add(rbGrupo);
 		
 		cbGrupo = new JComboBox();
 		cbGrupo.setModel(new DefaultComboBoxModel(new String[] {"Grupo"}));
-		cbGrupo.setBounds(28, 327, 53, 22);
+		cbGrupo.setBounds(28, 347, 53, 22);
 		ReservaBurbuja.getContentPane().add(cbGrupo);
 		
 		lSocio = new JLabel("Añadir nuevo socio:");
-		lSocio.setBounds(93, 331, 107, 14);
+		lSocio.setBounds(93, 351, 107, 14);
 		ReservaBurbuja.getContentPane().add(lSocio);
 		
 		lLicencia = new JLabel("Nº licencia:");
@@ -131,62 +132,57 @@ public class ReservaBurbujaView extends JFrame {
 		tfLicencia.setColumns(10);
 		
 		bAdd = new JButton("Añadir");
-		bAdd.setBounds(231, 146, 70, 23);
+		bAdd.setBounds(41, 190, 89, 23);
 		ReservaBurbuja.getContentPane().add(bAdd);
 		
-		cbSocioLibre = new JComboBox();
-		cbSocioLibre.setModel(new DefaultComboBoxModel(new String[] {"Socios"}));
-		cbSocioLibre.setBounds(199, 327, 70, 22);
-		ReservaBurbuja.getContentPane().add(cbSocioLibre);
-		
 		bCancelar = new JButton("Cancelar");
-		bCancelar.setBounds(104, 490, 89, 23);
+		bCancelar.setBounds(91, 544, 89, 23);
 		ReservaBurbuja.getContentPane().add(bCancelar);
 		
 		separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(332, 111, 7, 402);
+		separator.setBounds(332, 111, 7, 477);
 		ReservaBurbuja.getContentPane().add(separator);
 		
 		lInstalacion = new JLabel("Instalación:");
-		lInstalacion.setBounds(372, 150, 89, 14);
+		lInstalacion.setBounds(372, 194, 89, 14);
 		ReservaBurbuja.getContentPane().add(lInstalacion);
 		
 		cbInstalacion = new JComboBox();
 		cbInstalacion.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar instalación"}));
-		cbInstalacion.setBounds(372, 175, 152, 22);
+		cbInstalacion.setBounds(372, 232, 152, 22);
 		ReservaBurbuja.getContentPane().add(cbInstalacion);
 		
 		lFecha = new JLabel("Fecha de la reserva:");
-		lFecha.setBounds(372, 238, 129, 14);
+		lFecha.setBounds(372, 287, 129, 14);
 		ReservaBurbuja.getContentPane().add(lFecha);
 		
 		cbFecha = new JComboBox();
 		cbFecha.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar fecha"}));
-		cbFecha.setBounds(372, 272, 152, 22);
+		cbFecha.setBounds(372, 323, 152, 22);
 		ReservaBurbuja.getContentPane().add(cbFecha);
 		
 		lHora = new JLabel("Hora de la reserva:");
-		lHora.setBounds(372, 348, 152, 14);
+		lHora.setBounds(372, 374, 152, 14);
 		ReservaBurbuja.getContentPane().add(lHora);
 		
 		cbHInicio = new JComboBox();
 		cbHInicio.setModel(new DefaultComboBoxModel(new String[] {"Inicio"}));
-		cbHInicio.setBounds(372, 391, 62, 22);
+		cbHInicio.setBounds(372, 411, 62, 22);
 		ReservaBurbuja.getContentPane().add(cbHInicio);
 		
 		cbHFin = new JComboBox();
 		cbHFin.setModel(new DefaultComboBoxModel(new String[] {"Fin"}));
-		cbHFin.setBounds(462, 391, 62, 22);
+		cbHFin.setBounds(462, 411, 62, 22);
 		ReservaBurbuja.getContentPane().add(cbHFin);
 		
 		separator_1 = new JSeparator();
 		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setBounds(580, 111, 7, 402);
+		separator_1.setBounds(580, 111, 7, 477);
 		ReservaBurbuja.getContentPane().add(separator_1);
 		
 		bAddTabla = new JButton("Añadir");
-		bAddTabla.setBounds(401, 490, 89, 23);
+		bAddTabla.setBounds(401, 505, 89, 23);
 		ReservaBurbuja.getContentPane().add(bAddTabla);
 		
 		scrollPane = new JScrollPane();
@@ -211,17 +207,33 @@ public class ReservaBurbujaView extends JFrame {
 		bReservar = new JButton("Reservar");
 		bReservar.setBounds(859, 490, 89, 23);
 		ReservaBurbuja.getContentPane().add(bReservar);
-		list.setBounds(301, 175, 271, 96);
 		
 		listSeleccion = new JList();
 		listSeleccion.setModel(new DefaultListModel<>());
-		listSeleccion.setBounds(28, 360, 271, 110);
+		listSeleccion.setBounds(28, 431, 271, 82);
 		ReservaBurbuja.getContentPane().add(listSeleccion);
 		
 		listNuevo = new JList();
 		listNuevo.setModel(new DefaultListModel<>());
-		listNuevo.setBounds(28, 175, 271, 110);
+		listNuevo.setBounds(30, 219, 271, 82);
 		ReservaBurbuja.getContentPane().add(listNuevo);
+		
+		bAddSG = new JButton("New button");
+		bAddSG.setBounds(41, 397, 89, 23);
+		ReservaBurbuja.getContentPane().add(bAddSG);
+		
+		bEliminarSG = new JButton("Eliminar");
+		bEliminarSG.setBounds(199, 397, 89, 23);
+		ReservaBurbuja.getContentPane().add(bEliminarSG);
+		
+		bEliminarNuevo = new JButton("Eliminar");
+		bEliminarNuevo.setBounds(199, 190, 89, 23);
+		ReservaBurbuja.getContentPane().add(bEliminarNuevo);
+		
+		tfLicenciaG = new JTextField();
+		tfLicenciaG.setColumns(10);
+		tfLicenciaG.setBounds(199, 348, 107, 20);
+		ReservaBurbuja.getContentPane().add(tfLicenciaG);
 	}
 
 	public JFrame getReservaBurbuja() {
@@ -310,14 +322,6 @@ public class ReservaBurbujaView extends JFrame {
 
 	public void setCbGrupo(JComboBox cbGrupo) {
 		this.cbGrupo = cbGrupo;
-	}
-
-	public JComboBox getCbSocioLibre() {
-		return cbSocioLibre;
-	}
-
-	public void setCbSocioLibre(JComboBox cbSocioLibre) {
-		this.cbSocioLibre = cbSocioLibre;
 	}
 
 	public JComboBox getCbInstalacion() {
@@ -411,4 +415,54 @@ public class ReservaBurbujaView extends JFrame {
 	public ButtonGroup getGrupo() {
 		return grupo;
 	}
+
+	public JLabel getlLicencia() {
+		return lLicencia;
+	}
+	
+	public void setlLicencia(JLabel lLicencia) {
+		this.lLicencia = lLicencia;
+	}
+
+	public JLabel getlSocio() {
+		return lSocio;
+	}
+
+	public void setlSocio(JLabel lSocio) {
+		this.lSocio = lSocio;
+	}
+
+	public JButton getbAddSG() {
+		return bAddSG;
+	}
+
+	public void setbAddSG(JButton bAddSG) {
+		this.bAddSG = bAddSG;
+	}
+
+	public JButton getbEliminarSG() {
+		return bEliminarSG;
+	}
+
+	public void setbEliminarSG(JButton bEliminarSG) {
+		this.bEliminarSG = bEliminarSG;
+	}
+
+	public JButton getbEliminarNuevo() {
+		return bEliminarNuevo;
+	}
+
+	public void setbEliminarNuevo(JButton bEliminarNuevo) {
+		this.bEliminarNuevo = bEliminarNuevo;
+	}
+
+	public JTextField getTfLicenciaG() {
+		return tfLicenciaG;
+	}
+
+	public void setTfLicenciaG(JTextField tfLicenciaG) {
+		this.tfLicenciaG = tfLicenciaG;
+	}
+	
+	
 }

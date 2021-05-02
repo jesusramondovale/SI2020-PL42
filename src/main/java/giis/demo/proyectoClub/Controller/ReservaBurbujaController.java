@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -55,12 +56,12 @@ public class ReservaBurbujaController {
 		eliminarDatosTabla();
 		view.setVisible(true);
 
-		view.getRbtnIndividual().setSelected(true);
+		view.getRbNGrupo().setSelected(true);
 
 		view.getCbInstalacion().addActionListener(e -> SwingUtil.exceptionWrapper(() -> insertarHorarioReserva()));
 
 		view.getbCancelar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)));
-		view.getbAnadir().addActionListener(new ActionListener() {
+		view.getbAddTabla().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -69,31 +70,39 @@ public class ReservaBurbujaController {
 			}
 		});
 
-		view.getRbtnIndividual().addActionListener(new ActionListener() {
+		view.getRbNGrupo().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				view.getListGrupo().setEnabled(false);
-				view.getlSeleccion().setEnabled(false);
-				view.getTfNLicencia().setEnabled(true);
-				view.getlNLicencia().setEnabled(true);
+				view.getlSocio().setEnabled(false);
+				view.getListSeleccion().setEnabled(false);
+				view.getCbGrupo().setEnabled(false);
+				view.getCbSocioLibre().setEnabled(false);
+				view.getlLicencia().setEnabled(true);
+				view.getTfLicencia().setEnabled(true);
+				view.getbAdd().setEnabled(true);
+				view.getListNuevo().setEnabled(true);
 				eliminarDatosTabla();
 			}
 		});
 
-		view.getRbtnGrupo().addActionListener(new ActionListener() {
+		view.getRbGrupo().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				view.getTfNLicencia().setEnabled(false);
-				view.getlNLicencia().setEnabled(false);
-				view.getListGrupo().setEnabled(true);
-				view.getlSeleccion().setEnabled(true);
+				view.getlSocio().setEnabled(true);
+				view.getListSeleccion().setEnabled(true);
+				view.getCbGrupo().setEnabled(true);
+				view.getCbSocioLibre().setEnabled(true);
+				view.getlLicencia().setEnabled(false);
+				view.getTfLicencia().setEnabled(false);
+				view.getbAdd().setEnabled(false);
+				view.getListNuevo().setEnabled(false);
 				eliminarDatosTabla();
 			}
 		});
 
-		view.gettReservas().addMouseListener(new MouseAdapter() {
+		view.gettReserva().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				view.getbEliminar().setEnabled(true);
@@ -204,6 +213,21 @@ public class ReservaBurbujaController {
 	}
 
 	/**
+	 * 	Metodo para convertir el String de cbFecha a Date
+	 */
+	public static Date convFecha(String fecha) {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaDate = null;
+		try {
+			fechaDate = formato.parse(fecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fechaDate;
+	}
+	
+	/**
 	 * Metodo que añade a la lista los elementos de busqueda sql
 	 */
 	public void editarLista(String licencia) {
@@ -283,11 +307,51 @@ public class ReservaBurbujaController {
 		}
 	}
 
-
+	/**
+	 * Método que añade la selección del socio a la tabla
+	 */
 	private void addReserva() {
 		// TODO Auto-generated method stub
 		DefaultTableModel m = (DefaultTableModel) view.gettReserva().getModel();
 		Object [] datos = new Object[5];
+		
+		if(view.getRbNGrupo().isSelected()) {
+			List<String> elem = view.getListNuevo().getSelectedValuesList();
+			for(int i = 0; i < elem.size(); i++) {
+				
+			}
+		}
+		else {
+			
+		}
+	}
+	
+	/**
+	 * Método que añade la reserva realizada en la tabla reservas de la BD
+	 */
+	private void reservar() {
+		
+		DefaultTableModel m = (DefaultTableModel) view.gettReserva().getModel();
+		int f = view.gettReserva().getRowCount();
+		
+		String instalacion = view.getCbInstalacion().getSelectedItem().toString();
+		Date fecha = convFecha(view.getCbFecha().getSelectedItem().toString());
+		String hinicio = view.getCbHInicio().getSelectedItem().toString();
+		List<Object[]> reservasInstalacion = model.getReservasInstalacion(instalacion, fecha, hinicio);
+		for(int i = 0; i < reservasInstalacion.size(); i++) {
+			if(reservasInstalacion.get(i).equals(instalacion)) {
+				JOptionPane pane = new JOptionPane("No es posible realizar la reserva.\nMOTIVO: Colisión con otro grupo", 
+						JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
+				JDialog d = pane.createDialog(pane, "Error en reserva");
+				d.setLocation(200, 200);
+				d.setVisible(true);
+			}
+			else {
+				List<Object[]> socios = model.getSociosGrupo();
+				model.addReserva();
+			}
+		}
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 package giis.demo.proyectoClub.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import giis.demo.proyectoClub.DTO.InstalacionDisplayDTO;
@@ -30,6 +31,11 @@ public class ReservaBurbujaModel {
 		// TODO Auto-generated method stub
 		String sql = "SELECT idSocio from socio where nombreSocio=? AND apellido1socio=? AND apellido2socio=?";
 		return db.executeQueryArray(sql, nombre, apellido1, apellido2);
+	}
+	
+	public List<Object[]> getReservasInstalacion(String instalacion, java.util.Date fecha, String hinicio){
+		String sql = "SELECT instalacion from reservas where instalacion=? AND fechaReserva=? AND horaInicio=?";
+		return db.executeQueryArray(sql, instalacion, fecha, hinicio);
 	}
 
 }
