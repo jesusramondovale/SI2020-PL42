@@ -43,11 +43,12 @@ public class EditarInstalacionesView extends JFrame {
 		lblNewLabel.setBounds(10, 39, 448, 14);
 		EditarInstalaciones.getContentPane().add(lblNewLabel);
 		
-		slider = new JSlider();
-		slider.setPaintLabels(true);
+		slider = new JSlider(JSlider.HORIZONTAL, 1, 4, 1);
+		slider.setInverted(false);
+		slider.setPaintTicks(true);
 		slider.setMinorTickSpacing(1);
 		slider.setMajorTickSpacing(1);
-		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
 		slider.setSnapToTicks(true);
 		slider.setMinimum(1);
 		slider.setMaximum(4);

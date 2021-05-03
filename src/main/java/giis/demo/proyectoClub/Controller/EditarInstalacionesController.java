@@ -3,9 +3,6 @@ package giis.demo.proyectoClub.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-
 import giis.demo.proyectoClub.View.EditarInstalacionesView;
 
 public class EditarInstalacionesController {
@@ -26,7 +23,7 @@ public class EditarInstalacionesController {
 	 */
 	public void initController() {
 		this.initView();
-
+		
 		view.getbCancelar().addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				view.getFrame().setVisible(false);
@@ -36,6 +33,7 @@ public class EditarInstalacionesController {
 		view.getbAceptar().addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				view.getFrame().setVisible(false);
+				nivel = view.getSlider().getValue();
 			}
 		});
 
@@ -50,8 +48,7 @@ public class EditarInstalacionesController {
 			}
 		});	
 	}
-
-
+	
 	public void initView() {
 		view.getFrame().setVisible(true);
 	}
