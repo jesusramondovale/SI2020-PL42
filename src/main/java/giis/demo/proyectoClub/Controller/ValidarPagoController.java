@@ -23,6 +23,7 @@ import giis.demo.proyectoClub.DTO.LicenciaDisplayDTO;
 import giis.demo.proyectoClub.View.ValidarPagoView;
 import giis.demo.proyectoClub.model.ValidarPagoModel;
 import giis.demo.util.SwingUtil;
+import giis.demo.util.UnexpectedException;
 
 public class ValidarPagoController {
 
@@ -101,35 +102,32 @@ public class ValidarPagoController {
 
 	public void comprobarDatos(String ruta) {
 
-		final String SEPARADOR = ";";
-		BufferedReader br = null;
+		String file = ruta;
+		BufferedReader fileR = null;
 		try {
 
-			br = new BufferedReader(new FileReader(ruta));
-			String line = br.readLine();
-			while(null != line) {
-				String[] fields = line.split(SEPARADOR);
+			String line = "";
+			fileR = new BufferedReader(new FileReader(file));
+			while((line = fileR.readLine()) != null) {
+				String[] fields = line.split(";");
 				String nlicencia = fields[0];
 				String estado = fields[2];
 				List<LicenciaDisplayDTO> licencias = model.getLicencias();
 				for(int i = 0; i < licencias.size(); i++) {
-					if(licencias.get(i).getNumLicencia().equals(nlicencia) && licencias.get(i).getEstadoLicencia().equals("Pagada") && (estado != "Tramitada")) {
-						model.editarLicencia(nlicencia, estado);
+					if(licencias.get(i).getNumLicencia().equals(nlicencia) && (estado != "Tramitada")) {
+						model.editarLicencia(nlicencia);
 					}
-				}
-				for(int j = 0; j < fields.length; j++) {
-					fields[j].replaceAll("^"+ "\"", "").replaceAll("\""+"$", "");
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.err.print(e.getMessage());
+			throw new UnexpectedException(e);
 		} finally {
 			try {
-				if(null != br) {
-					br.close();
-				}
-			}catch (Exception e2) {
-				e2.printStackTrace();
+				fileR.close();
+			}catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -137,6 +135,7 @@ public class ValidarPagoController {
 	public void tramitarLicencia() {
 
 		model.tramitarLicencias("Pagada");
+		JOptionPane.showMessageDialog(null, "Se han tramitado las licencias", "Tramitación", JOptionPane.DEFAULT_OPTION);
 	}
 
 	public void generarFichero() {
@@ -150,9 +149,6 @@ public class ValidarPagoController {
 			for(int j = 0; j < licencias.size(); j++) {
 				if(licencias.get(j).getEstadoLicencia().equals("Tramitada")) {
 					s += "\n" + licencias.get(j).getNumLicencia() + "\t\t" + licencias.get(j).getPrecio() + "\t\t" + licencias.get(j).getEstadoLicencia() + "\n";
-				}
-				else {
-					file.close();
 				}
 			}
 			file.write(s);
