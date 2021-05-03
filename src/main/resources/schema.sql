@@ -17,7 +17,8 @@ CREATE TABLE socio (
 	numCuenta TEXT NOT NULL,
 	cuota FLOAT,
 	dniTutor TEXT,
-	dniTecnico TEXT
+	dniTecnico TEXT,
+	grupoBurbuja INTEGER
 );
 
 drop table tecnico;
@@ -32,6 +33,7 @@ CREATE TABLE tecnico (
 	cuota FLOAT,
 	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
 );
+
 drop table juez;
 CREATE TABLE juez (
 	idJuez INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -77,7 +79,8 @@ create table asambleas (
 drop table instalacion;
 create table instalacion (
 		idInstalacion INTEGER PRIMARY KEY AUTOINCREMENT,
-		nombreInstalacion TEXT NOT NULL
+		nombreInstalacion TEXT NOT NULL,
+		aforo INTEGER NOT NULL
 );
 
 drop table recibos;
