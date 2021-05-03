@@ -15,9 +15,9 @@ public class ValidarPagoModel {
 		return db.executeQueryPojo(LicenciaDisplayDTO.class, sql);
 	}
 	
-	public void editarLicencia(String numLicencia, String estado) {
-		String sql = "UPDATE licencia SET estadoLicencia='Pagada' where numLicencia=? and estado=?";
-		db.executeUpdate(sql, numLicencia, estado);
+	public void editarLicencia(String numLicencia) {
+		String sql = "UPDATE licencia SET estadoLicencia='Pagada' where numLicencia=?";
+		db.executeUpdate(sql, numLicencia);
 	}
 	
 	public void tramitarLicencias(String Pagada) {
