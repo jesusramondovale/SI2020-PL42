@@ -33,6 +33,7 @@ CREATE TABLE tecnico (
 	cuota FLOAT,
 	FOREIGN KEY (idLicencia) REFERENCES licencia(idLicencia)
 );
+
 drop table juez;
 CREATE TABLE juez (
 	idJuez INTEGER PRIMARY KEY AUTOINCREMENT,
