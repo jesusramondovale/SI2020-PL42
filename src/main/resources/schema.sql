@@ -92,5 +92,6 @@ create table recibos (
 		concepto TEXT NOT NULL,
 		importe TEXT NOT NULL,
 		numCuenta TEXT NOT NULL,
+		estado TEXT NOT NULL
 		FOREIGN KEY(idSocio) REFERENCES socio(idSocio)
 );

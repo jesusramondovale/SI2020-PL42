@@ -25,6 +25,7 @@ public class ReciboCuotaView {
 	private JButton bCancelar;
 	private JButton bRecibo;
 	private JButton btnAgregar;
+	private JButton btncerrarLotes;
 
 	
 	/**
@@ -91,7 +92,7 @@ public class ReciboCuotaView {
 		
 		bRecibo = new JButton("Generar recibo");
 		bRecibo.setEnabled(false);
-		bRecibo.setBounds(1069, 533, 122, 23);
+		bRecibo.setBounds(677, 533, 122, 23);
 		GenerarRecibos.getContentPane().add(bRecibo);
 		
 		JScrollPane scrollPane1 = new JScrollPane();
@@ -113,6 +114,10 @@ public class ReciboCuotaView {
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(539, 510, 89, 23);
 		GenerarRecibos.getContentPane().add(btnAgregar);
+		
+		JButton btncerrarLotes = new JButton("Cerrar Lote");
+		btncerrarLotes.setBounds(1102, 533, 89, 23);
+		GenerarRecibos.getContentPane().add(btncerrarLotes);
 		
 	}
 	
@@ -194,6 +199,18 @@ public class ReciboCuotaView {
 	}
 	public void setBtnAgregar(JButton btnAgregar) {
 		this.btnAgregar = btnAgregar;
+	}
+	public JFrame getGenerarRecibos() {
+		return GenerarRecibos;
+	}
+	public void setGenerarRecibos(JFrame generarRecibos) {
+		GenerarRecibos = generarRecibos;
+	}
+	public JButton getBtncerrarLotes() {
+		return btncerrarLotes;
+	}
+	public void setBtncerrarLotes(JButton btncerrarLotes) {
+		this.btncerrarLotes = btncerrarLotes;
 	}
 	
 	
