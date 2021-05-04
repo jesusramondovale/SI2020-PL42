@@ -16,11 +16,13 @@ import giis.demo.proyectoClub.Controller.RealizarReservaController;
 //import giis.demo.proyectoClub.View.NuevoSocioVista;
 import giis.demo.proyectoClub.Controller.ReciboCuotaController;
 import giis.demo.proyectoClub.Controller.RenovarLicenciaController;
+import giis.demo.proyectoClub.Controller.ReservaBurbujaController;
 import giis.demo.proyectoClub.Controller.ValidarPagoController;
 import giis.demo.proyectoClub.View.PagarLicenciaVista;
 import giis.demo.proyectoClub.View.RealizarReservaView;
 import giis.demo.proyectoClub.View.ReciboCuotaView;
 import giis.demo.proyectoClub.View.RenovarLicenciaView;
+import giis.demo.proyectoClub.View.ReservaBurbujaView;
 import giis.demo.proyectoClub.View.SocioVista;
 import giis.demo.proyectoClub.View.ValidarPagoView;
 import giis.demo.proyectoClub.View.nuevoJuezVista;
@@ -32,6 +34,7 @@ import giis.demo.proyectoClub.model.PagarLicenciaModelo;
 import giis.demo.proyectoClub.model.RealizarReservaModel;
 import giis.demo.proyectoClub.model.ReciboCuotaModel;
 import giis.demo.proyectoClub.model.RenovarLicenciaModel;
+import giis.demo.proyectoClub.model.ReservaBurbujaModel;
 import giis.demo.proyectoClub.model.ValidarPagoModel;
 
 
@@ -80,7 +83,7 @@ public class SwingMain {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Main");
-		frame.setBounds(0, 0, 635, 509);
+		frame.setBounds(0, 0, 500, 509);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
@@ -101,7 +104,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarNuevoSocio);
 		
 		JButton btnEjecutarNuevoTecnico = new JButton("Nuevo Tecnico");
@@ -111,7 +114,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarNuevoTecnico);
 		
 		JButton btnEjecutarNuevoJuez = new JButton("Nuevo Juez");
@@ -121,7 +124,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarNuevoJuez);
 
 		JButton btnEjecutarPagarLicencia = new JButton("PagarLicencia");
@@ -131,7 +134,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarPagarLicencia);
 		
 		JButton btnRealizarReserva = new JButton("Realizar reserva");
@@ -141,7 +144,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnRealizarReserva);
 
 		JButton btnRenovarLicencia = new JButton("Renovar licencia");
@@ -151,7 +154,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnRenovarLicencia);
 		
 		JButton btnReciboCuota = new JButton("Recibo Cuota");
@@ -161,7 +164,7 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnReciboCuota);
 
 		JButton btnValidarPago = new JButton("Validar Pagos");
@@ -171,8 +174,18 @@ public class SwingMain {
 				controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnValidarPago);
+		
+		JButton btnReservaBurbuja = new JButton("Realizar reserva burbuja");
+		btnReservaBurbuja.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				ReservaBurbujaController controller=new ReservaBurbujaController(new ReservaBurbujaModel(), new ReservaBurbujaView());
+				controller.initController();
+			}
+		});
+		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnReservaBurbuja);
 		
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
 		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado

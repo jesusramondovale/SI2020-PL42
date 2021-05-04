@@ -52,15 +52,21 @@ public class ReservaBurbujaController {
 		addInstalacion();
 		insertarFechaReserva();
 		insertarHorarioReserva();
-		addLicencias();
+		//addLicencias();
 		eliminarDatosTabla();
 		view.setVisible(true);
+		view.getlSocio().setEnabled(false);
+		view.getListSeleccion().setEnabled(false);
+		view.getCbGrupo().setEnabled(false);
+		view.getTfLicenciaG().setEnabled(false);
+		view.getbAddSG().setEnabled(false);
+		view.getbEliminarSG().setEnabled(false);
 
 		view.getRbNGrupo().setSelected(true);
 
 		view.getCbInstalacion().addActionListener(e -> SwingUtil.exceptionWrapper(() -> insertarHorarioReserva()));
 
-		view.getbCancelar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)));
+		view.getbCancelar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> view.getReservaBurbuja().setVisible(false)));
 		view.getbAddTabla().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,10 +83,13 @@ public class ReservaBurbujaController {
 				view.getlSocio().setEnabled(false);
 				view.getListSeleccion().setEnabled(false);
 				view.getCbGrupo().setEnabled(false);
-				view.getCbSocioLibre().setEnabled(false);
+				view.getTfLicenciaG().setEnabled(false);
+				view.getbAddSG().setEnabled(false);
+				view.getbEliminarSG().setEnabled(false);
 				view.getlLicencia().setEnabled(true);
 				view.getTfLicencia().setEnabled(true);
 				view.getbAdd().setEnabled(true);
+				view.getbEliminarNuevo().setEnabled(true);
 				view.getListNuevo().setEnabled(true);
 				eliminarDatosTabla();
 			}
@@ -93,10 +102,13 @@ public class ReservaBurbujaController {
 				view.getlSocio().setEnabled(true);
 				view.getListSeleccion().setEnabled(true);
 				view.getCbGrupo().setEnabled(true);
-				view.getCbSocioLibre().setEnabled(true);
+				view.getTfLicenciaG().setEnabled(true);
+				view.getbAddSG().setEnabled(true);
+				view.getbEliminarSG().setEnabled(true);
 				view.getlLicencia().setEnabled(false);
 				view.getTfLicencia().setEnabled(false);
 				view.getbAdd().setEnabled(false);
+				view.getbEliminarNuevo().setEnabled(false);
 				view.getListNuevo().setEnabled(false);
 				eliminarDatosTabla();
 			}
@@ -110,8 +122,50 @@ public class ReservaBurbujaController {
 			}
 		});
 
+		view.getbAdd().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				boolean c = controlLicencia();
+				if(c == true) {
+					DefaultListModel m = (DefaultListModel) view.getListNuevo().getModel();
+					if(m.getSize()>=6) {
+						JOptionPane pane = new JOptionPane("El número máximo de socios por grupo es 6", 
+								JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
+						JDialog d = pane.createDialog(pane, "Aviso");
+						d.setLocation(200, 200);
+						d.setVisible(true);
+					}
+					else {
+						m.addElement(view.getTfLicencia().getText());
+						view.getListNuevo().setModel(m);
+					}
+				}
+				else {
+					JOptionPane pane = new JOptionPane("El número de licencia introducido no existe", 
+							JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
+					JDialog d = pane.createDialog(pane, "Aviso");
+					d.setLocation(200, 200);
+					d.setVisible(true);
+				}
+			}
+		});
+		
+		view.getbEliminarNuevo().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				DefaultListModel m = (DefaultListModel) view.getListNuevo().getModel();
+				m.remove(view.getListNuevo().getSelectedIndex());
+				view.getListNuevo().setModel(m);
+				JOptionPane.showMessageDialog(null, "Selección eliminada");
+			}
+		});
+
 		view.getbEliminar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> eliminarSeleccion()));
-		view.getbReservar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> reservar()));
+		//view.getbReservar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> reservar()));
 
 	}
 
@@ -138,6 +192,7 @@ public class ReservaBurbujaController {
 			try {
 				Object pojo=pojos.get(i);
 				Object val= PropertyUtils.getSimpleProperty(pojo, nombre);
+				//if(EditarInstalacionesController.nivel)
 				comboBox.addItem(val);
 			}catch(IllegalAccessException | InvocationTargetException|NoSuchElementException | NoSuchMethodException e) {
 				throw new UnexpectedException(e);
@@ -226,7 +281,7 @@ public class ReservaBurbujaController {
 		}
 		return fechaDate;
 	}
-	
+
 	/**
 	 * Metodo que añade a la lista los elementos de busqueda sql
 	 */
@@ -235,7 +290,7 @@ public class ReservaBurbujaController {
 
 	}
 
-	public void addLicencia() {
+	/*public void addLicencia() {
 		String licencia = view.getTfLicencia().getText();
 
 		List<InstalacionDisplayDTO> nLic = model.getnLicencia(licencia);
@@ -260,7 +315,7 @@ public class ReservaBurbujaController {
 				d.setVisible(true);
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * Metodo para controlar los datos de la reserva
@@ -307,6 +362,22 @@ public class ReservaBurbujaController {
 		}
 	}
 
+	public boolean controlLicencia() {
+		List<LicenciaDisplayDTO> licencias = model.getLicencias();
+		if(view.getTfLicencia().getText().isEmpty()) {
+			return false;
+		}
+		else {
+			int i = 0;
+			while(i < licencias.size() && !licencias.get(i).getNumLicencia().equals(view.getTfLicencia().getText())) {
+				i++;
+			}
+			if(i < licencias.size()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	/**
 	 * Método que añade la selección del socio a la tabla
 	 */
@@ -314,26 +385,26 @@ public class ReservaBurbujaController {
 		// TODO Auto-generated method stub
 		DefaultTableModel m = (DefaultTableModel) view.gettReserva().getModel();
 		Object [] datos = new Object[5];
-		
+
 		if(view.getRbNGrupo().isSelected()) {
 			List<String> elem = view.getListNuevo().getSelectedValuesList();
 			for(int i = 0; i < elem.size(); i++) {
-				
+
 			}
 		}
 		else {
-			
+
 		}
 	}
-	
+
 	/**
 	 * Método que añade la reserva realizada en la tabla reservas de la BD
 	 */
-	private void reservar() {
-		
+	/*private void reservar() {
+
 		DefaultTableModel m = (DefaultTableModel) view.gettReserva().getModel();
 		int f = view.gettReserva().getRowCount();
-		
+
 		String instalacion = view.getCbInstalacion().getSelectedItem().toString();
 		Date fecha = convFecha(view.getCbFecha().getSelectedItem().toString());
 		String hinicio = view.getCbHInicio().getSelectedItem().toString();
@@ -351,7 +422,7 @@ public class ReservaBurbujaController {
 				model.addReserva();
 			}
 		}
-		
-	}
+
+	}*/
 
 }

@@ -115,11 +115,11 @@ public class ReservaBurbujaView extends JFrame {
 		
 		cbGrupo = new JComboBox();
 		cbGrupo.setModel(new DefaultComboBoxModel(new String[] {"Grupo"}));
-		cbGrupo.setBounds(28, 347, 53, 22);
+		cbGrupo.setBounds(28, 347, 70, 22);
 		ReservaBurbuja.getContentPane().add(cbGrupo);
 		
 		lSocio = new JLabel("Añadir nuevo socio:");
-		lSocio.setBounds(93, 351, 107, 14);
+		lSocio.setBounds(98, 351, 123, 14);
 		ReservaBurbuja.getContentPane().add(lSocio);
 		
 		lLicencia = new JLabel("Nº licencia:");
@@ -218,7 +218,7 @@ public class ReservaBurbujaView extends JFrame {
 		listNuevo.setBounds(30, 219, 271, 82);
 		ReservaBurbuja.getContentPane().add(listNuevo);
 		
-		bAddSG = new JButton("New button");
+		bAddSG = new JButton("Añadir");
 		bAddSG.setBounds(41, 397, 89, 23);
 		ReservaBurbuja.getContentPane().add(bAddSG);
 		
@@ -232,7 +232,7 @@ public class ReservaBurbujaView extends JFrame {
 		
 		tfLicenciaG = new JTextField();
 		tfLicenciaG.setColumns(10);
-		tfLicenciaG.setBounds(199, 348, 107, 20);
+		tfLicenciaG.setBounds(233, 348, 89, 20);
 		ReservaBurbuja.getContentPane().add(tfLicenciaG);
 	}
 
