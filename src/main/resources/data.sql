@@ -69,6 +69,6 @@ INSERT INTO recibos (IdRecibo, idSocio, fechaValor, fechaEmision, concepto, impo
 	(1, 1, '2021-03-01', '2021-03-15', 'Cuota Club Mes Marzo', 15.60, 'ES85 1234 5678 9101 1121 3141','generado');
 INSERT INTO recibos (IdRecibo, idSocio, fechaValor, fechaEmision, concepto, importe, numCuenta,estado) VALUES
 	(2, 2, '2021-03-01', '2021-03-15', 'Cuota Club Mes Marzo', 15.60, 'ES20 1111 2222 3333 4444 5555','generado');
-INSERT INTO recibos (IdRecibo, idSocio, fechaValor, fechaEmision, concepto, importe, numCuenta,esatdo) VALUES
+INSERT INTO recibos (IdRecibo, idSocio, fechaValor, fechaEmision, concepto, importe, numCuenta,estado) VALUES
 	(3, 3, '2021-03-01', '2021-03-15', 'Cuota Club Mes Marzo', 10.20, 'ES44 1515 1312 1110 9876 5432','generado');
 
