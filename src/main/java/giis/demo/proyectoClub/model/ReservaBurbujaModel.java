@@ -5,7 +5,9 @@ import java.util.List;
 
 import giis.demo.proyectoClub.DTO.InstalacionDisplayDTO;
 import giis.demo.proyectoClub.DTO.LicenciaDisplayDTO;
+import giis.demo.proyectoClub.DTO.SocioDisplayDTO;
 import giis.demo.util.Database;
+import giis.demo.util.Util;
 
 public class ReservaBurbujaModel {
 
@@ -36,6 +38,33 @@ public class ReservaBurbujaModel {
 	public List<Object[]> getReservasInstalacion(String instalacion, java.util.Date fecha, String hinicio){
 		String sql = "SELECT instalacion from reservas where instalacion=? AND fechaReserva=? AND horaInicio=?";
 		return db.executeQueryArray(sql, instalacion, fecha, hinicio);
+	}
+	
+	public List<SocioDisplayDTO> getFechaNac(String numLicencia){
+		String sql = "SELECT fechaNacimiento FROM socio WHERE numLicencia=?";
+		return db.executeQueryPojo(SocioDisplayDTO.class, sql, numLicencia);
+	}
+	
+	public List<SocioDisplayDTO> getGrupos(){
+		String sql = "SELECT grupoBurbuja FROM socio GROUP BY grupoBurbuja HAVING COUNT (*) >= 1";
+		return db.executeQueryPojo(SocioDisplayDTO.class, sql);
+	}
+	
+	public List<SocioDisplayDTO> getLicenciaGrupo(){
+		String sql = "SELECT numlicencia FROM socio GROUP BY numlicencia HAVING COUNT(grupoburbuja) >= 1";
+		return db.executeQueryPojo(SocioDisplayDTO.class, sql);
+	}
+	
+	public List<SocioDisplayDTO> getSociosGrupo(int grupoBurbuja){
+		String sql = "SELECT idSocio FROM socio WHERE grupoBurbuja=?";
+		return db.executeQueryPojo(SocioDisplayDTO.class, sql, grupoBurbuja);
+	}
+	
+	public void addReserva(int idSocio, String instalacion, java.util.Date fecha, String hinicio, String hfin) {
+		// TODO Auto-generated method stub
+		String sql = "INSERT INTO reservas (idSocio, instalacion, fechaReserva, horaInicio, horaFin) values (?,?,?,?,?)";
+		String fechaInicio = Util.dateToIsoString(fecha);
+		db.executeUpdate(sql, idSocio, instalacion, fechaInicio, hinicio, hfin);
 	}
 
 }

@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +25,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 
 import giis.demo.proyectoClub.DTO.InstalacionDisplayDTO;
 import giis.demo.proyectoClub.DTO.LicenciaDisplayDTO;
+import giis.demo.proyectoClub.DTO.SocioDTO;
 import giis.demo.proyectoClub.DTO.SocioDisplayDTO;
 import giis.demo.proyectoClub.View.ReservaBurbujaView;
 import giis.demo.proyectoClub.model.ReservaBurbujaModel;
@@ -50,9 +53,10 @@ public class ReservaBurbujaController {
 	 */
 	public void initController() {
 		addInstalacion();
+		addGrupos();
 		insertarFechaReserva();
 		insertarHorarioReserva();
-		//addLicencias();
+		addLicencias();
 		eliminarDatosTabla();
 		view.setVisible(true);
 		view.getlSocio().setEnabled(false);
@@ -64,9 +68,23 @@ public class ReservaBurbujaController {
 
 		view.getRbNGrupo().setSelected(true);
 
-		view.getCbInstalacion().addActionListener(e -> SwingUtil.exceptionWrapper(() -> insertarHorarioReserva()));
+		view.getCbInstalacion().addActionListener(new ActionListener() {
 
-		view.getbCancelar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> view.getReservaBurbuja().setVisible(false)));
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				insertarHorarioReserva();
+			}
+		});
+
+		view.getbCancelar().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				view.getReservaBurbuja().setVisible(false);
+			}
+		});
 		view.getbAddTabla().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -138,8 +156,30 @@ public class ReservaBurbujaController {
 						d.setVisible(true);
 					}
 					else {
-						m.addElement(view.getTfLicencia().getText());
-						view.getListNuevo().setModel(m);
+						if(EditarInstalacionesController.nivel >= 3) {
+							List<SocioDisplayDTO> fechaN = model.getFechaNac(view.getTfLicencia().getText());
+							for(int i = 0; i < fechaN.size(); i++) {
+								Date fn = convFecha((fechaN.get(i).getFechaNacimiento()));
+								Calendar cal = Calendar.getInstance();
+								Date fechaSistema = new Date(cal.getTimeInMillis());
+								long diff = fechaSistema.getTime() - fn.getTime();
+								if(diff >= 14) {
+									m.addElement(view.getTfLicencia().getText());
+									view.getListNuevo().setModel(m);
+								}
+								else {
+									JOptionPane pane = new JOptionPane("Nivel de estado de alarma: " + EditarInstalacionesController.nivel + "\nLos menores de 14 años no pueden reservar", 
+											JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
+									JDialog d = pane.createDialog(pane, "Aviso");
+									d.setLocation(200, 200);
+									d.setVisible(true);
+								}
+							}
+						}
+						else {
+							m.addElement(view.getTfLicencia().getText());
+							view.getListNuevo().setModel(m);
+						}
 					}
 				}
 				else {
@@ -151,9 +191,9 @@ public class ReservaBurbujaController {
 				}
 			}
 		});
-		
+
 		view.getbEliminarNuevo().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -164,9 +204,93 @@ public class ReservaBurbujaController {
 			}
 		});
 
-		view.getbEliminar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> eliminarSeleccion()));
-		//view.getbReservar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> reservar()));
+		view.getbAddSG().addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				boolean c = controlLicencia();
+				if(c == true) {
+					DefaultListModel m = (DefaultListModel) view.getListSeleccion().getModel();
+					List<SocioDisplayDTO> grupos = model.getLicenciaGrupo();
+					for(int i = 0; i < grupos.size(); i++) {
+						if((grupos.get(i).getNumLicencia().equals(view.getTfLicenciaG().getText())) 
+								|| (grupos.get(i).getNumLicencia().equals(view.getTfLicencia().getText()))){
+							JOptionPane pane = new JOptionPane("Este usuario ya pertenece a un grupo", 
+									JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION);
+							JDialog d = pane.createDialog(pane, "Error");
+							d.setLocation(200, 200);
+							d.setVisible(true);
+						}
+					}
+					if(m.getSize()>=6) {
+						JOptionPane pane = new JOptionPane("El número máximo de socios por grupo es 6", 
+								JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
+						JDialog d = pane.createDialog(pane, "Aviso");
+						d.setLocation(200, 200);
+						d.setVisible(true);
+					}
+					else {
+						if(EditarInstalacionesController.nivel >= 3) {
+							List<SocioDisplayDTO> fechaN = model.getFechaNac(view.getTfLicenciaG().getText());
+							for(int i = 0; i < fechaN.size(); i++) {
+								Date fn = convFecha((fechaN.get(i).getFechaNacimiento()));
+								Calendar cal = Calendar.getInstance();
+								Date fechaSistema = new Date(cal.getTimeInMillis());
+								long diff = fechaSistema.getTime() - fn.getTime();
+								if(diff >= 14) {
+									m.addElement(view.getTfLicenciaG().getText());
+									view.getListSeleccion().setModel(m);
+								}
+								else {
+									JOptionPane pane = new JOptionPane("Nivel de estado de alarma: " + EditarInstalacionesController.nivel + "\nLos menores de 14 años no pueden reservar", 
+											JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
+									JDialog d = pane.createDialog(pane, "Aviso");
+									d.setLocation(200, 200);
+									d.setVisible(true);
+								}
+							}
+						}
+						else {
+							m.addElement(view.getTfLicenciaG().getText());
+							view.getListSeleccion().setModel(m);
+						}
+					}
+				}
+				else {
+					JOptionPane pane = new JOptionPane("El número de licencia introducido no existe", 
+							JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
+					JDialog d = pane.createDialog(pane, "Aviso");
+					d.setLocation(200, 200);
+					d.setVisible(true);
+				}
+			}
+		});
+
+		view.getbEliminarSG().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				DefaultListModel m = (DefaultListModel) view.getListSeleccion().getModel();
+				m.remove(view.getListSeleccion().getSelectedIndex());
+				view.getListSeleccion().setModel(m);
+				JOptionPane.showMessageDialog(null, "Selección eliminada");
+			}
+		});
+
+		view.getbAddTabla().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				addReserva();
+			}
+		});
+
+		view.getbEliminar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> eliminarSeleccion()));
+
+		view.getbReservar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> reservar()));
 	}
 
 	public void initView() {
@@ -192,13 +316,36 @@ public class ReservaBurbujaController {
 			try {
 				Object pojo=pojos.get(i);
 				Object val= PropertyUtils.getSimpleProperty(pojo, nombre);
-				//if(EditarInstalacionesController.nivel)
-				comboBox.addItem(val);
+				if(EditarInstalacionesController.nivel != 4) {
+					comboBox.addItem(val);
+				}
+				else if(!val.equals("Galería")) {
+					comboBox.addItem(val);
+				}
 			}catch(IllegalAccessException | InvocationTargetException|NoSuchElementException | NoSuchMethodException e) {
 				throw new UnexpectedException(e);
 			}			
 		}
 	}
+
+
+	/**
+	 * Carga los grupos existentes de la BD en el JComboBonx
+	 */
+	public void addGrupos() {
+		List<SocioDisplayDTO> grupos = model.getGrupos();
+		int grupo=0;
+		view.getCbGrupo().removeAllItems();
+		try {
+			for(int i = 0; i < grupos.size(); i++) {
+				grupo = grupos.get(i).getGrupoBurbuja();
+				view.getCbGrupo().addItem(grupo);
+			}
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null,"Error al cargar ComboBox" + e);
+		}
+	}
+
 
 	/**
 	 * Metodo que añade a cbFecha el día actual y el día siguiente para realizar una reserva
@@ -243,6 +390,19 @@ public class ReservaBurbujaController {
 	}
 
 	/**
+	 * Metodo que añade a la lista los elementos de busqueda sql
+	 */
+	public void addLicencias() {
+		List<SocioDisplayDTO> socios = model.getLicenciaGrupo();
+
+		DefaultListModel m = (DefaultListModel) view.getListSeleccion().getModel();
+		for (int i = 0; i < socios.size(); i++) {
+			m.addElement(socios.get(i).getNumLicencia());
+		}
+		view.getListSeleccion().setModel(m);
+	}
+
+	/**
 	 * Elimina la fila seleccionada de la tabla
 	 */
 	public void eliminarSeleccion() {
@@ -281,41 +441,6 @@ public class ReservaBurbujaController {
 		}
 		return fechaDate;
 	}
-
-	/**
-	 * Metodo que añade a la lista los elementos de busqueda sql
-	 */
-	public void editarLista(String licencia) {
-
-
-	}
-
-	/*public void addLicencia() {
-		String licencia = view.getTfLicencia().getText();
-
-		List<InstalacionDisplayDTO> nLic = model.getnLicencia(licencia);
-		if(nLic.isEmpty()) {
-			JOptionPane pane = new JOptionPane("El número de licencia introducido no existe", 
-					JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
-			JDialog d = pane.createDialog(pane, "Aviso");
-			d.setLocation(200, 200);
-			d.setVisible(true);
-		}
-		else {
-			if(controlGrupo() == true) {
-				DefaultListModel m = (DefaultListModel) view.getListNuevo().getModel();
-				m.addElement(licencia);
-				view.getListNuevo().setModel(m);
-			}
-			else {
-				JOptionPane pane = new JOptionPane("El número de socios de este grupo ya es 6", 
-						JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
-				JDialog d = pane.createDialog(pane, "Aviso");
-				d.setLocation(200, 200);
-				d.setVisible(true);
-			}
-		}
-	}*/
 
 	/**
 	 * Metodo para controlar los datos de la reserva
@@ -364,6 +489,7 @@ public class ReservaBurbujaController {
 
 	public boolean controlLicencia() {
 		List<LicenciaDisplayDTO> licencias = model.getLicencias();
+
 		if(view.getTfLicencia().getText().isEmpty()) {
 			return false;
 		}
@@ -378,6 +504,7 @@ public class ReservaBurbujaController {
 		}
 		return false;
 	}
+
 	/**
 	 * Método que añade la selección del socio a la tabla
 	 */
@@ -387,20 +514,30 @@ public class ReservaBurbujaController {
 		Object [] datos = new Object[5];
 
 		if(view.getRbNGrupo().isSelected()) {
-			List<String> elem = view.getListNuevo().getSelectedValuesList();
-			for(int i = 0; i < elem.size(); i++) {
-
-			}
+			List<SocioDisplayDTO> grupos = model.getGrupos();
+			datos[0] = grupos.size()+1;
+			datos[1] = view.getCbInstalacion().getSelectedItem().toString();
+			datos[2] = view.getCbFecha().getSelectedItem().toString();
+			datos[3] = view.getCbHInicio().getSelectedItem().toString();
+			datos[4] = view.getCbHFin().getSelectedItem().toString();
+			m.addRow(datos);
 		}
 		else {
-
+			if(view.getRbGrupo().isSelected()) {
+				datos[0] = view.getCbGrupo().getSelectedItem().toString();
+				datos[1] = view.getCbInstalacion().getSelectedItem().toString();
+				datos[2] = view.getCbFecha().getSelectedItem().toString();
+				datos[3] = view.getCbHInicio().getSelectedItem().toString();
+				datos[4] = view.getCbHFin().getSelectedItem().toString();
+				m.addRow(datos);
+			}
 		}
 	}
 
 	/**
 	 * Método que añade la reserva realizada en la tabla reservas de la BD
 	 */
-	/*private void reservar() {
+	private void reservar() {
 
 		DefaultTableModel m = (DefaultTableModel) view.gettReserva().getModel();
 		int f = view.gettReserva().getRowCount();
@@ -412,17 +549,63 @@ public class ReservaBurbujaController {
 		for(int i = 0; i < reservasInstalacion.size(); i++) {
 			if(reservasInstalacion.get(i).equals(instalacion)) {
 				JOptionPane pane = new JOptionPane("No es posible realizar la reserva.\nMOTIVO: Colisión con otro grupo", 
-						JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION);
+						JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION);
 				JDialog d = pane.createDialog(pane, "Error en reserva");
 				d.setLocation(200, 200);
 				d.setVisible(true);
 			}
 			else {
-				List<Object[]> socios = model.getSociosGrupo();
-				model.addReserva();
+				int id = 0;
+				int grupo = Integer.parseInt(String.valueOf(view.gettReserva().getValueAt(0, 0)));
+				List<SocioDisplayDTO> socios = model.getSociosGrupo(grupo);
+				for(int j = 0; j < socios.size(); j++) {
+					id = (Integer) socios.get(i).getIdSocio();
+					model.addReserva(id, view.getCbInstalacion().getSelectedItem().toString(),
+							convFecha(view.getCbFecha().getSelectedItem().toString()),
+							view.getCbHInicio().getSelectedItem().toString(),
+							view.getCbHFin().getSelectedItem().toString());
+				}
 			}
 		}
+		generarResguardoReserva();
 
-	}*/
+		JOptionPane pane = new JOptionPane("Reserva realizada con éxito.\nSe ha generado el resguardo de la reserva."
+				+ "\nEnviado a: " + view.getTfCorreo().getText(), 
+				JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+		JDialog d = pane.createDialog(pane, "Reserva realizada.");
+		d.setLocation(200, 200);
+		d.setVisible(true);
+	}
+
+	/**
+	 * Método que genera el resguardo de la reserva del socio
+	 */
+	public void generarResguardoReserva() {
+		FileWriter f;
+		try {
+			f = new FileWriter("C:\\Users\\inipi\\OneDrive\\Documentos\\GitHub\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\ResguardoReservaGRUPO.txt");
+			f.write("RESGUARDO RESERVA DE INSTALACIÓN\n"
+					+ "\nReserva realizada por: " + view.getTfNombre().getText() + " " + view.getTfApellido1().getText() + " " + view.getTfApellido2().getText());
+			DefaultTableModel m = (DefaultTableModel) view.gettReserva().getModel();
+			for(int i = 0; i < m.getRowCount(); i++) {
+				String grupo = (String) m.getValueAt(i, 0);
+				String inst = view.getCbInstalacion().getSelectedItem().toString();
+				String fecha = view.getCbFecha().getSelectedItem().toString();
+				String hinicio = view.getCbHInicio().getSelectedItem().toString();
+				String hfin = view.getCbHFin().getSelectedItem().toString();
+				f.write("\nGRUPO " + grupo + ":\n"
+						+ "\nInstalación reservada: " + inst
+						+ "\nFecha de reserva: " + fecha
+						+ "\nHora inicio de reserva: " + hinicio
+						+ "\tHora fin de reserva: " + hfin
+						+ "\n\n");
+			}
+			f.close();
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

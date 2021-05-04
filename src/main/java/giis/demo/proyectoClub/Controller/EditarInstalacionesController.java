@@ -12,7 +12,7 @@ public class EditarInstalacionesController {
 
 	private EditarInstalacionesView view;
 	private EditarInstalacionesModel model;
-	public int nivel;
+	public static int nivel;
 	public int dias;
 
 	public EditarInstalacionesController(EditarInstalacionesModel m, EditarInstalacionesView v) {

@@ -9,9 +9,13 @@ public class SocioDisplayDTO {
 	private float cuota;
 	private String numCuentaSocio;
 	private String numLicencia;
+	private String fechaNacimiento;
+	private int grupoBurbuja;
 
 	public SocioDisplayDTO() {}
-	public SocioDisplayDTO(int rowIdSocio, String rowNombreSocio, String rowApellido1Socio, String rowApellido2Socio, float rowCuota, String rowNumCuentaSocio, String rowNumLicencia){
+	public SocioDisplayDTO(int rowIdSocio, String rowNombreSocio, String rowApellido1Socio, 
+			String rowApellido2Socio, float rowCuota, String rowNumCuentaSocio, String rowNumLicencia, 
+			String rowFechaNacimiento, int rowGrupoBurbuja){
 		this.idSocio = rowIdSocio;
 		this.nombreSocio = rowNombreSocio;
 		this.apellido1Socio = rowApellido1Socio;
@@ -19,6 +23,8 @@ public class SocioDisplayDTO {
 		this.cuota = rowCuota;
 		this.numCuentaSocio = rowNumCuentaSocio;
 		this.numLicencia = rowNumLicencia;
+		this.fechaNacimiento = rowFechaNacimiento;
+		this.grupoBurbuja = rowGrupoBurbuja;
 	}
 
 	public int getIdSocio() {
@@ -73,10 +79,20 @@ public class SocioDisplayDTO {
 		this.numLicencia = numLicencia;
 	}
 
+	public String getFechaNacimiento() {
+		return this.fechaNacimiento;
+	}
 
-
-
-
-
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	
+	public int getGrupoBurbuja() {
+		return this.grupoBurbuja;
+	}
+	
+	public void setGrupoBurbuja(int grupoBurbuja) {
+		this.grupoBurbuja = grupoBurbuja;
+	}
 
 }
