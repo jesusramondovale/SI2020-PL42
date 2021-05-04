@@ -36,10 +36,11 @@ import giis.demo.proyectoClub.model.ReciboCuotaModel;
 import giis.demo.proyectoClub.model.RenovarLicenciaModel;
 import giis.demo.proyectoClub.model.ReservaBurbujaModel;
 import giis.demo.proyectoClub.model.ValidarPagoModel;
-
-
+import giis.demo.proyectoClub.Controller.EditarInstalacionesController;
 import giis.demo.proyectoClub.Controller.MostrarSociosController;
+import giis.demo.proyectoClub.model.EditarInstalacionesModel;
 import giis.demo.proyectoClub.model.MostrarSociosModel;
+import giis.demo.proyectoClub.View.EditarInstalacionesView;
 import giis.demo.proyectoClub.View.MostrarSociosView;
 
 import giis.demo.tkrun.*;
@@ -187,6 +188,16 @@ public class SwingMain {
 		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnReservaBurbuja);
 		
+		JButton btnEditarInstalacion = new JButton("Editar instalaciones");
+		btnEditarInstalacion.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				EditarInstalacionesController controller=new EditarInstalacionesController(new EditarInstalacionesModel(), new EditarInstalacionesView());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnEditarInstalacion);
+		
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
 		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -194,8 +205,6 @@ public class SwingMain {
 				db.createDatabase(false);
 			}
 		});
-		
-		
 		frame.getContentPane().add(btnInicializarBaseDeDatos);
 			
 		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
@@ -208,22 +217,6 @@ public class SwingMain {
 		});
 		
 		frame.getContentPane().add(btnCargarDatosIniciales);
-		
-		JButton btnMostrarSocios = new JButton("Mostrar Socios");
-		frame.getContentPane().add(btnMostrarSocios);
-		btnMostrarSocios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){   
-				
-				MostrarSociosModel model = new MostrarSociosModel();
-				MostrarSociosView view = new MostrarSociosView();
-				MostrarSociosController controller = new MostrarSociosController(model, view);
-				controller.initController();
-				
-			}
-		
-		});
-		
-		frame.getContentPane().add(btnMostrarSocios);
 							
 	}	
 	
