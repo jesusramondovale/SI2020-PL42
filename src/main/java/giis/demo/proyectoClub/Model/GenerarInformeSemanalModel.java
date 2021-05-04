@@ -76,7 +76,8 @@ public class GenerarInformeSemanalModel {
 			
 			System.out.printf("ID : " + socio.getIdSocio() + "\n" +
 							   "Nombre : " + socio.getNombreSocio() + "\n" + 
-			                   "Hora ini : " + socio.getHoraIni() + "\n" + 
+							   "Correo : " + socio.getCorreo() + "\n" + 
+			                   "Hora ini : " + socio.getHoraInicio() + "\n" + 
 			                   "Hora fin : " + socio.getHoraFin() + "\n"); 
 			          
 			                                                
@@ -88,7 +89,7 @@ public class GenerarInformeSemanalModel {
 		Document document = new Document();
 		
 		try {
-			PdfWriter.getInstance(document, new FileOutputStream("C:/Users/Usuario/Desktop/Informe_["+ Util.dateToIsoString(dateIni) + "]_[" + Util.dateToIsoString(dateFin) + "].pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream("Informe_["+ Util.dateToIsoString(dateIni) + "]_[" + Util.dateToIsoString(dateFin) + "].pdf"));
 		} catch (FileNotFoundException e) {
 			System.err.println("Error creando el documento PDF");
 			e.printStackTrace();
