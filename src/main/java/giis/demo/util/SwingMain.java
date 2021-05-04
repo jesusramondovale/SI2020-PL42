@@ -17,12 +17,14 @@ import giis.demo.proyectoClub.Controller.RealizarReservaController;
 import giis.demo.proyectoClub.Controller.ReciboCuotaController;
 import giis.demo.proyectoClub.Controller.RenovarLicenciaController;
 import giis.demo.proyectoClub.Controller.ValidarPagoController;
+import giis.demo.proyectoClub.Controller.cerrarLotesController;
 import giis.demo.proyectoClub.View.PagarLicenciaVista;
 import giis.demo.proyectoClub.View.RealizarReservaView;
 import giis.demo.proyectoClub.View.ReciboCuotaView;
 import giis.demo.proyectoClub.View.RenovarLicenciaView;
 import giis.demo.proyectoClub.View.SocioVista;
 import giis.demo.proyectoClub.View.ValidarPagoView;
+import giis.demo.proyectoClub.View.generarLotesView;
 import giis.demo.proyectoClub.View.nuevoJuezVista;
 import giis.demo.proyectoClub.View.nuevoTecnicoVista;
 import giis.demo.proyectoClub.model.NuevoJuezModel;
@@ -164,6 +166,16 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnReciboCuota);
+		
+		JButton btncerrarLotes = new JButton("Cerrar Lotes");
+		btncerrarLotes.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				cerrarLotesController controller=new cerrarLotesController(new ReciboCuotaModel(), new generarLotesView());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btncerrarLotes);
 
 		JButton btnValidarPago = new JButton("Validar Pagos");
 		btnValidarPago.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado

@@ -15,6 +15,9 @@ public class ReciboDisplayDTO {
 		this.concepto = concepto;
 		this.idRecibo = idRecibo;
 	}
+	public ReciboDisplayDTO(String fechaE) {
+		this.fechaE=fechaE;
+	}
 	
 	public String getnRecibo() {
 		return nRecibo;

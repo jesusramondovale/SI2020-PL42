@@ -19,7 +19,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import giis.demo.proyectoClub.DTO.SociosDisplayDTO;
+import giis.demo.proyectoClub.View.MostrarSociosView;
 import giis.demo.proyectoClub.View.ReciboCuotaView;
+import giis.demo.proyectoClub.View.generarLotesView;
+import giis.demo.proyectoClub.model.MostrarSociosModel;
 import giis.demo.proyectoClub.model.ReciboCuotaModel;
 import giis.demo.util.Database;
 import giis.demo.util.Util;
@@ -28,10 +31,16 @@ public class ReciboCuotaController {
 
 	private ReciboCuotaView view;
 	private ReciboCuotaModel model;
+	private generarLotesView lotesView;
 
 	public ReciboCuotaController(ReciboCuotaModel m, ReciboCuotaView v) {
 		this.model = m;
 		this.view = v;
+		//no hay inicializacion especifica del modelo, solo de la vista
+	}
+	public ReciboCuotaController(ReciboCuotaModel m, generarLotesView v) {
+		this.model = m;
+		this.lotesView = v;
 		//no hay inicializacion especifica del modelo, solo de la vista
 	}
 
@@ -80,12 +89,14 @@ public class ReciboCuotaController {
 				copiarSelecciones();
 			}
 		});
+		
 
 	}
 
 	public void initView() {
 		mostrarDatos();
 		view.getFrame().setVisible(true);
+		//lotesView.getFrame().setVisible(false);
 	}
 
 	/**
