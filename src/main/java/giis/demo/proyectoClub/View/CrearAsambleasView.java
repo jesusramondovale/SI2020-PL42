@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 
 
 public class CrearAsambleasView {
@@ -34,6 +35,9 @@ public class CrearAsambleasView {
 	private String fechaAsamblea;
 	private JTextField txtID;
 	private JButton btnCrearAsamblea;
+	private JCheckBox chckbxIncluirActaDe;
+
+	
 
 	
 
@@ -69,7 +73,7 @@ public class CrearAsambleasView {
 	public void initialize() {
 		frmCrearAsambleas = new JFrame();
 		frmCrearAsambleas.setTitle("Nueva Asamblea");
-		frmCrearAsambleas.setBounds(100, 100, 768, 351);
+		frmCrearAsambleas.setBounds(100, 100, 768, 389);
 		
 		
 		
@@ -140,6 +144,8 @@ public class CrearAsambleasView {
 		
 		btnCrearAsamblea = new JButton("Crear Asamblea");
 		
+        chckbxIncluirActaDe = new JCheckBox("Incluir Acta de Asamblea Anterior");
+		
 		
 		GroupLayout groupLayout = new GroupLayout(frmCrearAsambleas.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -177,9 +183,13 @@ public class CrearAsambleasView {
 											.addComponent(lblIndiqueLaHora_1)))))))
 					.addContainerGap(60, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(612, Short.MAX_VALUE)
+					.addContainerGap(586, Short.MAX_VALUE)
+					.addComponent(chckbxIncluirActaDe)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(586, Short.MAX_VALUE)
 					.addComponent(btnCrearAsamblea)
-					.addGap(19))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -207,9 +217,11 @@ public class CrearAsambleasView {
 						.addComponent(spinnerHora2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(spinnerHora1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(spinnerFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(42)
+					.addGap(34)
+					.addComponent(chckbxIncluirActaDe)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnCrearAsamblea)
-					.addGap(17))
+					.addGap(29))
 		);
 		frmCrearAsambleas.getContentPane().setLayout(groupLayout);
 	}
@@ -289,6 +301,14 @@ public class CrearAsambleasView {
 		return spinnerFecha;
 	}
 	
+	public JCheckBox getChckbxIncluirActaDe() {
+		return chckbxIncluirActaDe;
+	}
+
+	public void setChckbxIncluirActaDe(JCheckBox chckbxIncluirActaDe) {
+		this.chckbxIncluirActaDe = chckbxIncluirActaDe;
+	}
+	
 	public String getTxtFecha(){
 		
 		JSpinner.DateEditor d = new JSpinner.DateEditor(spinnerFecha, "yyyy-MM-dd");
@@ -306,5 +326,4 @@ public String getTxtHora2(){
 		JSpinner.DateEditor d = new JSpinner.DateEditor(spinnerHora2, "HH.MM");
 		return d.getFormat().format(spinnerFecha.getValue());
 	}
-	
 }

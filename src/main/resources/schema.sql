@@ -17,7 +17,9 @@ CREATE TABLE socio (
 	numCuenta TEXT NOT NULL,
 	cuota FLOAT,
 	dniTutor TEXT,
-	dniTecnico TEXT
+	dniTecnico TEXT,
+ 	correo TEXT,
+	grupoBurbuja INTEGER
 );
 
 drop table tecnico;
