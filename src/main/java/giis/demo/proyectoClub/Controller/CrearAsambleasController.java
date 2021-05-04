@@ -78,7 +78,7 @@ public class CrearAsambleasController {
 			fecha = Util.isoStringToDate(fechaAsamblea);
 
 			// Delega en la capa modelo la consulta
-			model.generarAsamblea(idAsamblea,  tipo,  ordenDia,  fecha,  hora1,  hora2, this.view.getID(), this.view.getTxtFecha());
+			model.generarAsamblea(idAsamblea,  tipo,  ordenDia,  fecha,  hora1,  hora2, this.view.getID(), this.view.getTxtFecha(),this.view.getChckbxIncluirActaDe().isSelected());
 
 		}
 	}
