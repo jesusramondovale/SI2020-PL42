@@ -73,6 +73,13 @@ public class ReciboCuotaController {
 				view.getbRecibo().setEnabled(true);
 			}
 		});
+		
+		view.getBtnAgregar().addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				copiarSelecciones();
+			}
+		});
 
 	}
 
@@ -109,8 +116,8 @@ public class ReciboCuotaController {
 			List<Object[]> nc = model.getNumCuentaSocio(i);
 
 			datos[0] = "RGCC-"+ view.getTfYear().getText() + "-" + view.getCbMes().getSelectedItem().toString() + "-" + i;
-			datos[1] = "1-" + view.getCbMes().getSelectedItem().toString() + "-" + view.getTfYear().getText();
-			datos[2] = "15-" + view.getCbMes().getSelectedItem().toString() + "-" + view.getTfYear().getText();
+			datos[1] = "15-" + view.getCbMes().getSelectedItem().toString() + "-" + view.getTfYear().getText();
+			datos[2] = "1-" + view.getCbMes().getSelectedItem().toString() + "-" + view.getTfYear().getText();
 			datos[3] = "Cuota Club Mes " + view.getCbMes().getSelectedItem().toString();
 			for(int j = 0; j < n.size(); j ++) {
 				datos[4] = "" + c.get(j)[j];
@@ -120,16 +127,20 @@ public class ReciboCuotaController {
 			m.addRow(datos);
 			view.gettDatos().setModel(m);
 		}
+		DefaultTableModel mS = (DefaultTableModel) view.gettSelec().getModel();
+		mS.removeRow(0);
 	}
 
 	public void generarRecibo() {
 
 		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
 		FileWriter file;
+	
 		try {
+			file = new FileWriter("C:\\Users\\Pela\\Desktop\\UNI\\Informacion2021\recibo.txt");
 			for(int j = 0; j < m.getRowCount(); j++) {
 				String r = "";
-				file = new FileWriter("C:\\Users\\inipi\\OneDrive\\Documentos\\GitHub\\SI2020-PL42\\src\\main\\java\\giis\\demo\\proyectoClub\\" + m.getValueAt(j, 0));
+				
 				r += "Nº DE RECIBO: " + m.getValueAt(j, 0) + "\nConcepto: " + m.getValueAt(j, 3) + 
 						"\n\tDatos del socio: " + m.getValueAt(j, 5) + "\t\tNumero de cuenta: " + m.getValueAt(j, 6) +
 						"\n\tFecha de Valor: " + m.getValueAt(j, 1) + "\t\tFecha de Emisión: " + m.getValueAt(j, 2) +
@@ -148,15 +159,41 @@ public class ReciboCuotaController {
 
 	public void insertarRecibo() {
 
-		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
+		/*DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
 		int[] filas = view.gettDatos().getSelectedRows();
 		int[] columnas = view.gettDatos().getSelectedColumns();
 		String[] datos = new String[columnas.length]; 
 		for(int i = 0; i < filas.length; i++) {
 			for(int j = 0; j < columnas.length; j++) {
-				datos = (String[]) m.getValueAt(filas[i], j);
+				datos =  (String[]) m.getValueAt(filas[i], j);
 			}
 			model.addRecibo(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]);
+		}*/
+		DefaultTableModel m = (DefaultTableModel) view.gettSelec().getModel();
+		int filas = view.gettDatos().getRowCount();
+		int columnas = view.gettDatos().getColumnCount();
+		String[] datos = new String[columnas]; 
+		for(int i = 0; i < filas; i++) {
+			for(int j = 0; j < columnas; j++) {
+				datos =  (String[]) m.getValueAt(i, j);
+			}
+			model.addRecibo(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]);
+		}
+	}
+	public void copiarSelecciones() {
+		DefaultTableModel mD= (DefaultTableModel) view.gettDatos().getModel();
+		DefaultTableModel mS= (DefaultTableModel) view.gettSelec().getModel();
+		
+		if(view.gettDatos().getSelectedRowCount()>0) {
+			int [] filas=view.gettDatos().getSelectedRows();
+			
+			for(int i : filas) {
+				Object[] fila= new Object[mD.getColumnCount()];
+				for(int j=0; j < fila.length; j ++) {
+					fila[j]=mD.getValueAt(i, j);
+				}
+				mS.addRow(fila);
+			}
 		}
 	}
 

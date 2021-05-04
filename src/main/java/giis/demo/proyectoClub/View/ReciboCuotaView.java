@@ -16,6 +16,7 @@ public class ReciboCuotaView {
 	
 	private JFrame GenerarRecibos;
 	private JTable tDatos;
+	private JTable tSelec;
 	private JLabel LMes;
 	private JComboBox cbMes;
 	private JLabel LYear;
@@ -23,6 +24,7 @@ public class ReciboCuotaView {
 	private JCheckBox cbSelec;
 	private JButton bCancelar;
 	private JButton bRecibo;
+	private JButton btnAgregar;
 
 	
 	/**
@@ -40,11 +42,11 @@ public class ReciboCuotaView {
 		
 		GenerarRecibos = new JFrame();
 		GenerarRecibos.setTitle("Generar recibo");
-		GenerarRecibos.setBounds(400, 400, 775, 619);
+		GenerarRecibos.setBounds(600, 600, 1217, 753);
 		GenerarRecibos.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 105, 741, 351);
+		scrollPane.setBounds(10, 105, 618, 351);
 		GenerarRecibos.getContentPane().add(scrollPane);
 		
 		tDatos = new JTable();
@@ -89,8 +91,28 @@ public class ReciboCuotaView {
 		
 		bRecibo = new JButton("Generar recibo");
 		bRecibo.setEnabled(false);
-		bRecibo.setBounds(481, 533, 122, 23);
+		bRecibo.setBounds(1069, 533, 122, 23);
 		GenerarRecibos.getContentPane().add(bRecibo);
+		
+		JScrollPane scrollPane1 = new JScrollPane();
+		scrollPane1.setBounds(677, 105, 514, 351);
+		GenerarRecibos.getContentPane().add(scrollPane1);
+		
+		tSelec = new JTable();
+		tSelec.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"Nº Recibo", "Fecha de Valor", "Fecha de emision", "Concepto", "Importe", "Socio", "Nº de cuenta bancaria"
+			}
+		));
+		tSelec.getColumnModel().getColumn(6).setPreferredWidth(145);
+		scrollPane1.setViewportView(tSelec);
+		
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(539, 510, 89, 23);
+		GenerarRecibos.getContentPane().add(btnAgregar);
 		
 	}
 	
@@ -161,5 +183,18 @@ public class ReciboCuotaView {
 	public void setbRecibo(JButton bRecibo) {
 		this.bRecibo = bRecibo;
 	}
-		
+	public JTable gettSelec() {
+		return tSelec;
+	}
+	public void settSelec(JTable tSelec) {
+		this.tSelec = tSelec;
+	}
+	public JButton getBtnAgregar() {
+		return btnAgregar;
+	}
+	public void setBtnAgregar(JButton btnAgregar) {
+		this.btnAgregar = btnAgregar;
+	}
+	
+	
 }
