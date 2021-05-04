@@ -71,6 +71,22 @@ public class EditarInstalacionesView extends JFrame {
 		bAceptar = new JButton("Aceptar");
 		bAceptar.setBounds(245, 198, 89, 23);
 		EditarInstalaciones.getContentPane().add(bAceptar);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("2");
+		lblNewLabel_2_1.setBounds(122, 91, 49, 14);
+		EditarInstalaciones.getContentPane().add(lblNewLabel_2_1);
+		
+		JLabel lblNewLabel_2_1_1 = new JLabel("3");
+		lblNewLabel_2_1_1.setBounds(189, 91, 49, 14);
+		EditarInstalaciones.getContentPane().add(lblNewLabel_2_1_1);
+		
+		JLabel lblNewLabel_2_1_2 = new JLabel("4");
+		lblNewLabel_2_1_2.setBounds(258, 91, 49, 14);
+		EditarInstalaciones.getContentPane().add(lblNewLabel_2_1_2);
+		
+		JLabel lblNewLabel_2_1_3 = new JLabel("1");
+		lblNewLabel_2_1_3.setBounds(49, 91, 49, 14);
+		EditarInstalaciones.getContentPane().add(lblNewLabel_2_1_3);
 	}
 
 	public JFrame getFrame() {
@@ -108,6 +124,4 @@ public class EditarInstalacionesView extends JFrame {
 	public void setbCancelar(JButton bCancelar) {
 		this.bCancelar = bCancelar;
 	}
-	
-	
 }

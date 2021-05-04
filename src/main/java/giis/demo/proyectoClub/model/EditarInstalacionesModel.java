@@ -9,9 +9,10 @@ public class EditarInstalacionesModel {
 
 	public Database db = new Database();
 	
-	public void editarAforo(double aforo) {
-		String sql="UPDATE instalacion SET aforo='Pendiente de pago' WHERE numLicencia=?";
-		db.executeUpdate(sql, aforo);
+	
+	public void editarAforo(double aforo, int id) {
+		String sql="UPDATE instalacion SET aforo=? WHERE idInstalacion=?";
+		db.executeUpdate(sql, aforo, id);
 	}
 	
 	public List<InstalacionDisplayDTO> getAforo() {

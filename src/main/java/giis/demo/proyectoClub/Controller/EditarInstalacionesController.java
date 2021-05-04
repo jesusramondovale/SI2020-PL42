@@ -43,13 +43,13 @@ public class EditarInstalacionesController {
 					List<InstalacionDisplayDTO> aforo = model.getAforo();
 					for(int i = 0; i < aforo.size(); i++) {
 						if(nivel == 2) {
-							model.editarAforo(aforo.get(i).getAforo()*(0.75));
+							model.editarAforo(Math.round(aforo.get(i).getAforo()*(0.75)), i+1);
 						}
 						if(nivel == 3) {
-							model.editarAforo(aforo.get(i).getAforo()*(0.60));
+							model.editarAforo(Math.round(aforo.get(i).getAforo()*(0.60)), i+1);
 						}
 						if(nivel == 4) {
-							model.editarAforo(aforo.get(i).getAforo()*(0.50));
+							model.editarAforo(Math.round(aforo.get(i).getAforo()*(0.50)), i+1);
 						}
 					}
 				}

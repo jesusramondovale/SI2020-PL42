@@ -60,9 +60,9 @@ INSERT INTO asambleas (idAsamblea,tipo,ordenDia,fechaAsamblea,hora1,hora2) VALUE
 
 delete from instalacion;
 INSERT INTO instalacion (idInstalacion, nombreInstalacion, aforo) VALUES
-	(1, 'Galería', 0);
+	(1, 'Galería', 15);
 INSERT INTO instalacion (idInstalacion, nombreInstalacion, aforo) VALUES
-	(2, 'Campo', 0);
+	(2, 'Campo', 20);
 
 delete from recibos;
 INSERT INTO recibos (IdRecibo, idSocio, fechaValor, fechaEmision, concepto, importe, numCuenta) VALUES
