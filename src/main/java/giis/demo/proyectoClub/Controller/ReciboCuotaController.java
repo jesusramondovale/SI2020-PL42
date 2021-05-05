@@ -57,8 +57,9 @@ public class ReciboCuotaController {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				generarRecibo();
 				insertarRecibo();
-				generarRecibo();				
+								
 			}
 		});
 
@@ -144,14 +145,14 @@ public class ReciboCuotaController {
 
 	public void generarRecibo() {
 
-		DefaultTableModel m = (DefaultTableModel) view.gettDatos().getModel();
+		DefaultTableModel m = (DefaultTableModel) view.gettSelec().getModel();;
 		FileWriter file;
 	
 		try {
-			file = new FileWriter("C:\\Users\\Pela\\Desktop\\UNI\\Informacion2021\recibo.txt");
+			
 			for(int j = 0; j < m.getRowCount(); j++) {
 				String r = "";
-				
+				file = new FileWriter("C:\\\\Users\\\\Pela\\\\Desktop\\\\UNI\\\\Informacion2021\\" + m.getValueAt(j, 0));
 				r += "Nº DE RECIBO: " + m.getValueAt(j, 0) + "\nConcepto: " + m.getValueAt(j, 3) + 
 						"\n\tDatos del socio: " + m.getValueAt(j, 5) + "\t\tNumero de cuenta: " + m.getValueAt(j, 6) +
 						"\n\tFecha de Valor: " + m.getValueAt(j, 1) + "\t\tFecha de Emisión: " + m.getValueAt(j, 2) +

@@ -92,7 +92,7 @@ public class ReciboCuotaView {
 		
 		bRecibo = new JButton("Generar recibo");
 		bRecibo.setEnabled(false);
-		bRecibo.setBounds(677, 533, 122, 23);
+		bRecibo.setBounds(1069, 533, 122, 23);
 		GenerarRecibos.getContentPane().add(bRecibo);
 		
 		JScrollPane scrollPane1 = new JScrollPane();
@@ -114,10 +114,6 @@ public class ReciboCuotaView {
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(539, 510, 89, 23);
 		GenerarRecibos.getContentPane().add(btnAgregar);
-		
-		JButton btncerrarLotes = new JButton("Cerrar Lote");
-		btncerrarLotes.setBounds(1102, 533, 89, 23);
-		GenerarRecibos.getContentPane().add(btncerrarLotes);
 		
 	}
 	
